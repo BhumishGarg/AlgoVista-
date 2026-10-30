@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "linked-lists-add-two-numbers",
+    "statement": "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each node contains a single digit. Add the two numbers and return the result as a linked list, with its digits also stored in reverse order. You may assume the numbers do not contain leading zeroes, except when the number itself is zero.",
+    "constraints": "1 <= number of nodes in each list <= 100\n0 <= Node.val <= 9\nEach list represents a non-negative integer.\nThe input lists do not have leading zeroes unless the number is zero.",
+    "inputDescription": "First line: integer n, the number of nodes in the first list. Second line: n digits representing the first number in reverse order. Third line: integer m, the number of nodes in the second list. Fourth line: m digits representing the second number in reverse order.",
+    "outputDescription": "Return the sum as a linked list, with digits in reverse order.",
+    "examples": [
+      {
+        "input": "3\n2 4 3\n3\n5 6 4",
+        "output": "7 -> 0 -> 8",
+        "explanation": "The lists represent 342 and 465. Their sum is 807, represented in reverse order as 7 -> 0 -> 8."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-copy-list-with-random-pointer",
+    "statement": "A linked list contains n nodes. Each node has a value, a next pointer to the next node, and a random pointer to any node in the list or null. Create a deep copy of the list. Every new node must be independent of the original nodes, while preserving both next and random relationships.",
+    "constraints": "0 <= n <= 1000\n-10^4 <= Node.val <= 10^4\nrandom may point to any node in the list or be null.\nNo two original nodes have the same identity, even if their values are equal.",
+    "inputDescription": "Represent each node as [value, randomIndex], where randomIndex is the index of the node targeted by its random pointer, or null. First line: integer n. Next n lines: value randomIndex.",
+    "outputDescription": "Return the copied nodes as [value, randomIndex] pairs, preserving next order and random-pointer targets. The copied nodes must have new identities.",
+    "examples": [
+      {
+        "input": "5\n7 null\n13 0\n11 4\n10 2\n1 0",
+        "output": "[[7,null],[13,0],[11,4],[10,2],[1,0]]",
+        "explanation": "The output represents the copied nodes and their random-pointer indices. The copy uses new node identities rather than reusing the original nodes."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-delete-the-middle-node",
+    "statement": "Given the head of a singly linked list, delete its middle node and return the updated head. For a list with an even number of nodes, delete the second of the two middle nodes.",
+    "constraints": "1 <= number of nodes <= 10^5\n1 <= Node.val <= 10^5",
+    "inputDescription": "First line: integer n. Second line: n space-separated node values.",
+    "outputDescription": "Return the linked list after deleting its middle node.",
+    "examples": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "1 -> 2 -> 4",
+        "explanation": "The middle node at index 2, containing 3, is deleted."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-intersection-of-two-linked-lists",
+    "statement": "Given the heads of two singly linked lists, find the node at which the lists intersect. Intersection is based on node identity, not node value; two nodes with the same value do not necessarily represent an intersection. Return the intersecting node, or null if the lists do not intersect.",
+    "constraints": "The total number of nodes across both lists is between 1 and 3 * 10^4.\n1 <= Node.val <= 10^5\nThe lists do not contain cycles.",
+    "inputDescription": "Use a shared-tail representation. First line: integer a, the number of nodes in list A's unique prefix. Second line: a values for that prefix. Third line: integer b, the number of nodes in list B's unique prefix. Fourth line: b values for that prefix. Fifth line: integer c, the number of nodes in the shared tail. Sixth line: c values for the shared tail. Create the shared-tail nodes once and reference them from both lists.",
+    "outputDescription": "Return the first shared node, or null if there is no shared node. For the sample, report the intersection node's value.",
+    "examples": [
+      {
+        "input": "2\n4 1\n3\n5 6 1\n2\n8 4",
+        "output": "Intersection at node with value 8",
+        "explanation": "Both lists share the actual nodes 8 -> 4. Their first common node has value 8."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-linked-list-cycle",
+    "statement": "Given the head of a linked list, determine whether the list contains a cycle. A cycle exists when following next pointers eventually leads back to a previously visited node. Return true if a cycle exists; otherwise, return false.",
+    "constraints": "0 <= number of nodes <= 10^4\n-10^5 <= Node.val <= 10^5\nThe list may contain a cycle.",
+    "inputDescription": "First line: integer n. Second line: n node values. Third line: integer pos, the index of the node where the last node connects. Use -1 if there is no cycle.",
+    "outputDescription": "Return true if the list contains a cycle; otherwise, return false.",
+    "examples": [
+      {
+        "input": "4\n3 2 0 -4\n1",
+        "output": "true",
+        "explanation": "The last node points back to the node at index 1."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-linked-list-cycle-ii",
+    "statement": "Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null. Do not modify the linked list.",
+    "constraints": "0 <= number of nodes <= 10^4\n-10^5 <= Node.val <= 10^5\nThe list may contain a cycle.",
+    "inputDescription": "First line: integer n. Second line: n node values. Third line: integer pos, the index where the last node connects, or -1 if there is no cycle.",
+    "outputDescription": "Return the cycle's starting node, or null if the list has no cycle. For the sample, report the cycle entry's zero-based index and value.",
+    "examples": [
+      {
+        "input": "4\n3 2 0 -4\n1",
+        "output": "Cycle begins at index 1, value 2",
+        "explanation": "The last node connects to index 1, so the cycle starts at the node with value 2."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-merge-k-sorted-lists",
+    "statement": "You are given an array of k sorted linked lists. Merge all the lists into one sorted linked list and return its head.",
+    "constraints": "0 <= k <= 10^4\n0 <= total number of nodes <= 10^4\n-10^4 <= Node.val <= 10^4\nEvery input list is sorted in non-decreasing order.",
+    "inputDescription": "First line: integer k. For each list, provide one line containing its length followed by one line containing its sorted node values. An empty list has length 0.",
+    "outputDescription": "Return one linked list containing all input nodes in non-decreasing order.",
+    "examples": [
+      {
+        "input": "3\n3\n1 4 5\n3\n1 3 4\n2\n2 6",
+        "output": "1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6",
+        "explanation": "All three sorted input lists are combined into one sorted list."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-merge-two-sorted-lists",
+    "statement": "Given the heads of two sorted singly linked lists, merge them into one sorted linked list. The result should contain all nodes from both lists in non-decreasing order.",
+    "constraints": "The total number of nodes is between 0 and 50.\n-100 <= Node.val <= 100\nBoth lists are sorted in non-decreasing order.",
+    "inputDescription": "First line: integer n. Second line: n sorted values for list A. Third line: integer m. Fourth line: m sorted values for list B.",
+    "outputDescription": "Return one linked list containing all nodes from both lists in non-decreasing order.",
+    "examples": [
+      {
+        "input": "3\n1 2 4\n3\n1 3 4",
+        "output": "1 -> 1 -> 2 -> 3 -> 4 -> 4",
+        "explanation": "The two sorted input lists are merged in non-decreasing order."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-middle-of-the-linked-list",
+    "statement": "Given the head of a singly linked list, return the middle node. If the list contains an even number of nodes, return the second middle node.",
+    "constraints": "1 <= number of nodes <= 100\n1 <= Node.val <= 100",
+    "inputDescription": "First line: integer n. Second line: n node values.",
+    "outputDescription": "Return the middle node. For the sample, report its zero-based index and value.",
+    "examples": [
+      {
+        "input": "6\n1 2 3 4 5 6",
+        "output": "Middle node: index 3, value 4",
+        "explanation": "Indices are zero-based; for an even-length list the second middle node is returned."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-odd-even-linked-list",
+    "statement": "Given the head of a singly linked list, group nodes at odd indices together, followed by nodes at even indices. Preserve the relative order within each group. Odd and even refer to node positions, not the values stored in the nodes.",
+    "constraints": "0 <= number of nodes <= 10^4\n-10^6 <= Node.val <= 10^6",
+    "inputDescription": "First line: integer n. Second line: n node values.",
+    "outputDescription": "Return the reordered list with odd-positioned nodes first, followed by even-positioned nodes, preserving order in both groups.",
+    "examples": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "1 -> 3 -> 5 -> 2 -> 4",
+        "explanation": "Nodes at odd positions appear first, followed by nodes at even positions."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-palindrome-linked-list",
+    "statement": "Given the head of a singly linked list, determine whether its node values form a palindrome. A palindrome reads the same forward and backward. Return true if the list is a palindrome; otherwise, return false.",
+    "constraints": "1 <= number of nodes <= 10^5\n0 <= Node.val <= 9",
+    "inputDescription": "First line: integer n. Second line: n node values.",
+    "outputDescription": "Return true if the node values form a palindrome; otherwise, return false.",
+    "examples": [
+      {
+        "input": "4\n1 2 2 1",
+        "output": "true",
+        "explanation": "The sequence of values reads the same forward and backward."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-partition-list",
+    "statement": "Given the head of a linked list and an integer x, rearrange the list so that all nodes with values less than x appear before nodes with values greater than or equal to x. Preserve the original relative order of nodes in both groups.",
+    "constraints": "0 <= number of nodes <= 200\n-100 <= Node.val <= 100\n-200 <= x <= 200",
+    "inputDescription": "First line: integers n and x. Second line: n node values.",
+    "outputDescription": "Return the partitioned list, with values less than x first and values greater than or equal to x afterward, preserving relative order in both groups.",
+    "examples": [
+      {
+        "input": "6 3\n1 4 3 2 5 2",
+        "output": "1 -> 2 -> 2 -> 4 -> 3 -> 5",
+        "explanation": "Values less than 3 precede the remaining values, with the original order preserved within each group."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-remove-duplicates-from-sorted-list",
+    "statement": "Given the head of a sorted linked list, remove duplicate values so each value appears only once. Return the updated list.",
+    "constraints": "0 <= number of nodes <= 300\n-100 <= Node.val <= 100\nThe list is sorted in non-decreasing order.",
+    "inputDescription": "First line: integer n. Second line: n sorted node values.",
+    "outputDescription": "Return the sorted list with each distinct value appearing exactly once.",
+    "examples": [
+      {
+        "input": "5\n1 1 2 3 3",
+        "output": "1 -> 2 -> 3",
+        "explanation": "Repeated copies of each value are removed."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-remove-duplicates-from-sorted-list-ii",
+    "statement": "Given the head of a sorted linked list, delete every value that appears more than once, leaving only values that occur exactly once. Return the updated list.",
+    "constraints": "0 <= number of nodes <= 300\n-100 <= Node.val <= 100\nThe list is sorted in non-decreasing order.",
+    "inputDescription": "First line: integer n. Second line: n sorted node values.",
+    "outputDescription": "Return a sorted list containing only values that occurred exactly once in the input.",
+    "examples": [
+      {
+        "input": "7\n1 2 3 3 4 4 5",
+        "output": "1 -> 2 -> 5",
+        "explanation": "Values 3 and 4 appear more than once and are removed entirely."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-remove-nth-node-from-end",
+    "statement": "Given the head of a linked list and an integer n, remove the nth node from the end and return the updated head.",
+    "constraints": "1 <= number of nodes <= 30\n1 <= n <= number of nodes\n1 <= Node.val <= 100",
+    "inputDescription": "First line: integers m and n, where m is the list length and n is the position to remove from the end. Second line: m node values.",
+    "outputDescription": "Return the linked list after removing the nth node from the end.",
+    "examples": [
+      {
+        "input": "5 2\n1 2 3 4 5",
+        "output": "1 -> 2 -> 3 -> 5",
+        "explanation": "The second node from the end, containing 4, is removed."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-reorder-list",
+    "statement": "Given a singly linked list L0 -> L1 -> ... -> Ln, reorder it into L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2 -> .... Do not change the values stored in the nodes; rearrange the nodes themselves.",
+    "constraints": "1 <= number of nodes <= 5 * 10^4\n1 <= Node.val <= 1000",
+    "inputDescription": "First line: integer n. Second line: n node values.",
+    "outputDescription": "Return the reordered list, alternating nodes from the beginning and end of the original list.",
+    "examples": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "1 -> 5 -> 2 -> 4 -> 3",
+        "explanation": "Nodes are interleaved from the start and end without changing their values."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-reverse-linked-list",
+    "statement": "Given the head of a singly linked list, reverse the list and return the new head.",
+    "constraints": "0 <= number of nodes <= 5000\n-5000 <= Node.val <= 5000",
+    "inputDescription": "First line: integer n. Second line: n node values.",
+    "outputDescription": "Return the list in reverse node order.",
+    "examples": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "5 -> 4 -> 3 -> 2 -> 1",
+        "explanation": "The node links are reversed."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-reverse-nodes-in-k-group",
+    "statement": "Given the head of a linked list, reverse its nodes in groups of size k. If the number of nodes remaining at the end is less than k, leave those nodes in their original order. You may not change the values stored in the nodes; only the links should change.",
+    "constraints": "1 <= number of nodes <= 5000\n1 <= k <= number of nodes\n0 <= Node.val <= 1000",
+    "inputDescription": "First line: integers n and k. Second line: n node values.",
+    "outputDescription": "Return the list with each complete group of k nodes reversed and any incomplete final group unchanged.",
+    "examples": [
+      {
+        "input": "5 2\n1 2 3 4 5",
+        "output": "2 -> 1 -> 4 -> 3 -> 5",
+        "explanation": "The first two complete groups are reversed; the final group has fewer than k nodes and remains unchanged."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-rotate-list",
+    "statement": "Given the head of a linked list, rotate the list to the right by k positions. Each rotation moves the last node to the beginning.",
+    "constraints": "0 <= number of nodes <= 500\n-100 <= Node.val <= 100\n0 <= k <= 2 * 10^9",
+    "inputDescription": "First line: integers n and k. Second line: n node values.",
+    "outputDescription": "Return the list after rotating it to the right by k positions.",
+    "examples": [
+      {
+        "input": "5 2\n1 2 3 4 5",
+        "output": "4 -> 5 -> 1 -> 2 -> 3",
+        "explanation": "The last two nodes move to the beginning."
+      }
+    ]
+  },
+  {
+    "slug": "linked-lists-swap-nodes-in-pairs",
+    "statement": "Given a linked list, swap every two adjacent nodes and return the new head. Swap the nodes themselves, not simply their values. If the list has an odd number of nodes, leave the last node unchanged.",
+    "constraints": "0 <= number of nodes <= 100\n0 <= Node.val <= 100",
+    "inputDescription": "First line: integer n. Second line: n node values.",
+    "outputDescription": "Return the list with each adjacent pair of nodes swapped and any unpaired final node unchanged.",
+    "examples": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "2 -> 1 -> 4 -> 3 -> 5",
+        "explanation": "Each adjacent pair is swapped; the final unpaired node remains in place."
+      }
+    ]
+  }
+]

@@ -1,0 +1,574 @@
+[
+  {
+    "slug": "stacks-asteroid-collision",
+    "statement": "You are given integers representing asteroids moving in a row. The absolute value is the asteroid's size; positive values move right and negative values move left. When two asteroids collide, the smaller one explodes, or both explode if they are equal. Asteroids moving in the same direction do not collide. Return the remaining asteroids after all collisions.",
+    "constraints": "2 <= asteroids.length <= 10^4\n-1000 <= asteroids[i] <= 1000\nasteroids[i] != 0",
+    "inputDescription": "First line: integer n. Second line: n space-separated asteroid values.",
+    "outputDescription": "Return the asteroid values remaining after all collisions, in their original order.",
+    "examples": [
+      {
+        "input": "3\n5 10 -5",
+        "output": "5 10",
+        "explanation": "The asteroid of size 5 moving left is destroyed by the asteroid of size 10."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack simulation",
+        "steps": ["Process asteroids from left to right.", "A collision is possible when the stack top moves right and the current asteroid moves left.", "Compare sizes and remove the asteroid that explodes; continue while another collision is possible.", "Keep the current asteroid if it survives all collisions."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Repeated array simulation",
+        "steps": ["Find adjacent asteroids moving toward each other.", "Resolve each collision and repeat until no collision remains.", "Return the remaining sequence."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-backspace-string-compare",
+    "statement": "Given strings s and t, compare them after processing each # as a backspace that removes the most recent character when one exists. A backspace on an empty string has no effect.",
+    "constraints": "1 <= s.length, t.length <= 200\ns and t contain lowercase English letters and #.",
+    "inputDescription": "First line: string s. Second line: string t.",
+    "outputDescription": "Return true if both strings are equal after applying their backspaces; otherwise return false.",
+    "examples": [
+      {
+        "input": "ab#c\nad#c",
+        "output": "true",
+        "explanation": "Both strings reduce to ac."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack processing",
+        "steps": ["Process each string character by character.", "Push ordinary characters.", "For #, pop one character if the stack is not empty.", "Compare the two resulting strings."],
+        "timeComplexity": "O(n + m)",
+        "spaceComplexity": "O(n + m)"
+      },
+      {
+        "name": "Two pointers from the end",
+        "steps": ["Traverse both strings backward.", "Count characters to skip when backspaces are encountered.", "Compare the next valid characters from each string.", "Return false on a mismatch, or true if both traversals finish together."],
+        "timeComplexity": "O(n + m)",
+        "spaceComplexity": "O(1)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-baseball-game",
+    "statement": "Process baseball score operations: an integer records a score, + records the sum of the previous two scores, D records double the previous score, and C cancels the previous score. Return the total of all valid scores.",
+    "constraints": "1 <= operations.length <= 1000\nEach operation is an integer, +, D, or C.\nOperations are guaranteed to be valid when applied.",
+    "inputDescription": "First line: integer n. Second line: n space-separated operations.",
+    "outputDescription": "Return the sum of the scores remaining after all operations.",
+    "examples": [
+      {
+        "input": "5\n5 2 C D +",
+        "output": "30",
+        "explanation": "C removes the score 2, leaving 5. D adds 10, and + adds 15; the remaining scores 5, 10, and 15 total 30."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack",
+        "steps": ["Push integer scores.", "For +, push the sum of the last two scores.", "For D, push twice the last score.", "For C, remove the last score.", "Sum the remaining scores."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Score array with active size",
+        "steps": ["Store valid scores in an array and track the active count.", "Use the last one or two active entries to implement D and +.", "Decrease the active count for C.", "Sum the active entries after processing all operations."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-basic-calculator",
+    "statement": "Evaluate a valid expression containing digits, +, -, parentheses, and spaces. Expressions may contain nested parentheses.",
+    "constraints": "1 <= s.length <= 3 * 10^5\nThe expression contains digits, +, -, parentheses, and spaces.\nThe expression is valid.",
+    "inputDescription": "One line containing the expression.",
+    "outputDescription": "Return the integer value of the expression.",
+    "examples": [
+      {
+        "input": "(1+(4+5+2)-3)+(6+8)",
+        "output": "23",
+        "explanation": "Evaluate the nested sums and subtraction to obtain 23."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack with saved context",
+        "steps": ["Scan left to right, building multi-digit numbers and tracking the current sign.", "Apply each number to the running result.", "At (, push the current result and sign, then start a fresh subexpression.", "At ), finish the subexpression and combine it with the saved result and sign."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Recursive evaluation",
+        "steps": ["Parse an expression until a closing parenthesis or the end of input.", "Recursively evaluate each parenthesized expression.", "Apply addition and subtraction using the current sign.", "Return the computed value and continue at the next character."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-basic-calculator-ii",
+    "statement": "Evaluate an expression of non-negative integers and the operators +, -, *, and /. Multiplication and division take precedence over addition and subtraction, and integer division truncates toward zero.",
+    "constraints": "1 <= s.length <= 3 * 10^5\nThe expression contains non-negative integers, spaces, and +, -, *, /.\nThe expression is valid.\nAll intermediate results fit within a signed 32-bit integer.",
+    "inputDescription": "One line containing the expression.",
+    "outputDescription": "Return the integer value of the expression, with division truncated toward zero.",
+    "examples": [
+      {
+        "input": "3+2*2",
+        "output": "7",
+        "explanation": "Multiplication is evaluated before addition: 3 + (2 * 2) = 7."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack with immediate precedence",
+        "steps": ["Parse each number and its preceding operator.", "Push positive values for + and negative values for -.", "For * and /, combine the current number immediately with the stack top.", "Sum the stack at the end."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Constant-space evaluation",
+        "steps": ["Track the running result, the last term, and the current number.", "When an operator arrives, finalize the prior term if needed.", "Apply multiplication or truncating division directly to the last term.", "Add the last term to the result after parsing finishes."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-daily-temperatures",
+    "statement": "Given daily temperatures, return for each day the number of days until a warmer temperature occurs later. Return 0 when no warmer future day exists.",
+    "constraints": "1 <= temperatures.length <= 10^5\n30 <= temperatures[i] <= 100",
+    "inputDescription": "First line: integer n. Second line: n space-separated temperatures.",
+    "outputDescription": "Return n integers where each value is the wait in days for a warmer temperature, or 0 if none exists.",
+    "examples": [
+      {
+        "input": "8\n73 74 75 71 69 72 76 73",
+        "output": "1 1 4 2 1 1 0 0",
+        "explanation": "For example, day 3 waits four days for the warmer temperature 76."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["For each day, scan later days in order.", "Stop at the first warmer day and record the index difference.", "Leave the answer as 0 if no later day is warmer."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1) auxiliary, excluding output"
+      },
+      {
+        "name": "Monotonic decreasing stack",
+        "steps": ["Store indices of days whose warmer future day is not known.", "For each new temperature, pop earlier indices with lower temperatures.", "Set each popped day's answer to the difference in indices.", "Push the current index; unresolved days remain zero."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-decode-string",
+    "statement": "Decode an encoded string using the rule k[encoded_string], where the bracketed string is repeated k times. Encodings may be nested.",
+    "constraints": "1 <= s.length <= 30\ns contains lowercase English letters, digits, and square brackets.\nThe input is valid.\nRepetition counts are between 1 and 300.",
+    "inputDescription": "One line containing the encoded string.",
+    "outputDescription": "Return the fully decoded string.",
+    "examples": [
+      {
+        "input": "3[a2[c]]",
+        "output": "accaccacc",
+        "explanation": "The inner c repeats twice to make acc, and acc repeats three times."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Two stacks",
+        "steps": ["Build each repetition count from consecutive digits.", "On [, save the count and current string, then start the nested string.", "On ], repeat the nested string by its saved count and append it to the prior string.", "Return the completed string."],
+        "timeComplexity": "O(L), where L is the decoded output length",
+        "spaceComplexity": "O(L)"
+      },
+      {
+        "name": "Recursive parsing",
+        "steps": ["Parse characters until a closing bracket or the end of input.", "Recursively decode bracketed expressions.", "Repeat each decoded inner expression by its preceding count.", "Continue until the full input is consumed."],
+        "timeComplexity": "O(L + n), with efficient string construction",
+        "spaceComplexity": "O(L + d), where d is maximum nesting depth"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-evaluate-reverse-polish-notation",
+    "statement": "Evaluate an arithmetic expression in Reverse Polish Notation using the operators +, -, *, and /. Integer division truncates toward zero.",
+    "constraints": "1 <= tokens.length <= 10^4\nEach token is an integer or one of +, -, *, /.\nThe expression is valid and has no division by zero.\nIntermediate results fit within a signed 32-bit integer.",
+    "inputDescription": "First line: integer n. Second line: n space-separated integer or operator tokens.",
+    "outputDescription": "Return the integer result of the RPN expression.",
+    "examples": [
+      {
+        "input": "5\n2 1 + 3 *",
+        "output": "9",
+        "explanation": "First calculate 2 + 1 = 3, then multiply by 3."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack",
+        "steps": ["Push integer operands.", "When an operator appears, pop b first and then a.", "Compute a operator b and push the result.", "The final stack value is the answer."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Array-based stack",
+        "steps": ["Use an integer array and a stack pointer.", "Push operands and use the top two entries when an operator appears.", "Replace those operands with their computed result.", "Return the final active entry."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-largest-rectangle-in-histogram",
+    "statement": "Given non-negative histogram bar heights with width 1, find the largest rectangular area that can be formed using consecutive bars.",
+    "constraints": "1 <= heights.length <= 10^5\n0 <= heights[i] <= 10^4",
+    "inputDescription": "First line: integer n. Second line: n space-separated bar heights.",
+    "outputDescription": "Return the maximum rectangle area as an integer.",
+    "examples": [
+      {
+        "input": "6\n2 1 5 6 2 3",
+        "output": "10",
+        "explanation": "The bars of heights 5 and 6 form a width-2 rectangle with height 5 and area 10."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force by minimum bar",
+        "steps": ["Treat each bar in turn as the minimum height of a rectangle.", "Expand left and right while neighboring bars are at least that tall.", "Calculate the area for each span and track the maximum."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Monotonic increasing stack",
+        "steps": ["Keep indices of bars in increasing height order.", "When a shorter bar appears, pop taller bars.", "For each popped bar, use the current index and new stack top to determine its maximal width.", "Calculate areas and process remaining bars using a final boundary."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Previous and next smaller boundaries",
+        "steps": ["Find the nearest smaller bar to the left and right of each bar.", "Use those boundaries to calculate the widest rectangle having that bar's height.", "Return the largest calculated area."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-make-the-string-great",
+    "statement": "Given an English-letter string, repeatedly remove adjacent characters that are the same letter in opposite cases. Continue until no such pair remains, then return the resulting string.",
+    "constraints": "1 <= s.length <= 100\ns contains only uppercase and lowercase English letters.",
+    "inputDescription": "One line containing the string.",
+    "outputDescription": "Return the string remaining after all removable adjacent opposite-case pairs have been removed.",
+    "examples": [
+      {
+        "input": "leEeetcode",
+        "output": "leetcode",
+        "explanation": "Removing the adjacent eE pair leaves leetcode."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Repeated removal",
+        "steps": ["Scan for adjacent opposite-case versions of the same letter.", "Remove a matching pair.", "Repeat until a full scan finds no removable pair."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Stack",
+        "steps": ["Process characters from left to right.", "If the stack top is the opposite-case version of the current character, pop it.", "Otherwise push the current character.", "Join the remaining stack characters."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-maximum-frequency-stack",
+    "statement": "Design a stack with push(val) and pop(). pop removes and returns the most frequent value; if several values have the same highest frequency, it returns the one pushed most recently among them.",
+    "constraints": "1 <= val <= 10^9\nAt most 2 * 10^4 calls are made to push and pop.\nCalls to pop are guaranteed to be valid.",
+    "inputDescription": "First line: integer n, the number of operations. Next n lines: an operation and its value for push; pop has no value.",
+    "outputDescription": "Return the values produced by pop operations, in order.",
+    "examples": [
+      {
+        "input": "10\npush 5\npush 7\npush 5\npush 7\npush 4\npush 5\npop\npop\npop\npop",
+        "output": "5\n7\n5\n4",
+        "explanation": "The highest-frequency value is popped first, with recency breaking ties."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Frequency map with scanning",
+        "steps": ["Maintain the frequency of every value.", "On pop, scan stored values to find the one with greatest frequency.", "Use the latest occurrence to break ties.", "Remove and return the selected value."],
+        "timeComplexity": "O(n) per pop in a straightforward implementation",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Frequency groups",
+        "steps": ["Map each value to its current frequency.", "Map each frequency to a stack of values that reached it.", "Track the current maximum frequency.", "On pop, remove the top value from the maximum-frequency group, decrement its frequency, and lower the maximum if the group becomes empty."],
+        "timeComplexity": "O(1) average per operation",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-min-stack",
+    "statement": "Design a stack supporting push, pop, top, and getMin, with every operation running in constant time.",
+    "constraints": "-2^31 <= val <= 2^31 - 1\npop, top, and getMin are called only when the stack is non-empty.\nAt most 3 * 10^4 operations are performed.",
+    "inputDescription": "First line: integer n, the number of operations. Next n lines: an operation and its value for push; pop, top, and getMin have no value.",
+    "outputDescription": "Return the result of each top and getMin operation, one per line.",
+    "examples": [
+      {
+        "input": "8\npush 5\npush 3\npush 7\ngetMin\npop\ntop\ngetMin\npop",
+        "output": "3\n3\n3",
+        "explanation": "The minimum after the first three pushes is 3; after popping 7, top and minimum are both 3."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Main stack and minimum stack",
+        "steps": ["Push every value onto the main stack.", "Push a value onto the minimum stack when it is less than or equal to its current top.", "When popping the current minimum, pop from both stacks.", "Read top from the main stack and getMin from the minimum stack."],
+        "timeComplexity": "O(1) per operation",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Store value-minimum pairs",
+        "steps": ["For each pushed value, store it together with the minimum of itself and the previous minimum.", "Pop the pair for pop.", "Read the value or saved minimum from the top pair for top and getMin."],
+        "timeComplexity": "O(1) per operation",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-next-greater-element-i",
+    "statement": "Given distinct integer arrays nums1 and nums2, where nums1 is a subset of nums2, find for every nums1 value the first greater value to its right in nums2. Use -1 when no greater value exists.",
+    "constraints": "1 <= nums1.length <= nums2.length <= 1000\n0 <= nums1[i], nums2[i] <= 10^4\nAll values are unique.\nEvery nums1 value appears in nums2.",
+    "inputDescription": "First line: integer n, the length of nums1. Second line: n values of nums1. Third line: integer m, the length of nums2. Fourth line: m values of nums2.",
+    "outputDescription": "Return one next-greater value for each nums1 element, in nums1 order; use -1 if none exists.",
+    "examples": [
+      {
+        "input": "3\n4 1 2\n4\n1 3 4 2",
+        "output": "-1 3 -1",
+        "explanation": "In nums2, 1 is followed by the greater value 3; 4 and 2 have no greater value to their right."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Find each nums1 value's position in nums2.", "Scan to its right until finding a greater value.", "Return that value or -1 if the scan reaches the end."],
+        "timeComplexity": "O(n * m)",
+        "spaceComplexity": "O(1) auxiliary, excluding output"
+      },
+      {
+        "name": "Monotonic stack and hash map",
+        "steps": ["Traverse nums2 while keeping unresolved values in a decreasing stack.", "When the current value is greater than the stack top, pop that value and record its next-greater result.", "Store resolved results in a map.", "Look up each nums1 value to build the answer."],
+        "timeComplexity": "O(n + m) average",
+        "spaceComplexity": "O(m)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-next-greater-element-ii",
+    "statement": "Given a circular integer array, find for each element the first greater element encountered to its right, wrapping around to the beginning. Return -1 if no greater value exists.",
+    "constraints": "1 <= nums.length <= 10^4\n-10^9 <= nums[i] <= 10^9",
+    "inputDescription": "First line: integer n. Second line: n space-separated array values.",
+    "outputDescription": "Return the next-greater value for each array element, or -1 when none exists.",
+    "examples": [
+      {
+        "input": "5\n1 2 1 3 2",
+        "output": "2 3 3 -1 3",
+        "explanation": "The circular scan lets the final 2 find the 3 after wrapping to the beginning."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Circular brute force",
+        "steps": ["For each position, scan the following positions in circular order.", "Stop at the first greater value, checking at most n - 1 other elements.", "Return -1 if no greater value is found."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1) auxiliary, excluding output"
+      },
+      {
+        "name": "Monotonic stack with two passes",
+        "steps": ["Initialize answers to -1 and traverse indices twice using modulo n.", "Use a decreasing stack of unresolved indices.", "Resolve indices while the current value is greater than their values.", "Push indices only during the first pass."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-online-stock-span",
+    "statement": "Process stock prices one day at a time. For each price, return its span: the number of consecutive days ending today whose prices are less than or equal to today's price.",
+    "constraints": "1 <= price <= 10^5\nUp to 10^4 calls to next(price) are made.",
+    "inputDescription": "First line: integer n, the number of days. Second line: n space-separated daily prices.",
+    "outputDescription": "Return the stock span for each day, in order.",
+    "examples": [
+      {
+        "input": "7\n100 80 60 70 60 75 85",
+        "output": "1 1 1 2 1 4 6",
+        "explanation": "The price 75 spans four days: 60, 70, 60, and 75."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Scan backward",
+        "steps": ["For each new price, scan backward through previous prices.", "Count consecutive prices that are less than or equal to the current price.", "Stop at the first higher price."],
+        "timeComplexity": "O(n^2) worst case total",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Monotonic decreasing stack",
+        "steps": ["Store pairs of price and accumulated span.", "Start each new span at 1.", "Pop and add spans while the top price is less than or equal to the current price.", "Push the current price with its resulting span."],
+        "timeComplexity": "O(n) amortized total",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-remove-all-adjacent-duplicates-in-string",
+    "statement": "Given a string, repeatedly remove adjacent pairs of identical characters until no adjacent duplicates remain. Return the final string.",
+    "constraints": "1 <= s.length <= 10^5\ns contains only lowercase English letters.",
+    "inputDescription": "One line containing the string.",
+    "outputDescription": "Return the string remaining after all adjacent duplicate pairs are removed.",
+    "examples": [
+      {
+        "input": "abbaca",
+        "output": "ca",
+        "explanation": "Removing bb leaves aaca; removing aa then leaves ca."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Repeated string removal",
+        "steps": ["Scan for adjacent identical characters.", "Remove each matching pair.", "Repeat until a full pass makes no changes."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Stack",
+        "steps": ["Process characters from left to right.", "If the current character equals the stack top, pop the top.", "Otherwise push the current character.", "Join the remaining stack to form the answer."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-score-of-parentheses",
+    "statement": "Score a balanced parentheses string using these rules: () scores 1, concatenated strings have the sum of their scores, and wrapping a string in parentheses doubles its score.",
+    "constraints": "2 <= s.length <= 50\ns contains only ( and ).\nThe string is balanced.",
+    "inputDescription": "One line containing the balanced parentheses string.",
+    "outputDescription": "Return the integer score of the string.",
+    "examples": [
+      {
+        "input": "(()(()))",
+        "output": "6",
+        "explanation": "The outer pair encloses () with score 1 and (()) with score 2. Their sum 3 is doubled to 6."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack",
+        "steps": ["Push a marker or zero score for each opening parenthesis.", "On a closing parenthesis, calculate the enclosed score.", "An immediate () contributes 1; otherwise double the enclosed score.", "Add the completed score to the surrounding expression."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Depth counting",
+        "steps": ["Track the current nesting depth.", "When () closes at depth d, add 2 raised to d - 1 to the total.", "Increase depth on ( and decrease it on )."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-simplify-path",
+    "statement": "Simplify an absolute Unix-style path into canonical form. A single dot means the current directory, two dots mean the parent directory, repeated slashes are equivalent to one slash, and other names are directory components. The result begins with /, uses single separators, and has no trailing slash unless it is root.",
+    "constraints": "1 <= path.length <= 3000\nThe path begins with /.\nThe path contains English letters, digits, ., _, -, and /.",
+    "inputDescription": "One line containing the absolute path.",
+    "outputDescription": "Return the canonical simplified absolute path.",
+    "examples": [
+      {
+        "input": "/home//user/../documents/",
+        "output": "/home/documents",
+        "explanation": "Repeated slashes are collapsed and .. removes the user directory."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack of path components",
+        "steps": ["Split the path on /.", "Ignore empty components and .", "For .., pop a directory if one exists.", "Push ordinary directory names and join them with a leading slash."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Component-by-component parsing",
+        "steps": ["Scan the path and extract one component at a time.", "Ignore empty and current-directory components.", "Pop a stored component for .. when possible.", "Store ordinary names and build the canonical path."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-valid-parentheses",
+    "statement": "Given a string containing only (), {}, and [], determine whether all brackets are correctly matched and closed in the proper order.",
+    "constraints": "1 <= s.length <= 10^4\ns contains only (){}[].",
+    "inputDescription": "One line containing the bracket string.",
+    "outputDescription": "Return true if every opening bracket has a matching closing bracket in the correct order; otherwise return false.",
+    "examples": [
+      {
+        "input": "{[()]}",
+        "output": "true",
+        "explanation": "Each closing bracket matches the most recent unmatched opening bracket."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Stack",
+        "steps": ["Push each opening bracket.", "For a closing bracket, ensure the stack is non-empty and its top is the matching opener.", "Pop a matching opener or reject a mismatch.", "Accept only if the stack is empty at the end."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Repeated pair removal",
+        "steps": ["Repeatedly remove adjacent matching pairs such as (), {}, and [].", "Continue until no more pairs can be removed.", "The string is valid exactly when it becomes empty."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(n)"
+      }
+    ]
+  },
+  {
+    "slug": "stacks-valid-parenthesis-string",
+    "statement": "Given a string containing (, ), and *, determine whether it can represent a valid parentheses string. Each * may be interpreted as an opening parenthesis, a closing parenthesis, or an empty string.",
+    "constraints": "1 <= s.length <= 100\nEach s[i] is (, ), or *.",
+    "inputDescription": "One line containing the string.",
+    "outputDescription": "Return true if at least one interpretation of every * produces a valid parentheses string; otherwise return false.",
+    "examples": [
+      {
+        "input": "(*))",
+        "output": "true",
+        "explanation": "Treat * as an opening parenthesis to form (())."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute-force interpretations",
+        "steps": ["Try each of the three allowed meanings for every *.", "Check each resulting parentheses string for validity.", "Return true if any interpretation is valid."],
+        "timeComplexity": "O(3^k * n), where k is the number of asterisks",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Greedy range of open counts",
+        "steps": ["Track the minimum and maximum possible unmatched opening-parenthesis counts.", "For (, increase both; for ), decrease both; for *, decrease the minimum and increase the maximum.", "If the maximum becomes negative, reject; clamp the minimum to zero.", "Accept if the minimum count is zero at the end."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Dynamic programming",
+        "steps": ["Define states for whether each substring can form a valid parentheses sequence.", "Combine states by matching opening and closing parentheses and considering the interpretations of *.", "Use the state for the entire string to decide validity."],
+        "timeComplexity": "O(n^3)",
+        "spaceComplexity": "O(n^2)"
+      }
+    ]
+  }
+]

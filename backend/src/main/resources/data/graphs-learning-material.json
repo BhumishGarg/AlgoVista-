@@ -1,0 +1,202 @@
+[
+  {
+    "slug":"graphs-accounts-merge",
+    "statement":"You are given accounts, each containing a name followed by one or more email addresses. Accounts sharing an email belong to the same person, even if names alone are shared by different people. Merge connected accounts and return each name with its unique emails in lexicographical order. The output account order does not matter.",
+    "constraints":"1 <= accounts.length <= 1000\nEach account contains a name and at least one email address.\nEmail addresses contain lowercase English letters and allowed symbols.",
+    "inputDescription":"Enter accounts = [[name,email,...],...] as a JSON array. The visualizer limits accounts to 100 and unique emails to 40.",
+    "outputDescription":"Return merged accounts with unique emails sorted lexicographically.",
+    "examples":[{"input":"accounts = [[\"John\",\"johnsmith@mail.com\",\"john_newyork@mail.com\"],[\"John\",\"johnsmith@mail.com\",\"john00@mail.com\"],[\"Mary\",\"mary@mail.com\"],[\"John\",\"johnnybravo@mail.com\"]]","output":"[[\"John\",\"john00@mail.com\",\"john_newyork@mail.com\",\"johnsmith@mail.com\"],[\"Mary\",\"mary@mail.com\"],[\"John\",\"johnnybravo@mail.com\"]]","explanation":"The first two accounts share an email and are merged."}],
+    "approaches":[{"name":"Disjoint-set union over emails","steps":["Create a graph connection or DSU union among emails in each account.","Group emails by their connected component.","Sort each component's emails and prepend its account name."],"timeComplexity":"O(E log E)","spaceComplexity":"O(E)"}],
+    "visualizationGuide":"Show accounts as linked email nodes, animate component unions through shared addresses, then display sorted merged groups."
+  },
+  {
+    "slug":"graphs-cheapest-flights-within-k-stops",
+    "statement":"Given n cities and directed flights [from,to,price], find the cheapest route from src to dst using at most k stops. Return -1 if no such route exists.",
+    "constraints":"1 <= n <= 100\n0 <= flights.length <= n * (n - 1) / 2\n0 <= price <= 10^4\n0 <= k < n\nsrc and dst are valid city indices.",
+    "inputDescription":"Enter n, flights = [[from,to,price],...], src, dst, and k on separate lines. The visualizer limits graphs to 40 cities.",
+    "outputDescription":"Return the minimum valid fare, or -1 when the destination cannot be reached within the stop limit.",
+    "examples":[{"input":"n = 4\nflights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]\nsrc = 0\ndst = 3\nk = 1","output":"700"},{"input":"n = 3\nflights = [[0,1,100],[1,2,100],[0,2,500]]\nsrc = 0\ndst = 2\nk = 1","output":"200"},{"input":"n = 3\nflights = [[0,1,100],[1,2,100],[0,2,500]]\nsrc = 0\ndst = 2\nk = 0","output":"500"}],
+    "approaches":[{"name":"Bounded Bellman-Ford relaxation","steps":["Initialize source cost to zero and all other costs to infinity.","Relax every flight using a snapshot of costs from the previous edge count.","Repeat for at most k + 1 flights.","Return destination cost if finite, otherwise -1."],"timeComplexity":"O(kE)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Highlight each candidate flight during bounded relaxation and track the best fare after each allowed flight count."
+  },
+  {
+    "slug":"graphs-clone-graph",
+    "statement":"Given a reference node in a connected undirected graph, create and return a deep copy with the same values and neighbor relationships. No copied node may refer to an original node.",
+    "constraints":"0 <= number of nodes <= 100\n1 <= Node.val <= 100\nNode values are unique.",
+    "inputDescription":"Enter adjList = [[neighbors of node 1],...,[neighbors of node n]] as JSON. Use [] for an empty graph; the visualizer limits graphs to 40 nodes.",
+    "outputDescription":"Return the adjacency list of the cloned graph, in node-value order.",
+    "examples":[{"input":"adjList = [[2,4],[1,3],[2,4],[1,3]]","output":"[[2,4],[1,3],[2,4],[1,3]]"},{"input":"adjList = [[]]","output":"[[]]"},{"input":"adjList = []","output":"[]"}],
+    "approaches":[{"name":"Breadth-first copy with a map","steps":["Create the clone of the starting node and store it in a map.","Traverse original nodes with a queue.","Create each unseen neighbor's clone and connect it to the current clone.","Return cloned nodes in their original value order."],"timeComplexity":"O(V + E)","spaceComplexity":"O(V)"}],
+    "visualizationGuide":"Display original and cloned graph nodes side by side; highlight each original-to-clone mapping as edges are copied."
+  },
+  {
+    "slug":"graphs-course-schedule",
+    "statement":"Given numCourses and prerequisite pairs [a,b] meaning course b must be completed before course a, determine whether all courses can be completed.",
+    "constraints":"1 <= numCourses <= 2000\n0 <= prerequisites.length <= 5000\nEach pair has two distinct valid course indices.\nAll prerequisite pairs are unique.",
+    "inputDescription":"Enter numCourses = integer and prerequisites = [[course,prerequisite],...] on separate lines. The visualizer limits the graph to 40 courses.",
+    "outputDescription":"Return true if the prerequisite graph is acyclic; otherwise return false.",
+    "examples":[{"input":"numCourses = 2\nprerequisites = [[1,0]]","output":"true"},{"input":"numCourses = 2\nprerequisites = [[1,0],[0,1]]","output":"false"}],
+    "approaches":[{"name":"Kahn topological traversal","steps":["Build outgoing prerequisite edges and indegree counts.","Queue all courses with indegree zero.","Remove each queued course and decrement its dependents' indegrees.","All courses can be completed exactly when all are processed."],"timeComplexity":"O(V + E)","spaceComplexity":"O(V + E)"}],
+    "visualizationGuide":"Show prerequisite arrows, indegree counts, and the zero-indegree queue; unprocessed nodes reveal a cycle."
+  },
+  {
+    "slug":"graphs-course-schedule-ii",
+    "statement":"Given numCourses and prerequisite pairs [a,b] meaning b must precede a, return any valid order of all courses. Return an empty array if a cycle makes completion impossible.",
+    "constraints":"1 <= numCourses <= 2000\n0 <= prerequisites.length <= numCourses * (numCourses - 1)\nEach pair contains valid course indices.\nPrerequisite pairs are unique.",
+    "inputDescription":"Enter numCourses = integer and prerequisites = [[course,prerequisite],...] on separate lines. The visualizer limits the graph to 40 courses.",
+    "outputDescription":"Return a valid topological course order, or [] if no such order exists.",
+    "examples":[{"input":"numCourses = 2\nprerequisites = [[1,0]]","output":"[0,1]"},{"input":"numCourses = 4\nprerequisites = [[1,0],[2,0],[3,1],[3,2]]","output":"[0,2,1,3]"},{"input":"numCourses = 1\nprerequisites = []","output":"[0]"}],
+    "approaches":[{"name":"Kahn topological sort","steps":["Build the prerequisite graph and indegree array.","Queue every course with indegree zero.","Append courses as they are removed and release dependent courses.","Return the order if it includes all courses, otherwise return an empty array."],"timeComplexity":"O(V + E)","spaceComplexity":"O(V + E)"}],
+    "visualizationGuide":"Animate the zero-indegree queue and course order as prerequisite edges are removed."
+  },
+  {
+    "slug":"graphs-evaluate-division",
+    "statement":"Given equations such as a / b = 2.0 and queries x / y, evaluate each query using the known relationships. Return -1.0 if either variable is unknown or no relationship path connects them.",
+    "constraints":"1 <= equations.length <= 20\nEach equation and query has two variable names of length 1 to 5.\nvalues.length == equations.length\n1 <= queries.length <= 20\nEquation values are positive.",
+    "inputDescription":"Enter equations = [[a,b],...], values = [ratios], and queries = [[x,y],...] on separate lines. The visualizer limits the graph to 40 variables.",
+    "outputDescription":"Return one quotient per query, or -1.0 when it cannot be determined.",
+    "examples":[{"input":"equations = [[\"a\",\"b\"],[\"b\",\"c\"]]\nvalues = [2.0,3.0]\nqueries = [[\"a\",\"c\"],[\"b\",\"a\"],[\"a\",\"e\"],[\"a\",\"a\"],[\"x\",\"x\"]]","output":"[6,0.5,-1,1,-1]"}],
+    "approaches":[{"name":"Weighted graph traversal","steps":["Add a directed edge with ratio v and reverse edge with ratio 1/v for each equation.","For each query, traverse from numerator to denominator.","Multiply edge ratios along the discovered path.","Return -1 for unknown or unreachable variables."],"timeComplexity":"O(Q(V + E))","spaceComplexity":"O(V + E)"}],
+    "visualizationGuide":"Show reciprocal weighted edges and multiply the edge ratios while traversing a query path."
+  },
+  {
+    "slug":"graphs-graph-valid-tree",
+    "statement":"Given n nodes numbered 0 through n-1 and undirected edges, determine whether the graph is connected and contains no cycles.",
+    "constraints":"1 <= n <= 2000\n0 <= edges.length <= 5000\nEdges connect distinct nodes and are undirected and unique.",
+    "inputDescription":"Enter n = integer and edges = [[u,v],...] on separate lines. The visualizer limits the graph to 40 nodes.",
+    "outputDescription":"Return true if the graph is a valid tree; otherwise return false.",
+    "examples":[{"input":"n = 5\nedges = [[0,1],[0,2],[0,3],[1,4]]","output":"true"},{"input":"n = 5\nedges = [[0,1],[1,2],[2,3],[1,3],[1,4]]","output":"false"}],
+    "approaches":[{"name":"Edge count plus connectivity","steps":["A tree must have exactly n - 1 edges; reject otherwise.","Traverse from one node and mark every reachable node.","Accept only if all nodes were visited."],"timeComplexity":"O(V + E)","spaceComplexity":"O(V + E)"}],
+    "visualizationGuide":"Highlight visited nodes during traversal and detect cycles or disconnected components."
+  },
+  {
+    "slug":"graphs-is-graph-bipartite",
+    "statement":"Given an undirected adjacency-list graph, determine whether its nodes can be divided into two groups such that every edge joins nodes in different groups.",
+    "constraints":"1 <= graph.length <= 100\n0 <= graph[i].length < graph.length\nThere are no self-edges.\nEvery undirected edge appears in both adjacency lists.\nThe graph may be disconnected.",
+    "inputDescription":"Enter graph = [[neighbors],...] as a JSON adjacency list. The visualizer limits the graph to 40 nodes.",
+    "outputDescription":"Return true if the graph is bipartite; otherwise return false.",
+    "examples":[{"input":"graph = [[1,2,3],[0,2],[0,1,3],[0,2]]","output":"false"},{"input":"graph = [[1,3],[0,2],[1,3],[0,2]]","output":"true"}],
+    "approaches":[{"name":"BFS two-coloring","steps":["Start BFS from every uncolored component and assign a color.","Assign each uncolored neighbor the opposite color.","If an edge connects equal colors, the graph is not bipartite.","Return true if every component is colored consistently."],"timeComplexity":"O(V + E)","spaceComplexity":"O(V)"}],
+    "visualizationGuide":"Color each visited node by BFS layer and highlight any edge joining two nodes with the same color."
+  },
+  {
+    "slug":"graphs-min-cost-to-connect-all-points",
+    "statement":"Given 2D points, connect every point with minimum total cost, where the cost of an edge is Manhattan distance |x1-x2| + |y1-y2|. Return the minimum possible total.",
+    "constraints":"1 <= points.length <= 1000\n-10^6 <= xi, yi <= 10^6\nAll points are distinct.",
+    "inputDescription":"Enter points = [[x,y],...] as JSON. The visualizer limits the point count to 40.",
+    "outputDescription":"Return the total weight of a minimum spanning tree.",
+    "examples":[{"input":"points = [[0,0],[2,2],[3,10],[5,2],[7,0]]","output":"20"},{"input":"points = [[3,12],[-2,5],[-4,1]]","output":"18"}],
+    "approaches":[{"name":"Prim's minimum spanning tree","steps":["Start with any point in the connected tree.","Repeatedly add the cheapest edge connecting the tree to an unvisited point.","Add its Manhattan cost and continue until all points are included."],"timeComplexity":"O(n^2)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Plot the points, highlight each cheapest connecting edge chosen by Prim's algorithm, and show the running cost."
+  },
+  {
+    "slug":"graphs-network-delay-time",
+    "statement":"Given directed weighted travel times [u,v,w] for nodes 1 through n and a starting node k, find the minimum time for every node to receive the signal. Return -1 if any node is unreachable.",
+    "constraints":"1 <= k <= n <= 100\n1 <= times.length <= 6000\ntimes[i].length == 3\n1 <= u,v <= n; u != v\n1 <= w <= 100\nAt most one directed edge exists between each pair.",
+    "inputDescription":"Enter times = [[from,to,time],...], n = node count, and k = start node on separate lines. The visualizer limits graphs to 40 nodes.",
+    "outputDescription":"Return the maximum shortest-path distance from k, or -1 when a node is unreachable.",
+    "examples":[{"input":"times = [[2,1,1],[2,3,1],[3,4,1]]\nn = 4\nk = 2","output":"2"},{"input":"times = [[1,2,1]]\nn = 2\nk = 1","output":"1"},{"input":"times = [[1,2,1]]\nn = 2\nk = 2","output":"-1"}],
+    "approaches":[{"name":"Dijkstra's algorithm","steps":["Initialize the source distance to zero and others to infinity.","Repeatedly select the unvisited node with smallest distance.","Relax each outgoing weighted edge.","Return the largest distance if all nodes are reachable."],"timeComplexity":"O((V + E) log V)","spaceComplexity":"O(V + E)"}],
+    "visualizationGuide":"Animate the priority queue, tentative distances, and edge relaxations from the signal source."
+  },
+  {
+    "slug":"graphs-number-of-islands",
+    "statement":"Given a grid of '1' land and '0' water, count groups of land connected horizontally or vertically. Diagonal cells are not connected.",
+    "constraints":"1 <= grid.length <= 300\n1 <= grid[i].length <= 300\nEach cell is '0' or '1'.",
+    "inputDescription":"Enter grid = [[\"1\",\"0\",...],...] as a JSON matrix. The visualizer limits grids to 20 by 20.",
+    "outputDescription":"Return the number of distinct islands.",
+    "examples":[{"input":"grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]","output":"1"},{"input":"grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]","output":"3"}],
+    "approaches":[{"name":"Flood fill with BFS","steps":["Scan every grid cell.","When unvisited land is found, increment the island count and enqueue it.","Visit its four-directional land neighbors and mark them visited.","Continue until every cell is processed."],"timeComplexity":"O(mn)","spaceComplexity":"O(mn)"}],
+    "visualizationGuide":"Show each BFS flood fill expanding across land cells and assign a different component color to each island."
+  },
+  {
+    "slug":"graphs-number-of-provinces",
+    "statement":"Given an n by n symmetric adjacency matrix of city connections, count provinces, where cities in one province are connected directly or indirectly.",
+    "constraints":"1 <= n <= 200\nisConnected is an n by n matrix of 0s and 1s.\nisConnected[i][i] == 1 and the matrix is symmetric.",
+    "inputDescription":"Enter isConnected = [[0/1,...],...] as a JSON square matrix. The visualizer limits the matrix to 40 by 40.",
+    "outputDescription":"Return the number of connected city groups.",
+    "examples":[{"input":"isConnected = [[1,1,0],[1,1,0],[0,0,1]]","output":"2"},{"input":"isConnected = [[1,0,0],[0,1,0],[0,0,1]]","output":"3"}],
+    "approaches":[{"name":"DFS connected components","steps":["Scan cities in order and start a traversal at each unvisited city.","Visit every directly or indirectly connected city.","Count each traversal start as one province."],"timeComplexity":"O(n^2)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Highlight each matrix-connected component as one province during graph traversal."
+  },
+  {
+    "slug":"graphs-open-the-lock",
+    "statement":"A four-wheel lock starts at 0000. Each wheel wraps between 0 and 9, and each move changes one wheel by one digit. Avoid deadend combinations and return the minimum moves to reach target, or -1 if impossible.",
+    "constraints":"1 <= deadends.length <= 500\nEach deadend and target is a four-digit string.\nDeadends are unique; target may be 0000.",
+    "inputDescription":"Enter deadends = [\"0001\",...] and target = \"1234\" on separate lines.",
+    "outputDescription":"Return the fewest wheel turns needed, or -1 if the target cannot be reached.",
+    "examples":[{"input":"deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"]\ntarget = \"0202\"","output":"6"},{"input":"deadends = [\"8888\"]\ntarget = \"0009\"","output":"1"},{"input":"deadends = [\"0000\"]\ntarget = \"8888\"","output":"-1"}],
+    "approaches":[{"name":"Breadth-first search over lock states","steps":["Start from 0000 unless it is blocked.","Generate the eight states reachable by one wheel turn.","Queue each unseen and non-deadend state with its move count.","Return when the target is reached, or -1 when the queue empties."],"timeComplexity":"O(10^4)","spaceComplexity":"O(10^4)"}],
+    "visualizationGuide":"Show the lock state BFS frontier by move count and mark deadend combinations as blocked."
+  },
+  {
+    "slug":"graphs-pacific-atlantic-water-flow",
+    "statement":"Given a grid of heights, water flows to an adjacent cell of equal or lower height. The Pacific touches top and left borders; the Atlantic touches bottom and right borders. Return cells from which water can reach both oceans.",
+    "constraints":"1 <= m,n <= 200\n0 <= heights[i][j] <= 10^5",
+    "inputDescription":"Enter heights = [[height,...],...] as a rectangular JSON matrix. The visualizer limits dimensions to 20 by 20.",
+    "outputDescription":"Return the coordinates of cells that can reach both oceans; result order may vary.",
+    "examples":[{"input":"heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]","output":"[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"},{"input":"heights = [[1]]","output":"[[0,0]]"}],
+    "approaches":[{"name":"Reverse reachability from ocean borders","steps":["Start traversals from Pacific border cells and move to equal or higher neighbors.","Repeat from Atlantic border cells.","Intersect the two reachable-cell sets."],"timeComplexity":"O(mn)","spaceComplexity":"O(mn)"}],
+    "visualizationGuide":"Color cells reachable in reverse from each ocean differently, then highlight their intersection."
+  },
+  {
+    "slug":"graphs-reconstruct-itinerary",
+    "statement":"Given airline tickets [from,to], reconstruct an itinerary starting at JFK that uses every ticket exactly once. If several valid itineraries exist, return the lexicographically smallest airport sequence. The itinerary is guaranteed to exist.",
+    "constraints":"1 <= tickets.length <= 300\nEach ticket has two three-letter uppercase airport codes.",
+    "inputDescription":"Enter tickets = [[\"FROM\",\"TO\"],...] as a JSON array.",
+    "outputDescription":"Return the lexicographically smallest itinerary starting at JFK.",
+    "examples":[{"input":"tickets = [[\"MUC\",\"LHR\"],[\"JFK\",\"MUC\"],[\"SFO\",\"SJC\"],[\"LHR\",\"SFO\"]]","output":"[\"JFK\",\"MUC\",\"LHR\",\"SFO\",\"SJC\"]"},{"input":"tickets = [[\"JFK\",\"SFO\"],[\"JFK\",\"ATL\"],[\"SFO\",\"ATL\"],[\"ATL\",\"JFK\"],[\"ATL\",\"SFO\"]]","output":"[\"JFK\",\"ATL\",\"JFK\",\"SFO\",\"ATL\",\"SFO\"]"}],
+    "approaches":[{"name":"Hierholzer's algorithm","steps":["Sort each airport's outgoing tickets lexicographically.","Run DFS from JFK, consuming the smallest remaining ticket each time.","Append airports after exhausting their outgoing edges.","Reverse the postorder to obtain the itinerary."],"timeComplexity":"O(E log E)","spaceComplexity":"O(E)"}],
+    "visualizationGuide":"Animate ticket consumption from JFK and build the final Eulerian itinerary in reverse postorder."
+  },
+  {
+    "slug":"graphs-redundant-connection",
+    "statement":"An undirected tree with nodes 1 through n received one extra edge, creating a cycle. Return the last input edge that can be removed to restore the tree.",
+    "constraints":"n == edges.length\n3 <= n <= 1000\nEach edge is a unique pair [u,v] with 1 <= u < v <= n.\nThe graph contains exactly one cycle.",
+    "inputDescription":"Enter edges = [[u,v],...] as a JSON array.",
+    "outputDescription":"Return the redundant edge that closes the cycle.",
+    "examples":[{"input":"edges = [[1,2],[1,3],[2,3]]","output":"[2,3]"},{"input":"edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]","output":"[1,4]"}],
+    "approaches":[{"name":"Disjoint-set union","steps":["Initialize each node as its own component.","Process edges in input order.","Union endpoints in different components.","The first edge whose endpoints are already connected is redundant."],"timeComplexity":"O(n α(n))","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Show DSU parent components merging edge by edge and highlight the edge whose endpoints already share a root."
+  },
+  {
+    "slug":"graphs-rotting-oranges",
+    "statement":"In a grid, 0 is empty, 1 is fresh, and 2 is rotten. Every minute, rotten oranges infect fresh oranges directly above, below, left, and right. Return the minimum time to rot all oranges, or -1 if some fresh orange is unreachable.",
+    "constraints":"1 <= rows, columns <= 10\nEach grid cell is 0, 1, or 2.",
+    "inputDescription":"Enter grid = [[0,1,2,...],...] as a rectangular JSON matrix. The visualizer limits dimensions to 10 by 10.",
+    "outputDescription":"Return the number of minutes until all reachable fresh oranges rot, or -1 if some remain fresh.",
+    "examples":[{"input":"grid = [[2,1,1],[1,1,0],[0,1,1]]","output":"4"},{"input":"grid = [[2,1,1],[0,1,1],[1,0,1]]","output":"-1"},{"input":"grid = [[0,2]]","output":"0"}],
+    "approaches":[{"name":"Multi-source BFS","steps":["Queue all initially rotten oranges and count fresh oranges.","Process the queue one minute-level at a time, rotting adjacent fresh cells.","Stop when no fresh oranges remain or no more cells can be reached.","Return elapsed minutes or -1 if fresh oranges remain."],"timeComplexity":"O(mn)","spaceComplexity":"O(mn)"}],
+    "visualizationGuide":"Animate each minute's BFS wave, updating fresh cells to rotten and reporting unreachable oranges."
+  },
+  {
+    "slug":"graphs-shortest-path-in-binary-matrix",
+    "statement":"Given an n by n binary grid, find the shortest path from the top-left to bottom-right through open cells, moving in any of eight directions. Path length counts cells, including both endpoints. Return -1 if none exists.",
+    "constraints":"1 <= n <= 100\nEach cell is 0 (open) or 1 (blocked).",
+    "inputDescription":"Enter grid = [[0/1,...],...] as a square JSON matrix. The visualizer limits n to 20.",
+    "outputDescription":"Return the shortest path length in cells, or -1 if no path exists.",
+    "examples":[{"input":"grid = [[0,1],[1,0]]","output":"2","explanation":"The open corners are diagonally adjacent, so the path length is two."},{"input":"grid = [[0,0,0],[1,1,0],[1,1,0]]","output":"4"},{"input":"grid = [[1,0,0],[1,1,0],[1,1,0]]","output":"-1"}],
+    "approaches":[{"name":"Eight-direction breadth-first search","steps":["Reject if the start or destination is blocked.","Start BFS at (0,0) with path length one.","Visit each open cell at most once using all eight directions.","Return the destination distance, or -1 if unreachable."],"timeComplexity":"O(n^2)","spaceComplexity":"O(n^2)"}],
+    "visualizationGuide":"Show the BFS wave expanding through open cells, including diagonal moves, until it reaches the destination."
+  },
+  {
+    "slug":"graphs-surrounded-regions",
+    "statement":"Given a board of X and O, capture O regions fully surrounded by X by changing their cells to X. O cells connected horizontally or vertically to a border must remain unchanged.",
+    "constraints":"1 <= rows, columns <= 200\nEach cell is X or O.",
+    "inputDescription":"Enter board = [[\"X\",\"O\",...],...] as a JSON character matrix. The visualizer limits dimensions to 20 by 20.",
+    "outputDescription":"Return the board after capturing surrounded O regions.",
+    "examples":[{"input":"board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]","output":"[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]"},{"input":"board = [[\"X\"]]","output":"[[\"X\"]]"}],
+    "approaches":[{"name":"Border flood fill","steps":["Start traversal from every border O cell and mark all connected O cells safe.","Convert every unmarked O into X.","Restore safe cells to O."],"timeComplexity":"O(mn)","spaceComplexity":"O(mn)"}],
+    "visualizationGuide":"Mark border-connected O cells as safe, then animate enclosed O cells being captured."
+  },
+  {
+    "slug":"graphs-word-ladder",
+    "statement":"Transform beginWord into endWord by changing one letter per step, with every intermediate word in wordList. Return the number of words in the shortest sequence including both endpoints, or 0 if no transformation exists.",
+    "constraints":"1 <= beginWord.length <= 10\nendWord has the same length.\n1 <= wordList.length <= 5000\nAll words have equal length and contain lowercase English letters.\nWords in the input are distinct.",
+    "inputDescription":"Enter beginWord = \"...\", endWord = \"...\", and wordList = [\"...\",...] on separate lines. The visualizer limits the graph to 40 words.",
+    "outputDescription":"Return the shortest transformation sequence length, or 0 when no sequence exists.",
+    "examples":[{"input":"beginWord = \"hit\"\nendWord = \"cog\"\nwordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]","output":"5"},{"input":"beginWord = \"hit\"\nendWord = \"cog\"\nwordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]","output":"0"}],
+    "approaches":[{"name":"Breadth-first search over word transformations","steps":["Return zero if endWord is absent from wordList.","Start BFS from beginWord with sequence length one.","Generate words by changing one character and enqueue unseen dictionary words.","Return the sequence length when endWord is reached."],"timeComplexity":"O(N L^2)","spaceComplexity":"O(N L)"}],
+    "visualizationGuide":"Show BFS word frontiers by transformation depth and highlight the one-letter substitutions connecting words."
+  }
+]

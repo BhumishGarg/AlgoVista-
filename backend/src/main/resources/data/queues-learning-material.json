@@ -1,0 +1,243 @@
+[
+  {
+    "slug": "queues-average-of-levels-in-binary-tree",
+    "statement": "Given the root of a non-empty binary tree, return the average value of the nodes at each level, ordered from the root downward.",
+    "constraints": "1 <= number of nodes <= 10^4\n-2^31 <= Node.val <= 2^31 - 1\nThe tree is not empty.",
+    "inputDescription": "First line: integer n, the number of entries in the level-order representation. Second line: n space-separated values, using null for missing nodes.",
+    "outputDescription": "Return the average node value at each level, from root to leaves.",
+    "examples": [{"input":"7\n3 9 20 null null 15 7","output":"3.00000 14.50000 11.00000","explanation":"The level averages are 3, (9 + 20) / 2, and (15 + 7) / 2."}],
+    "approaches": [
+      {"name":"Breadth-first search","steps":["Enqueue the root.","Process the queue one level at a time using the level's starting queue size.","Sum that level's node values and enqueue existing children.","Divide the sum by the level size."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"},
+      {"name":"Depth-first search","steps":["Traverse recursively while passing the current depth.","Accumulate a sum and count for each depth.","Divide each level sum by its count."],"timeComplexity":"O(n)","spaceComplexity":"O(h) recursion plus O(h) level statistics"}
+    ]
+  },
+  {
+    "slug": "queues-binary-tree-level-order-traversal",
+    "statement": "Given a binary tree root, return its node values level by level, from left to right.",
+    "constraints": "0 <= number of nodes <= 2000\n-1000 <= Node.val <= 1000",
+    "inputDescription": "First line: integer n. Second line: n level-order node values, using null for missing nodes. Use n = 0 or null as the root for an empty tree.",
+    "outputDescription": "Return a list of levels, each containing node values from left to right.",
+    "examples": [{"input":"7\n3 9 20 null null 15 7","output":"[[3],[9,20],[15,7]]","explanation":"Nodes are grouped by their distance from the root."}],
+    "approaches": [
+      {"name":"BFS using a queue","steps":["Enqueue the root if it exists.","Record the queue size at the start of each level.","Process exactly that many nodes, recording values and enqueueing their children.","Append the level before continuing."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"},
+      {"name":"DFS with depth tracking","steps":["Traverse recursively while passing the current depth.","Create a result level when first reaching a depth.","Append each node value to its depth's level."],"timeComplexity":"O(n)","spaceComplexity":"O(h) recursion, excluding output"}
+    ]
+  },
+  {
+    "slug": "queues-binary-tree-zigzag-level-order-traversal",
+    "statement": "Given a binary tree root, return its level order traversal with alternating directions: the root level left-to-right, the next right-to-left, and so on.",
+    "constraints": "0 <= number of nodes <= 2000\n-100 <= Node.val <= 100",
+    "inputDescription": "First line: integer n. Second line: n level-order node values, using null for missing nodes.",
+    "outputDescription": "Return node values grouped by level, alternating the direction of each level.",
+    "examples": [{"input":"7\n3 9 20 null null 15 7","output":"[[3],[20,9],[15,7]]","explanation":"The second level is output in reverse order; the first and third remain left-to-right."}],
+    "approaches": [
+      {"name":"BFS with alternate reversal","steps":["Perform ordinary level-order traversal using a queue.","Collect each level's values.","Reverse every other level before appending it to the result."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"},
+      {"name":"BFS with indexed placement","steps":["Process each level using a queue.","Place values at index i or levelSize - 1 - i depending on direction.","Toggle direction after each level."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-design-circular-deque",
+    "statement": "Design a fixed-capacity circular double-ended queue supporting insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, and isFull. Insertions fail when full and deletions fail when empty.",
+    "constraints": "1 <= k <= 1000\n0 <= value <= 1000\nAt most 2000 operations are performed.",
+    "inputDescription": "First line: integer k, the deque capacity. Second line: integer n, the number of operations. Next n lines: operation name and optional value.",
+    "outputDescription": "Return the result of each operation that queries a value or status, in operation order.",
+    "examples": [{"input":"3\n8\ninsertLast 1\ninsertLast 2\ninsertFront 3\ninsertFront 4\ngetRear\nisFull\ndeleteLast\ninsertFront 4","output":"true\ntrue\ntrue\nfalse\n2\ntrue\ntrue\ntrue","explanation":"The fourth insertion fails because the deque is full. Rear is 2; after deleting the rear, inserting 4 at the front succeeds."}],
+    "approaches": [
+      {"name":"Circular array","steps":["Allocate k slots and track front, rear, and size.","Use modular arithmetic to wrap indices.","Update the appropriate end and size on each insertion or deletion.","Use size to determine empty and full states."],"timeComplexity":"O(1) per operation","spaceComplexity":"O(k)"},
+      {"name":"Doubly linked list","steps":["Keep nodes with previous and next links and maintain front, rear, size, and capacity.","Insert or remove at either end by updating endpoint links.","Reject operations when capacity or emptiness rules prevent them."],"timeComplexity":"O(1) per operation","spaceComplexity":"O(k)"}
+    ]
+  },
+  {
+    "slug": "queues-design-circular-queue",
+    "statement": "Design a fixed-capacity circular FIFO queue supporting enQueue, deQueue, Front, Rear, isEmpty, and isFull. When the rear reaches the array end, it wraps to the beginning if capacity remains.",
+    "constraints": "1 <= k <= 1000\n0 <= value <= 1000\nAt most 3000 operations are performed.",
+    "inputDescription": "First line: integer k, the queue capacity. Second line: integer n, the number of operations. Next n lines: operation name and optional value.",
+    "outputDescription": "Return the result of each query operation, in operation order.",
+    "examples": [{"input":"3\n8\nenQueue 1\nenQueue 2\nenQueue 3\nenQueue 4\nRear\nisFull\ndeQueue\nenQueue 4","output":"true\ntrue\ntrue\nfalse\n3\ntrue\ntrue\ntrue","explanation":"The fourth enqueue fails while full. After dequeue, 4 is enqueued into the freed circular slot."}],
+    "approaches": [
+      {"name":"Circular array","steps":["Store values in a fixed-size array and track front and size.","Compute the rear from front and size using modulo capacity.","Increment or decrement size on enqueue and dequeue.","Check size to answer empty and full queries."],"timeComplexity":"O(1) per operation","spaceComplexity":"O(k)"},
+      {"name":"Linked list with capacity","steps":["Maintain front, rear, size, and maximum capacity.","Enqueue at rear and dequeue from front.","Reject insertion at capacity and handle empty endpoint updates."],"timeComplexity":"O(1) per operation","spaceComplexity":"O(k)"}
+    ]
+  },
+  {
+    "slug": "queues-dota2-senate",
+    "statement": "Radiant (R) and Dire (D) senators act in order, each banning one opposing senator from future turns. Continue rounds until one party remains and return Radiant or Dire.",
+    "constraints": "1 <= senate.length <= 10^4\nsenate[i] is R or D.",
+    "inputDescription": "One line containing the senate string.",
+    "outputDescription": "Return Radiant or Dire, the party that wins.",
+    "examples": [{"input":"RDD","output":"Dire","explanation":"The first Radiant senator is banned; the remaining Dire senators win."}],
+    "approaches": [
+      {"name":"Two index queues","steps":["Enqueue the original indices of Radiant and Dire senators separately.","Compare the front indices; the earlier senator bans the other.","Re-enqueue the winner at index + senate length for the next round.","Stop when one party queue is empty."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"},
+      {"name":"Round simulation","steps":["Track active senators and pending bans for each party.","Process senators in order, skipping anyone already banned.","Repeat rounds until only one party remains."],"timeComplexity":"O(n^2) straightforward simulation","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-find-the-winner-of-the-circular-game",
+    "statement": "There are n friends numbered 1 through n in a circle. Starting at friend 1, count k friends, eliminate the kth, and resume counting from the next friend. Return the last remaining friend's number.",
+    "constraints": "1 <= k <= n <= 500",
+    "inputDescription": "One line containing two space-separated integers n and k.",
+    "outputDescription": "Return the 1-based number of the final remaining friend.",
+    "examples": [{"input":"5 2","output":"3","explanation":"Eliminating every second friend leaves friend 3 as the winner."}],
+    "approaches": [
+      {"name":"Queue simulation","steps":["Enqueue friends 1 through n.","Move the first k - 1 friends to the back, then remove the next friend.","Repeat until one friend remains."],"timeComplexity":"O(nk)","spaceComplexity":"O(n)"},
+      {"name":"Josephus recurrence","steps":["Set winner = 0 for a one-person circle using zero-based indexing.","For each size i from 2 through n, update winner = (winner + k) % i.","Return winner + 1."],"timeComplexity":"O(n)","spaceComplexity":"O(1)"}
+    ]
+  },
+  {
+    "slug": "queues-implement-queue-using-stacks",
+    "statement": "Implement a FIFO queue using stack operations. Support push(x) to add at the back, pop() to remove the front, peek() to inspect the front, and empty() to check whether the queue is empty.",
+    "constraints": "1 <= x <= 9\nAt most 100 calls are made to push, pop, peek, and empty.\nCalls to pop and peek are guaranteed valid.",
+    "inputDescription": "First line: integer n, the number of operations. Next n lines: operation and optional value.",
+    "outputDescription": "Return the result of each pop, peek, or empty operation, in order.",
+    "examples": [{"input":"6\npush 1\npush 2\npeek\npop\nempty\npop","output":"1\n1\nfalse\n2","explanation":"The queue returns the oldest value first."}],
+    "approaches": [
+      {"name":"Two stacks with lazy transfer","steps":["Push new values onto an input stack.","When the output stack is empty, transfer all input values to it.","Pop or peek from the output stack, whose top is the oldest item.","The transfer reverses order and is done only when needed."],"timeComplexity":"O(1) amortized per operation","spaceComplexity":"O(n)"},
+      {"name":"Two stacks with eager transfer","steps":["Keep the oldest element at the top of the output stack.","On each push, move elements as needed to preserve queue order.","Pop and peek from the front stack."],"timeComplexity":"O(n) per push; O(1) per pop/peek","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-implement-stack-using-queues",
+    "statement": "Implement a LIFO stack using queue operations. Support push(x), pop(), top(), and empty().",
+    "constraints": "1 <= x <= 9\nAt most 100 calls are made to push, pop, top, and empty.\nCalls to pop and top are guaranteed valid.",
+    "inputDescription": "First line: integer n, the number of operations. Next n lines: operation and optional value.",
+    "outputDescription": "Return the result of each pop, top, or empty operation, in order.",
+    "examples": [{"input":"6\npush 1\npush 2\ntop\npop\nempty\npop","output":"2\n2\nfalse\n1","explanation":"The newest pushed item is returned first."}],
+    "approaches": [
+      {"name":"One queue with rotation","steps":["Enqueue the new value.","Rotate all previously stored values behind it so the new value reaches the front.","Dequeue the front to implement pop and inspect the front for top."],"timeComplexity":"O(n) per push; O(1) per pop/top","spaceComplexity":"O(n)"},
+      {"name":"Two queues","steps":["Enqueue the new value into an empty auxiliary queue.","Move all current queue values behind it.","Swap the queue roles so the newest value stays at the front."],"timeComplexity":"O(n) per push; O(1) per pop/top","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-moving-average-from-data-stream",
+    "statement": "Design a moving average calculator over the most recent size values from an integer stream. For each incoming value, return the average of the values currently in the window.",
+    "constraints": "1 <= size <= 1000\n-10^5 <= val <= 10^5\nAt most 10^4 calls to next(val) are made.",
+    "inputDescription": "First line: integer size, the window size. Second line: integer n, the number of values. Third line: n space-separated incoming values.",
+    "outputDescription": "Return the moving average after each incoming value, in order.",
+    "examples": [{"input":"3\n6\n1 10 3 5 2 8","output":"1.00000 5.50000 4.66667 6.00000 3.33333 5.00000","explanation":"Each average uses at most the most recent three values."}],
+    "approaches": [
+      {"name":"Queue and recompute","steps":["Add each value to a queue.","Remove the oldest value when the queue exceeds the window size.","Sum the queue and divide by its current size."],"timeComplexity":"O(size) per value","spaceComplexity":"O(size)"},
+      {"name":"Queue and running sum","steps":["Add the new value to the queue and running sum.","If the queue exceeds the window size, remove and subtract its oldest value.","Divide the running sum by the current queue size."],"timeComplexity":"O(1) amortized per value","spaceComplexity":"O(size)"}
+    ]
+  },
+  {
+    "slug": "queues-number-of-recent-calls",
+    "statement": "Implement RecentCounter. Each ping(t) adds a request at a strictly increasing timestamp and returns the number of requests in the inclusive interval [t - 3000, t].",
+    "constraints": "1 <= t <= 10^9\nTimestamps are strictly increasing.\nAt most 10^4 ping calls are made.",
+    "inputDescription": "First line: integer n, the number of requests. Second line: n strictly increasing timestamps.",
+    "outputDescription": "Return the recent request count after each ping.",
+    "examples": [{"input":"4\n1 100 3001 3002","output":"1 2 3 3","explanation":"At 3001, timestamp 1 remains because the lower bound is inclusive; at 3002 it falls outside the window."}],
+    "approaches": [
+      {"name":"Store all and count","steps":["Append each timestamp to a list.","For every request, count timestamps between t - 3000 and t."],"timeComplexity":"O(n^2) total straightforward","spaceComplexity":"O(n)"},
+      {"name":"Queue window","steps":["Enqueue the new timestamp.","Remove timestamps strictly less than t - 3000.","Return the queue size."],"timeComplexity":"O(1) amortized per request","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-number-of-students-unable-to-eat-lunch",
+    "statement": "Students stand in a queue with preferences 0 (circular) or 1 (square); sandwiches are stacked in order. The front student takes the top sandwich if it matches, otherwise moves to the back. Return the number unable to eat when no remaining student wants the top sandwich.",
+    "constraints": "1 <= students.length <= 100\nstudents.length == sandwiches.length\nstudents[i] and sandwiches[i] are 0 or 1.",
+    "inputDescription": "First line: integer n. Second line: n student preferences. Third line: n sandwich types.",
+    "outputDescription": "Return the number of students left unable to eat.",
+    "examples": [{"input":"4\n1 1 0 0\n0 1 0 1","output":"0","explanation":"All students eventually receive a sandwich matching their preference."}],
+    "approaches": [
+      {"name":"Queue simulation","steps":["Queue student preferences and keep sandwiches in order.","Serve the front student if their preference matches the top sandwich; otherwise rotate them to the rear.","Stop when all are served or a full pass occurs without a match."],"timeComplexity":"O(n^2) worst case","spaceComplexity":"O(n)"},
+      {"name":"Preference counts","steps":["Count students preferring each sandwich type.","Process sandwiches from the top while at least one remaining student prefers that type.","Stop when no student wants the top type; the remaining count is the answer."],"timeComplexity":"O(n)","spaceComplexity":"O(1)"}
+    ]
+  },
+  {
+    "slug": "queues-open-the-lock",
+    "statement": "A lock has four wheels showing digits 0 through 9, initially 0000. Each wheel can rotate one step forward or backward with wraparound. Given dead-end combinations and a target, return the minimum number of turns to reach the target, or -1 if it cannot be reached.",
+    "constraints": "1 <= deadends.length <= 500\nEach dead end and the target contain exactly four digits.\n0000 may be a dead end.",
+    "inputDescription": "First line: integer d, the number of dead ends. Next d lines: one dead-end combination per line. Final line: target combination.",
+    "outputDescription": "Return the minimum number of wheel turns from 0000 to the target, or -1 if unreachable.",
+    "examples": [{"input":"5\n0201\n0101\n0102\n1212\n2002\n0202","output":"6","explanation":"A shortest sequence of valid wheel turns reaches 0202 in six moves."}],
+    "approaches": [
+      {"name":"Breadth-first search","steps":["Start a queue with 0000 at distance zero; reject if it is a dead end.","For each state, generate eight states by turning one wheel up or down.","Skip dead ends and visited states, enqueueing each valid neighbor at distance + 1.","Return when the target is reached; return -1 if the queue empties."],"timeComplexity":"O(10^4) states with constant neighbors","spaceComplexity":"O(10^4)"},
+      {"name":"Bidirectional BFS","steps":["Start searches from 0000 and target.","Expand the smaller current frontier and generate valid neighboring states.","Stop when the frontiers meet and combine their distances."],"timeComplexity":"O(10^4) worst case","spaceComplexity":"O(10^4)"}
+    ]
+  },
+  {
+    "slug": "queues-perfect-squares",
+    "statement": "Given a positive integer n, return the minimum number of perfect square numbers whose sum is n.",
+    "constraints": "1 <= n <= 10^4",
+    "inputDescription": "One integer n.",
+    "outputDescription": "Return the minimum number of perfect squares that sum to n.",
+    "examples": [{"input":"12","output":"3","explanation":"12 = 4 + 4 + 4 uses three perfect squares."}],
+    "approaches": [
+      {"name":"Breadth-first search","steps":["Treat each remainder from n down to zero as a state.","From remainder x, enqueue x - square for each positive square <= x that is unvisited.","Explore states level by level; the first visit to zero gives the minimum count."],"timeComplexity":"O(n sqrt(n)) worst case","spaceComplexity":"O(n)"},
+      {"name":"Dynamic programming","steps":["Set dp[0] = 0.","For each value i, try all squares j*j <= i and minimize dp[i - j*j] + 1.","Return dp[n]."],"timeComplexity":"O(n sqrt(n))","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-reveal-cards-in-increasing-order",
+    "statement": "Reorder a deck of unique integers so repeatedly revealing the top card and then moving the next top card to the bottom reveals cards in increasing order.",
+    "constraints": "1 <= deck.length <= 1000\n1 <= deck[i] <= 10^6\nAll card values are unique.",
+    "inputDescription": "First line: integer n. Second line: n unique card values.",
+    "outputDescription": "Return a deck arrangement whose reveal process produces values in increasing order.",
+    "examples": [{"input":"7\n17 13 11 2 3 5 7","output":"2 13 3 11 5 17 7","explanation":"Revealing and rotating this arrangement yields 2, 3, 5, 7, 11, 13, 17."}],
+    "approaches": [
+      {"name":"Queue of indices","steps":["Sort card values ascending.","Queue indices from zero through n - 1.","Assign each ascending card to the next queued index.","After assigning, move the next index to the queue rear when one remains."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"},
+      {"name":"Reverse simulation","steps":["Sort card values descending.","Before placing each next card, move the last arranged index to the front.","Place the card at the front of the arrangement."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}
+    ]
+  },
+  {
+    "slug": "queues-rotting-oranges",
+    "statement": "In a grid, 0 is empty, 1 is fresh, and 2 is rotten. Each minute, rotten oranges make adjacent fresh oranges rotten; adjacency is up, down, left, or right. Return the minutes until all oranges are rotten, or -1 if some fresh orange can never rot. Return 0 if there are no fresh oranges.",
+    "constraints": "1 <= rows, columns <= 10\nEach cell is 0, 1, or 2.",
+    "inputDescription": "First line: integers m and n for rows and columns. Next m lines: n space-separated grid values.",
+    "outputDescription": "Return the minimum minutes until no fresh oranges remain, or -1 if impossible.",
+    "examples": [{"input":"3 3\n2 1 1\n1 1 0\n0 1 1","output":"4","explanation":"The rot spreads one grid edge per minute; the last reachable fresh orange rots at minute 4."}],
+    "approaches": [
+      {"name":"Multi-source BFS","steps":["Enqueue every initially rotten orange and count fresh oranges.","Process the queue one minute-level at a time.","Rot adjacent fresh cells and enqueue them for the next level.","Return elapsed minutes if fresh count reaches zero; otherwise return -1."],"timeComplexity":"O(m * n)","spaceComplexity":"O(m * n)"},
+      {"name":"Repeated simultaneous grid scan","steps":["Find every fresh orange adjacent to current rotten cells.","Rot those cells simultaneously using a separate next-grid or marker.","Repeat until no fresh cells remain or no change occurs."],"timeComplexity":"O((m * n)^2)","spaceComplexity":"O(m * n)"}
+    ]
+  },
+  {
+    "slug": "queues-shortest-path-in-binary-matrix",
+    "statement": "Given an n by n binary matrix, find the shortest clear path from the top-left to bottom-right. Zero cells are clear, one cells are blocked, and movement is allowed in eight directions. Path length counts both endpoints. Return -1 when no clear path exists.",
+    "constraints": "1 <= n <= 100\nEach cell is 0 or 1.",
+    "inputDescription": "First line: integer n. Next n lines: n space-separated binary values.",
+    "outputDescription": "Return the shortest path length in visited cells, or -1 if no path exists.",
+    "examples": [{"input":"3\n0 1 0\n0 0 0\n1 0 0","output":"3","explanation":"The diagonal path (0,0) -> (1,1) -> (2,2) contains three cells, including both endpoints."}],
+    "approaches": [
+      {"name":"Breadth-first search","steps":["Return -1 if either endpoint is blocked.","Enqueue the start cell with distance one and mark it visited.","Explore all eight neighboring cells, adding each unvisited clear cell with distance + 1.","Return the distance upon reaching the destination."],"timeComplexity":"O(n^2)","spaceComplexity":"O(n^2)"},
+      {"name":"A* search","steps":["Treat each clear cell as a graph node and prioritize by distance so far plus an admissible diagonal-distance estimate.","Track the best known distance for each cell.","Stop when the destination is removed from the priority queue."],"timeComplexity":"O(n^2 log(n^2)) worst case","spaceComplexity":"O(n^2)"}
+    ]
+  },
+  {
+    "slug": "queues-sliding-window-maximum",
+    "statement": "Given an integer array and window size k, slide the window from left to right and return the maximum value in each window.",
+    "constraints": "1 <= nums.length <= 10^5\n-10^4 <= nums[i] <= 10^4\n1 <= k <= nums.length",
+    "inputDescription": "First line: integers n and k. Second line: n array values.",
+    "outputDescription": "Return the maximum value for each window position, in order.",
+    "examples": [{"input":"8 3\n1 3 -1 -3 5 3 6 7","output":"3 3 5 5 6 7","explanation":"The maximum of each consecutive three-value window is listed."}],
+    "approaches": [
+      {"name":"Brute force","steps":["Move the window across the array.","Scan all k values in each window and append its maximum."],"timeComplexity":"O(nk)","spaceComplexity":"O(1) auxiliary, excluding output"},
+      {"name":"Monotonic deque","steps":["Store candidate indices in a deque with values in decreasing order.","Remove front indices outside the current window.","Remove smaller or equal values from the rear, then append the current index.","Once a full window exists, its maximum is at the front."],"timeComplexity":"O(n)","spaceComplexity":"O(k)"}
+    ]
+  },
+  {
+    "slug": "queues-time-needed-to-buy-tickets",
+    "statement": "People wait in a queue and person i wants tickets[i] tickets. Each turn the front person buys one ticket, then returns to the rear if they still need tickets. Return the total time until person k finishes.",
+    "constraints": "1 <= tickets.length <= 100\n1 <= tickets[i] <= 100\n0 <= k < tickets.length",
+    "inputDescription": "First line: integers n and k. Second line: n ticket counts.",
+    "outputDescription": "Return the number of seconds until person k has bought all their tickets.",
+    "examples": [{"input":"4 2\n2 3 2 1","output":"7","explanation":"Person 2 in zero-based indexing buys their second ticket after seven turns."}],
+    "approaches": [
+      {"name":"Queue simulation","steps":["Queue people with their remaining ticket counts and original indices.","Let the front person buy one ticket and increase elapsed time.","If tickets remain, move them to the rear; stop when person k finishes."],"timeComplexity":"O(sum(tickets))","spaceComplexity":"O(n)"},
+      {"name":"Direct counting","steps":["For each person at or before k, count min(tickets[i], tickets[k]) turns.","For each person after k, count min(tickets[i], tickets[k] - 1) turns.","Sum these contributions."],"timeComplexity":"O(n)","spaceComplexity":"O(1)"}
+    ]
+  },
+  {
+    "slug": "queues-word-ladder",
+    "statement": "Given beginWord, endWord, and a dictionary, find the shortest transformation sequence length. Each step changes exactly one character and produces a dictionary word, except beginWord need not be in the dictionary. Return the number of words including both endpoints, or zero if no sequence exists.",
+    "constraints": "1 <= beginWord.length <= 10\nendWord.length == beginWord.length\n1 <= wordList.length <= 5000\nAll words have equal length and contain lowercase English letters.\nDictionary words are unique.",
+    "inputDescription": "First line: beginWord. Second line: endWord. Third line: integer n. Fourth line: n space-separated dictionary words.",
+    "outputDescription": "Return the number of words in a shortest valid transformation sequence, or 0 if none exists.",
+    "examples": [{"input":"hit\ncog\n6\nhot dot dog lot log cog","output":"5","explanation":"One shortest sequence is hit -> hot -> dot -> dog -> cog."}],
+    "approaches": [
+      {"name":"Breadth-first search","steps":["Enqueue beginWord with sequence length one.","Generate neighbors by replacing each character with a through z.","Enqueue dictionary words not previously visited with length + 1.","Return the length when endWord is reached, or zero if the queue empties."],"timeComplexity":"O(N * L * 26) with direct substitutions","spaceComplexity":"O(N * L)"},
+      {"name":"Bidirectional BFS","steps":["Start frontiers at beginWord and endWord.","Expand the smaller frontier using valid one-character transformations.","Stop when a generated word is in the opposite frontier and combine distances."],"timeComplexity":"Often explores fewer states; O(N * L * 26) worst case","spaceComplexity":"O(N * L)"},
+      {"name":"Wildcard pattern indexing","steps":["Build buckets for patterns formed by replacing one position with *.","Use BFS through words sharing a pattern, marking each pattern as processed once.","Return the shortest distance to endWord."],"timeComplexity":"O(N * L^2) straightforward construction","spaceComplexity":"O(N * L^2)"}
+    ]
+  }
+]

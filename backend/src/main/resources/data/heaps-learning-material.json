@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "heaps-priority-queue-find-k-pairs-with-smallest-sums",
+    "statement": "Given two integer arrays nums1 and nums2 sorted in ascending order, find the k pairs (u, v) with the smallest sums, where u comes from nums1 and v comes from nums2.",
+    "constraints": "1 <= nums1.length, nums2.length <= 10^5\n-10^9 <= nums1[i], nums2[i] <= 10^9\nBoth arrays are sorted in ascending order.\n1 <= k <= 10^4\nk <= nums1.length * nums2.length",
+    "inputDescription": "Enter nums1 = [integers], nums2 = [integers], and k = integer on separate lines. The visualizer limits arrays to 100 elements each and k to 100.",
+    "outputDescription": "Return the k value pairs with the smallest sums.",
+    "examples": [{"input":"nums1 = [1,7,11]\nnums2 = [2,4,6]\nk = 3","output":"[[1,2],[1,4],[1,6]]","explanation":"The three smallest pair sums are 3, 5, and 7."}],
+    "approaches": [{"name":"Min-heap over sorted rows","steps":["Seed the min-heap with pairs formed from the first value in nums2 and the first few values in nums1.","Remove the pair with the smallest sum.","Add the next pair from that nums1 row.","Repeat until k pairs are selected."],"timeComplexity":"O(k log k)","spaceComplexity":"O(k)"}],
+    "visualizationGuide":"Watch candidate pairs ordered by their sums; removing one candidate adds the next pair from its row."
+  },
+  {
+    "slug": "heaps-priority-queue-find-median-from-data-stream",
+    "statement": "Design a data structure that receives integers one at a time and returns the median of all numbers received so far. For an even number of elements, the median is the average of the two middle values after sorting.",
+    "constraints": "-10^5 <= num <= 10^5\nAt least one number is inserted before findMedian() is called.\nAt most 5 * 10^4 calls are made to addNum and findMedian.",
+    "inputDescription": "Enter operations = [\"MedianFinder\", \"addNum\", \"findMedian\", ...] and values = [[], [number], [], ...] on separate lines. The visualizer limits the stream to 100 inserted values.",
+    "outputDescription": "Show the median after each inserted number.",
+    "examples": [{"input":"operations = [\"MedianFinder\",\"addNum\",\"addNum\",\"findMedian\",\"addNum\",\"findMedian\"]\nvalues = [[],[1],[2],[],[3],[]]","output":"[null,null,null,1.5,null,2.0]","explanation":"Insert 1: median 1. Insert 2: median 1.5. Insert 3: median 2."}],
+    "approaches": [{"name":"Two heaps","steps":["Keep the lower half in a max-heap and the upper half in a min-heap.","Insert each value into the appropriate half.","Rebalance so heap sizes differ by at most one.","Read the median from the root or average the two roots."],"timeComplexity":"O(log n) per insertion; O(1) median","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Compare the max-heap for the lower half and min-heap for the upper half as values arrive and the median changes."
+  },
+  {
+    "slug": "heaps-priority-queue-furthest-building-you-can-reach",
+    "statement": "Given building heights, bricks, and ladders, return the furthest building index reachable. A climb can be paid for with bricks equal to its height difference or with one ladder; use ladders strategically.",
+    "constraints": "1 <= heights.length <= 10^5\n1 <= heights[i] <= 10^6\n0 <= bricks <= 10^9\n0 <= ladders <= heights.length",
+    "inputDescription": "Enter heights = [integers], bricks = integer, and ladders = integer. The visualizer limits heights to 100 entries.",
+    "outputDescription": "Return the furthest reachable building index.",
+    "examples": [{"input":"heights = [4,2,7,6,9,14,12]\nbricks = 5\nladders = 1","output":"4","explanation":"Pay bricks for the climb from 2 to 7 and use the ladder for the climb from 9 to 14."}],
+    "approaches": [{"name":"Min-heap of climbs","steps":["For each upward climb, add its height difference to a min-heap.","When the number of climbs exceeds the ladders available, spend bricks on the smallest climb.","Stop when bricks become negative."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Track upward climbs in a min-heap; the smallest climbs are paid with bricks while ladders cover the largest."
+  },
+  {
+    "slug": "heaps-priority-queue-ipo",
+    "statement": "Given initial capital w, at most k projects, and arrays of project profits and required capital, choose projects to maximize final capital. A project can be started only when its capital requirement is met.",
+    "constraints": "1 <= k <= 10^5\n0 <= w <= 10^9\nn == profits.length == capital.length\n1 <= n <= 10^5\n0 <= profits[i] <= 10^4\n0 <= capital[i] <= 10^9",
+    "inputDescription": "Enter k, w, profits = [integers], and capital = [integers] on separate lines. The visualizer limits projects to 100.",
+    "outputDescription": "Return the maximum capital after selecting at most k projects.",
+    "examples": [{"input":"k = 2\nw = 0\nprofits = [1,2,3]\ncapital = [0,1,1]","output":"4","explanation":"Complete the project with profit 1, then the affordable project with profit 3."}],
+    "approaches": [{"name":"Sort requirements and max-heap profits","steps":["Sort projects by required capital.","Add every currently affordable project to a max-heap of profits.","Choose the affordable project with the greatest profit.","Increase capital and repeat at most k times."],"timeComplexity":"O(n log n + k log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Observe projects becoming affordable and the max-heap selecting the highest available profit each round."
+  },
+  {
+    "slug": "heaps-priority-queue-k-closest-points-to-origin",
+    "statement": "Given 2D points [x,y] and an integer k, return the k points closest to the origin. Distance is measured by squared Euclidean distance x^2 + y^2; return order does not matter.",
+    "constraints": "1 <= k <= points.length <= 10^4\n-10^4 <= x, y <= 10^4\nAll points are distinct.",
+    "inputDescription": "Enter points = [[x,y],...] and k = integer. The visualizer limits points to 100.",
+    "outputDescription": "Return the k points with smallest squared distance from the origin.",
+    "examples": [{"input":"points = [[1,3],[-2,2],[5,8]]\nk = 2","output":"[[1,3],[-2,2]]","explanation":"Their squared distances are 10, 8, and 89; the two closest points have distances 8 and 10."}],
+    "approaches": [{"name":"Bounded max-heap","steps":["Compute each point's squared distance.","Keep at most k points in a max-heap ordered by distance.","When the heap exceeds k, remove the farthest point.","Return the remaining points."],"timeComplexity":"O(n log k)","spaceComplexity":"O(k)"}],
+    "visualizationGuide":"Compare points by squared distance and keep only the k closest candidates in the heap."
+  },
+  {
+    "slug": "heaps-priority-queue-kth-largest-element-in-a-stream",
+    "statement": "Design a KthLargest structure that maintains a stream of integers. Initialize it with k and nums; add(val) inserts a value and returns the kth-largest element. When fewer than k elements exist, return the smallest element currently present.",
+    "constraints": "1 <= k <= 10^4\n0 <= nums.length <= 10^4\n-10^4 <= nums[i], val <= 10^4\nAt most 10^4 calls are made to add.",
+    "inputDescription": "Enter k, nums = [initial integers], and addValues = [stream integers] on separate lines. The visualizer limits total values to 100.",
+    "outputDescription": "Return the kth-largest value after each added value.",
+    "examples": [{"input":"k = 3\nnums = [4,5,8,2]\naddValues = [3,5,10,9,4]","output":"[4,5,5,8,8]","explanation":"After each insertion, the third-largest element is returned."}],
+    "approaches": [{"name":"Min-heap of size k","steps":["Insert initial values into a min-heap.","Remove the smallest whenever the heap grows beyond k.","For each new value, repeat the bounded-heap update.","The heap root is the kth-largest value when at least k values exist."],"timeComplexity":"O((n + m) log k)","spaceComplexity":"O(k)"}],
+    "visualizationGuide":"Watch a min-heap capped at k values; its root is the current kth-largest value."
+  },
+  {
+    "slug": "heaps-priority-queue-kth-largest-element-in-an-array",
+    "statement": "Given an integer array nums and integer k, find the kth-largest element. Duplicate values count as separate elements.",
+    "constraints": "1 <= k <= nums.length <= 10^5\n-10^4 <= nums[i] <= 10^4",
+    "inputDescription": "Enter nums = [integers] and k = integer. The visualizer limits nums to 100 values.",
+    "outputDescription": "Return the kth-largest value.",
+    "examples": [{"input":"nums = [3,2,1,5,6,4]\nk = 2","output":"5","explanation":"The descending order is [6,5,4,3,2,1], so the second-largest value is 5."}],
+    "approaches": [{"name":"Min-heap of size k","steps":["Insert each value into a min-heap.","If the heap has more than k values, remove its minimum.","After processing all values, the root is the kth-largest element."],"timeComplexity":"O(n log k)","spaceComplexity":"O(k)"}],
+    "visualizationGuide":"Follow heap insertions and removals; the min-heap root retains the kth-largest boundary value."
+  },
+  {
+    "slug": "heaps-priority-queue-kth-smallest-element-in-a-sorted-matrix",
+    "statement": "Given an n by n matrix with every row and column sorted in ascending order, find the kth-smallest element. Repeated values count separately.",
+    "constraints": "1 <= n <= 300\n-10^9 <= matrix[i][j] <= 10^9\nEvery row and column is sorted in ascending order.\n1 <= k <= n^2",
+    "inputDescription": "Enter matrix = [[row values],...] and k = integer. The visualizer limits matrices to 20 by 20.",
+    "outputDescription": "Return the kth-smallest matrix value.",
+    "examples": [{"input":"matrix = [[1,5,9],[10,11,13],[12,13,15]]\nk = 8","output":"13","explanation":"The eighth value in sorted order is 13."}],
+    "approaches": [{"name":"Min-heap merge of rows","steps":["Add the first value of each row to a min-heap with its coordinates.","Remove the smallest value k times.","After removing a cell, add the next value in its row if present.","The kth removed value is the answer."],"timeComplexity":"O(k log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"See the smallest frontier cell removed from the heap and its next row value inserted until the kth removal."
+  },
+  {
+    "slug": "heaps-priority-queue-last-stone-weight",
+    "statement": "Repeatedly choose the two heaviest stones. Equal weights destroy both; otherwise the lighter stone is destroyed and the heavier is replaced by their difference. Return the final stone weight, or 0 if none remain.",
+    "constraints": "1 <= stones.length <= 30\n1 <= stones[i] <= 1000",
+    "inputDescription": "Enter stones = [positive integers].",
+    "outputDescription": "Return the remaining stone weight, or 0.",
+    "examples": [{"input":"stones = [2,7,4,1,8,1]","output":"1","explanation":"Repeatedly smash the two heaviest stones; the final remaining weight is 1."}],
+    "approaches": [{"name":"Max-heap simulation","steps":["Insert all stone weights into a max-heap.","Remove the two heaviest stones.","If they differ, insert their positive difference.","Repeat until at most one stone remains."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Watch the two heaviest stones leave the max-heap and their difference return when they are unequal."
+  },
+  {
+    "slug": "heaps-priority-queue-maximum-subsequence-score",
+    "statement": "Given equal-length arrays nums1 and nums2 and integer k, choose exactly k indices. The score is the sum of selected nums1 values multiplied by the minimum selected nums2 value. Return the maximum achievable score.",
+    "constraints": "n == nums1.length == nums2.length\n1 <= n <= 10^5\n0 <= nums1[i], nums2[i] <= 10^5\n1 <= k <= n\nUse a 64-bit integer for the score.",
+    "inputDescription": "Enter nums1 = [integers], nums2 = [integers], and k = integer. The visualizer limits arrays to 100 elements.",
+    "outputDescription": "Return the maximum subsequence score.",
+    "examples": [{"input":"nums1 = [1,3,3,2]\nnums2 = [2,1,3,4]\nk = 3","output":"12","explanation":"Choose indices 0, 2, and 3: nums1 sums to 6 and the minimum nums2 value is 2."}],
+    "approaches": [{"name":"Sort by multiplier and keep largest values","steps":["Pair each nums1 value with its nums2 value and sort by nums2 descending.","Maintain a min-heap of the k largest nums1 values seen so far.","For each candidate nums2 value, compute the score using it as the minimum.","Track the maximum score."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Follow the selected nums1 values in a min-heap while each sorted nums2 value acts as the current minimum multiplier."
+  },
+  {
+    "slug": "heaps-priority-queue-meeting-rooms-ii",
+    "statement": "Given meeting intervals [start,end], determine the minimum number of rooms required so that meetings assigned to the same room do not overlap.",
+    "constraints": "1 <= intervals.length <= 10^4\n0 <= start < end <= 10^6\nThe original interview-collection problem's metadata may differ from numbered LeetCode problems.",
+    "inputDescription": "Enter intervals = [[start,end],...]. The visualizer limits intervals to 100.",
+    "outputDescription": "Return the minimum number of meeting rooms required.",
+    "examples": [{"input":"intervals = [[0,30],[5,10],[15,20]]","output":"2","explanation":"The long meeting overlaps each of the other meetings, so two rooms are sufficient."},{"input":"intervals = [[7,10],[2,4]]","output":"1","explanation":"The meetings do not overlap and can use one room."}],
+    "approaches": [{"name":"Min-heap of room end times","steps":["Sort meetings by start time.","If the earliest-ending room is free, remove its end time.","Allocate a room by adding the current meeting's end time.","The maximum heap size is the number of rooms needed."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Process meetings by start time and watch occupied room end times in a min-heap."
+  },
+  {
+    "slug": "heaps-priority-queue-merge-k-sorted-lists",
+    "statement": "Given an array of k sorted linked lists, merge all the lists into one sorted linked list and return its head.",
+    "constraints": "k == lists.length\n0 <= k <= 10^4\nThe total number of nodes is between 0 and 10^4.\n-10^4 <= Node.val <= 10^4\nEach linked list is sorted in ascending order.",
+    "inputDescription": "Enter lists = [[sorted values],...]. The visualizer limits the total number of values to 100.",
+    "outputDescription": "Return all list values merged in ascending order.",
+    "examples": [{"input":"lists = [[1,4,5],[1,3,4],[2,6]]","output":"[1,1,2,3,4,4,5,6]","explanation":"The values from all three lists are merged in ascending order."}],
+    "approaches": [{"name":"Min-heap of list heads","steps":["Insert the head of each non-empty list into a min-heap.","Remove the smallest node and append it to the merged result.","Insert that node's next node when one exists.","Continue until the heap is empty."],"timeComplexity":"O(N log k)","spaceComplexity":"O(k)"}],
+    "visualizationGuide":"Watch the smallest list head leave the min-heap, append to output, and get replaced by its list successor."
+  },
+  {
+    "slug": "heaps-priority-queue-minimum-cost-to-hire-k-workers",
+    "statement": "Given worker quality and minimum wage arrays, hire exactly k workers. Pay must be proportional to quality and meet each worker's minimum wage. Find the minimum total cost.",
+    "constraints": "n == quality.length == wage.length\n1 <= k <= n <= 10^4\n1 <= quality[i] <= 10^4\n1 <= wage[i] <= 10^4",
+    "inputDescription": "Enter quality = [integers], wage = [integers], and k = integer. The visualizer limits workers to 100.",
+    "outputDescription": "Return the minimum total cost, formatted to five decimal places.",
+    "examples": [{"input":"quality = [10,20,5]\nwage = [70,50,30]\nk = 2","output":"105.00000","explanation":"At rate 7 per quality unit, workers with qualities 10 and 5 cost 70 and 35."}],
+    "approaches": [{"name":"Sort wage-to-quality ratios","steps":["Sort workers by wage divided by quality.","Treat each worker's ratio as the group's pay rate.","Maintain the k smallest qualities among workers seen using a max-heap.","Compute total quality times the current rate and keep the minimum."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Track the current pay ratio and selected worker qualities; the largest selected quality is removed when a better group is possible."
+  },
+  {
+    "slug": "heaps-priority-queue-reorganize-string",
+    "statement": "Rearrange string s so that no two adjacent characters are the same. Return any valid rearrangement, or an empty string if no valid arrangement exists.",
+    "constraints": "1 <= s.length <= 500\ns consists of lowercase English letters.",
+    "inputDescription": "Enter s = \"lowercase string\".",
+    "outputDescription": "Return a rearranged string with no equal adjacent characters, or an empty string if impossible.",
+    "examples": [{"input":"s = \"aab\"","output":"\"aba\"","explanation":"The two occurrences of a are separated by b."},{"input":"s = \"aaab\"","output":"\"\"","explanation":"There are too many a characters to separate them."}],
+    "approaches": [{"name":"Max-heap with previous character","steps":["Count character frequencies and insert them into a max-heap.","Repeatedly take the most frequent available character, except the one used in the previous step.","Reinsert the previously held character after choosing a different one.","Return an empty string if characters remain but none can be placed."],"timeComplexity":"O(n log alphabet)","spaceComplexity":"O(alphabet)"}],
+    "visualizationGuide":"Watch the highest remaining character frequency and the previously used character as the output is built."
+  },
+  {
+    "slug": "heaps-priority-queue-seat-reservation-manager",
+    "statement": "Design a seat reservation manager for n seats numbered 1 through n. reserve() returns the smallest unreserved seat; unreserve(seatNumber) makes that seat available again.",
+    "constraints": "1 <= n <= 10^5\nAt most 10^5 reserve and unreserve calls.\nunreserve always refers to a currently reserved seat.\nreserve is called only when a seat is available.",
+    "inputDescription": "Enter n = integer and operations = [\"reserve\", \"unreserve 2\", ...] on separate lines. The visualizer supports at most 100 seats and 200 operations.",
+    "outputDescription": "Return the result of each reserve operation in order.",
+    "examples": [{"input":"n = 5\noperations = [\"SeatManager\",\"reserve\",\"reserve\",\"unreserve\",\"reserve\",\"reserve\",\"reserve\",\"reserve\",\"unreserve\"]\narguments = [[5],[],[],[2],[],[],[],[],[5]]","output":"[null,1,2,null,2,3,4,5,null]","explanation":"Reserve seats in smallest-number order, return seat 2 to the heap, and then reserve the smallest available seats again."}],
+    "approaches": [{"name":"Min-heap of available seats","steps":["Initialize a min-heap with seat numbers 1 through n.","For reserve, remove and return the smallest seat.","For unreserve, add the seat back to the heap."],"timeComplexity":"O(log n) per operation","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Observe the smallest available seat at the heap root as reservations remove and unreservations restore seat numbers."
+  },
+  {
+    "slug": "heaps-priority-queue-smallest-range-covering-elements-from-k-lists",
+    "statement": "Given k sorted integer lists, find the smallest interval [a,b] containing at least one element from every list. If equal-width intervals exist, choose the one with the smaller start.",
+    "constraints": "nums.length == k\n1 <= k <= 3500\n1 <= nums[i].length <= 50\n-10^5 <= nums[i][j] <= 10^5\nEach list is sorted in ascending order.",
+    "inputDescription": "Enter nums = [[sorted values],...]. The visualizer limits lists to 20 and values per list to 50.",
+    "outputDescription": "Return the smallest covering range [start,end].",
+    "examples": [{"input":"nums = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]","output":"[20,24]","explanation":"The range [20,24] includes 24, 20, and 22 from the three lists and has width 4."}],
+    "approaches": [{"name":"Min-heap frontier","steps":["Add the first element of every list to a min-heap and track the current maximum.","The heap minimum and current maximum form a candidate range.","Remove the minimum and advance within that same list.","Stop when one list is exhausted; keep the narrowest range."],"timeComplexity":"O(N log k)","spaceComplexity":"O(k)"}],
+    "visualizationGuide":"The heap minimum and current maximum define each candidate range; advance the list that supplied the minimum."
+  },
+  {
+    "slug": "heaps-priority-queue-sort-characters-by-frequency",
+    "statement": "Rearrange string s so that characters with higher frequencies appear before characters with lower frequencies. Return any valid ordering.",
+    "constraints": "1 <= s.length <= 5 * 10^5\ns contains printable characters permitted by the original problem.",
+    "inputDescription": "Enter s = \"text\". The visualizer limits strings to 100 characters.",
+    "outputDescription": "Return the characters grouped in non-increasing order of frequency.",
+    "examples": [{"input":"s = \"tree\"","output":"\"eert\"","explanation":"The character e appears twice and is placed before t and r."},{"input":"s = \"cccaaa\"","output":"\"aaaccc\"","explanation":"Both groups have frequency three, so either group may come first."}],
+    "approaches": [{"name":"Frequency max-heap","steps":["Count each character's frequency.","Insert character-frequency pairs into a max-heap.","Remove the most frequent pair and append that character the indicated number of times.","Continue until the heap is empty."],"timeComplexity":"O(n + d log d)","spaceComplexity":"O(d)"}],
+    "visualizationGuide":"Watch characters ordered by frequency and the output string grow in frequency-grouped blocks."
+  },
+  {
+    "slug": "heaps-priority-queue-take-gifts-from-the-richest-pile",
+    "statement": "Given gift pile sizes and k operations, repeatedly choose the largest pile and replace its size with the floor of its square root. Return the total gifts remaining after exactly k operations.",
+    "constraints": "1 <= gifts.length <= 10^3\n1 <= gifts[i] <= 10^9\n1 <= k <= 10^3",
+    "inputDescription": "Enter gifts = [positive integers] and k = integer.",
+    "outputDescription": "Return the total number of gifts remaining.",
+    "examples": [{"input":"gifts = [25,64,9,4,100]\nk = 4","output":"29","explanation":"The four largest piles are replaced by their floored square roots, leaving a total of 29."}],
+    "approaches": [{"name":"Max-heap simulation","steps":["Insert all pile sizes into a max-heap.","Remove the largest pile and replace it with floor(sqrt(pile)).","Repeat exactly k times.","Sum the remaining pile sizes."],"timeComplexity":"O((n + k) log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Track the largest pile at the heap root as each operation replaces it with its floored square root."
+  },
+  {
+    "slug": "heaps-priority-queue-task-scheduler",
+    "statement": "Given uppercase CPU tasks and cooldown n, execute one task per time unit with at least n time units between identical tasks. Return the minimum time required; idle periods are allowed.",
+    "constraints": "1 <= tasks.length <= 10^4\ntasks[i] is an uppercase English letter.\n0 <= n <= 100",
+    "inputDescription": "Enter tasks = [\"A\",\"B\",...] and n = integer. The visualizer limits tasks to 100.",
+    "outputDescription": "Return the minimum number of time units required to complete all tasks.",
+    "examples": [{"input":"tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"]\nn = 2","output":"8","explanation":"A valid schedule is A, B, idle, A, B, idle, A, B."},{"input":"tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"]\nn = 0","output":"6","explanation":"With no cooldown, all six tasks run consecutively."}],
+    "approaches": [{"name":"Max-heap and cooldown queue","steps":["Put task frequencies in a max-heap.","At each time unit, execute the most frequent available task or idle.","Decrease its remaining count and enqueue it with its next available time.","Return the elapsed time when all tasks are complete."],"timeComplexity":"O(T log A)","spaceComplexity":"O(A)"}],
+    "visualizationGuide":"Follow task frequencies in the max-heap and tasks waiting in cooldown as the schedule advances."
+  },
+  {
+    "slug": "heaps-priority-queue-top-k-frequent-elements",
+    "statement": "Given integer array nums and integer k, return the k elements that appear most frequently. The answer may be returned in any order.",
+    "constraints": "1 <= nums.length <= 10^5\n-10^4 <= nums[i] <= 10^4\n1 <= k <= number of distinct elements\nThe answer is guaranteed to be unique.",
+    "inputDescription": "Enter nums = [integers] and k = integer. The visualizer limits nums to 100 values.",
+    "outputDescription": "Return the k most frequent values.",
+    "examples": [{"input":"nums = [1,1,1,2,2,3]\nk = 2","output":"[1,2]","explanation":"1 occurs three times and 2 occurs twice, so they are the two most frequent."},{"input":"nums = [1]\nk = 1","output":"[1]","explanation":"The only distinct value is 1."}],
+    "approaches": [{"name":"Frequency map and min-heap","steps":["Count occurrences of each value.","Keep a min-heap of at most k value-frequency pairs.","When the heap exceeds k, remove the least frequent pair.","Return the values remaining in the heap."],"timeComplexity":"O(n log k)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Watch frequency counts compete in a bounded min-heap that retains only the k most frequent values."
+  }
+]

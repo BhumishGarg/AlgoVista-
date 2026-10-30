@@ -1,0 +1,202 @@
+[
+  {
+    "slug":"sorting-hand-of-straights",
+    "statement":"You are given an integer array hand and an integer groupSize. Determine whether all cards can be divided into groups of exactly groupSize consecutive values, using every card exactly once.",
+    "constraints":"1 <= hand.length <= 10^4\n1 <= hand[i] <= 10^9\n1 <= groupSize <= hand.length",
+    "inputDescription":"Enter hand = [card values] and groupSize = integer on separate lines. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return true if all cards can be partitioned into consecutive groups of the requested size; otherwise return false.",
+    "examples":[{"input":"hand = [1,2,3,6,2,3,4,7,8]\ngroupSize = 3","output":"true","explanation":"The groups [1,2,3], [2,3,4], and [6,7,8] use all cards."},{"input":"hand = [1,2,3,4,5]\ngroupSize = 4","output":"false","explanation":"The number of cards is not divisible by four."}],
+    "approaches":[{"name":"Frequency counting and greedy grouping","steps":["Count the frequency of every card value.","Visit values from smallest to largest.","For each available smallest value, consume groupSize consecutive values.","Fail if any required value has insufficient frequency."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Show the sorted card values and frequency counts as each smallest available card starts a consecutive group."
+  },
+  {
+    "slug":"sorting-height-checker",
+    "statement":"Given the current order of student heights, count how many positions differ from the order obtained by sorting the heights in non-decreasing order.",
+    "constraints":"1 <= heights.length <= 100\n1 <= heights[i] <= 100",
+    "inputDescription":"Enter heights = [integer values]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return the number of indices whose values change after sorting.",
+    "examples":[{"input":"heights = [1,1,4,2,1,3]","output":"3","explanation":"The sorted order is [1,1,1,2,3,4], which differs at three positions."},{"input":"heights = [5,1,2,3,4]","output":"5"},{"input":"heights = [1,2,3,4,5]","output":"0"}],
+    "approaches":[{"name":"Sort a copy and compare","steps":["Copy the input values.","Sort the copy in ascending order.","Compare corresponding positions and count mismatches."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Compare the original row with its sorted copy and highlight every mismatched index."
+  },
+  {
+    "slug":"sorting-insert-interval",
+    "statement":"Given non-overlapping intervals sorted by start time and a new interval, insert the new interval and merge all overlapping intervals. Return the resulting sorted, non-overlapping intervals.",
+    "constraints":"0 <= intervals.length <= 10^4\nintervals[i].length == 2\n0 <= start <= end <= 10^5\nInput intervals are sorted by start and do not overlap.\nnewInterval.length == 2",
+    "inputDescription":"Enter intervals = [[start,end],...] and newInterval = [start,end] on separate lines. The visualizer limits the interval list to 100 entries.",
+    "outputDescription":"Return the intervals after inserting and merging the new interval.",
+    "examples":[{"input":"intervals = [[1,3],[6,9]]\nnewInterval = [2,5]","output":"[[1,5],[6,9]]","explanation":"The new interval overlaps [1,3], producing [1,5]."},{"input":"intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]\nnewInterval = [4,8]","output":"[[1,2],[3,10],[12,16]]"}],
+    "approaches":[{"name":"Single-pass insertion and merge","steps":["Append intervals ending before the new interval starts.","Merge every interval that overlaps the new interval by extending its bounds.","Append the merged interval and all remaining intervals."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Track the pending interval as earlier intervals are copied, overlaps expand its range, and later intervals are appended."
+  },
+  {
+    "slug":"sorting-largest-number",
+    "statement":"Given non-negative integers, arrange them so their concatenation is as large as possible. Return the result as a string because it may exceed numeric limits.",
+    "constraints":"1 <= nums.length <= 100\n0 <= nums[i] <= 10^9",
+    "inputDescription":"Enter nums = [non-negative integers]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return the largest concatenated number as a string.",
+    "examples":[{"input":"nums = [10,2]","output":"\"210\""},{"input":"nums = [3,30,34,5,9]","output":"\"9534330\""},{"input":"nums = [0,0]","output":"\"0\""}],
+    "approaches":[{"name":"Custom concatenation comparator","steps":["Convert each value to a string.","For each pair a and b, compare a+b with b+a.","Order the pair so the larger concatenation comes first.","Join the ordered strings and normalize an all-zero result to 0."],"timeComplexity":"O(n log n * L)","spaceComplexity":"O(n * L)"}],
+    "visualizationGuide":"Show competing concatenation orders for values and the evolving sequence sorted by the custom comparator."
+  },
+  {
+    "slug":"sorting-maximum-gap",
+    "statement":"Given an unsorted integer array, return the largest difference between adjacent values after sorting. Return 0 if fewer than two values exist. The intended solution runs in linear time.",
+    "constraints":"1 <= nums.length <= 10^5\n0 <= nums[i] <= 10^9",
+    "inputDescription":"Enter nums = [integer values]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return the largest adjacent gap in sorted order.",
+    "examples":[{"input":"nums = [3,6,9,1]","output":"3","explanation":"Sorted values are [1,3,6,9]; the largest adjacent gap is 3."},{"input":"nums = [10]","output":"0"}],
+    "approaches":[{"name":"Sort and scan","steps":["Sort the values in ascending order.","Compare each neighboring pair.","Keep the largest difference."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Show sorted neighboring values and update the largest gap as each pair is scanned."
+  },
+  {
+    "slug":"sorting-meeting-rooms",
+    "statement":"Given meeting intervals, determine whether one person can attend every meeting. Meetings ending exactly when another begins do not conflict.",
+    "constraints":"0 <= intervals.length <= 500\nintervals[i].length == 2\n0 <= start < end <= 10^6",
+    "inputDescription":"Enter intervals = [[start,end],...]. The visualizer accepts up to 100 intervals.",
+    "outputDescription":"Return true if no meetings overlap; otherwise return false.",
+    "examples":[{"input":"intervals = [[0,30],[5,10],[15,20]]","output":"false"},{"input":"intervals = [[5,8],[9,15]]","output":"true"}],
+    "approaches":[{"name":"Sort by start time","steps":["Sort meetings by start time.","Compare each meeting start with the previous meeting end.","Return false if a start is earlier than the previous end; otherwise return true."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Lay meetings out in start-time order and highlight the first pair whose time ranges overlap."
+  },
+  {
+    "slug":"sorting-meeting-rooms-ii",
+    "statement":"Given meeting intervals, return the minimum number of rooms required so every meeting can be held. A room may be reused when its meeting ends at the next meeting's start.",
+    "constraints":"1 <= intervals.length <= 10^4\nintervals[i].length == 2\n0 <= start < end <= 10^6",
+    "inputDescription":"Enter intervals = [[start,end],...]. The visualizer accepts up to 100 intervals.",
+    "outputDescription":"Return the minimum number of meeting rooms required.",
+    "examples":[{"input":"intervals = [[0,30],[5,10],[15,20]]","output":"2"},{"input":"intervals = [[7,10],[2,4]]","output":"1"}],
+    "approaches":[{"name":"Sorted starts and active room ends","steps":["Sort meetings by start time.","Release every room whose end time is at or before the current start.","Assign an available room or allocate a new one.","Track the maximum number of simultaneous active meetings."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Show meetings in start order and the active room end times as rooms are reused or allocated."
+  },
+  {
+    "slug":"sorting-merge-intervals",
+    "statement":"Merge all overlapping intervals and return intervals covering the same ranges without overlap. Intervals sharing an endpoint are considered overlapping.",
+    "constraints":"1 <= intervals.length <= 10^4\nintervals[i].length == 2\n0 <= start <= end <= 10^4",
+    "inputDescription":"Enter intervals = [[start,end],...]. The visualizer accepts up to 100 intervals.",
+    "outputDescription":"Return the merged intervals in ascending order.",
+    "examples":[{"input":"intervals = [[1,3],[2,6],[8,10],[15,18]]","output":"[[1,6],[8,10],[15,18]]"},{"input":"intervals = [[1,4],[4,5]]","output":"[[1,5]]"}],
+    "approaches":[{"name":"Sort and merge in one pass","steps":["Sort intervals by their start value.","Add the first interval to the result.","Merge an interval into the last result when they overlap; otherwise append it."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Show intervals sorted by start, highlighting when the current interval extends the last merged range."
+  },
+  {
+    "slug":"sorting-merge-sorted-array",
+    "statement":"Given two sorted arrays, nums1 has m valid values followed by enough empty capacity for nums2's n values. Merge nums2 into nums1 in non-decreasing order without returning a separate array.",
+    "constraints":"nums1.length == m + n\nnums2.length == n\n0 <= m, n <= 200\n1 <= m + n <= 200\n-10^9 <= nums1[i], nums2[j] <= 10^9",
+    "inputDescription":"Enter nums1 = [values including trailing zero capacity], m = valid count, nums2 = [values], and n = nums2 count on separate lines. Arrays are limited to 100 entries.",
+    "outputDescription":"Return nums1 after merging all values in non-decreasing order.",
+    "examples":[{"input":"nums1 = [1,2,3,0,0,0]\nm = 3\nnums2 = [2,5,6]\nn = 3","output":"[1,2,2,3,5,6]"},{"input":"nums1 = [1]\nm = 1\nnums2 = []\nn = 0","output":"[1]"},{"input":"nums1 = [0]\nm = 0\nnums2 = [1]\nn = 1","output":"[1]"}],
+    "approaches":[{"name":"Merge from the end","steps":["Set pointers to the last valid values in both arrays.","Write the larger value into the final free position of nums1.","Continue backward until every value from nums2 is placed."],"timeComplexity":"O(m+n)","spaceComplexity":"O(1) auxiliary"}],
+    "visualizationGuide":"Trace the two input pointers and the write pointer moving backward through nums1."
+  },
+  {
+    "slug":"sorting-minimum-number-of-arrows-to-burst-balloons",
+    "statement":"Each interval represents a balloon's horizontal range. An arrow at coordinate x bursts every balloon whose interval contains x. Return the minimum number of arrows needed to burst all balloons.",
+    "constraints":"1 <= points.length <= 10^5\npoints[i].length == 2\n-2^31 <= xStart < xEnd <= 2^31 - 1",
+    "inputDescription":"Enter points = [[start,end],...]. The visualizer accepts up to 100 intervals.",
+    "outputDescription":"Return the minimum number of arrows required.",
+    "examples":[{"input":"points = [[10,16],[2,8],[1,6],[7,12]]","output":"2","explanation":"Arrows at 6 and 11 burst all balloons."},{"input":"points = [[1,2],[3,4],[5,6],[7,8]]","output":"4"},{"input":"points = [[1,2],[2,3],[3,4],[4,5]]","output":"2"}],
+    "approaches":[{"name":"Greedy by end coordinate","steps":["Sort balloons by their ending coordinate.","Shoot an arrow at the end of the first unburst balloon.","Skip every balloon containing that coordinate and repeat."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Mark the arrow coordinate at the earliest finishing balloon and highlight all intervals burst by that arrow."
+  },
+  {
+    "slug":"sorting-non-overlapping-intervals",
+    "statement":"Remove the minimum number of intervals so the remaining intervals do not overlap. Intervals that share an endpoint are non-overlapping.",
+    "constraints":"1 <= intervals.length <= 10^5\nintervals[i].length == 2\n-5 * 10^4 <= start < end <= 5 * 10^4",
+    "inputDescription":"Enter intervals = [[start,end],...]. The visualizer accepts up to 100 intervals.",
+    "outputDescription":"Return the minimum number of intervals to remove.",
+    "examples":[{"input":"intervals = [[1,2],[2,3],[3,4],[1,3]]","output":"1"},{"input":"intervals = [[1,2],[1,2],[1,2]]","output":"2"},{"input":"intervals = [[1,2],[2,3]]","output":"0"}],
+    "approaches":[{"name":"Greedy by earliest end","steps":["Sort intervals by end time.","Keep the first interval, then keep each interval starting at or after the last kept end.","Return the total count minus the number kept."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Highlight intervals kept by earliest finishing time and mark each overlapping interval removed."
+  },
+  {
+    "slug":"sorting-pancake-sorting",
+    "statement":"Given a permutation of 1 through n, sort it using prefix reversals. Return the sequence of flip sizes, with no more than 10*n flips.",
+    "constraints":"1 <= arr.length <= 100\n1 <= arr[i] <= arr.length\nAll elements are distinct and arr is a permutation of 1 through n.",
+    "inputDescription":"Enter arr = [permutation values]. The visualizer accepts up to 100 values.",
+    "outputDescription":"Return a sequence of prefix lengths whose flips sort the array in ascending order.",
+    "examples":[{"input":"arr = [3,2,4,1]","output":"[4,2,4,3]","explanation":"Applying each prefix reversal in order sorts the array."},{"input":"arr = [1,2,3]","output":"[]"}],
+    "approaches":[{"name":"Place the maximum in each prefix","steps":["Find the largest value in the unsorted prefix.","Flip it to the front if it is not already there.","Flip the prefix to place it in its final position.","Shrink the prefix and repeat."],"timeComplexity":"O(n^2)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Animate each prefix reversal while the largest remaining value moves first to the front, then to its final index."
+  },
+  {
+    "slug":"sorting-relative-sort-array",
+    "statement":"Reorder arr1 so values appearing in arr2 follow arr2's order. Values absent from arr2 must appear afterward in ascending order.",
+    "constraints":"1 <= arr1.length, arr2.length <= 1000\n0 <= arr1[i], arr2[i] <= 1000\nAll arr2 values are distinct and occur in arr1.",
+    "inputDescription":"Enter arr1 = [values] and arr2 = [distinct ordering values] on separate lines. Arrays are limited to 100 entries.",
+    "outputDescription":"Return arr1 reordered according to arr2, followed by remaining values in ascending order.",
+    "examples":[{"input":"arr1 = [2,3,1,3,2,4,6,7,9,2,19]\narr2 = [2,1,4,3,9,6]","output":"[2,2,2,1,4,3,3,9,6,7,19]"},{"input":"arr1 = [28,6,22,8,44,17]\narr2 = [22,28,8,6]","output":"[22,28,8,6,17,44]"}],
+    "approaches":[{"name":"Frequency counting","steps":["Count each value in arr1.","Append copies of values in arr2 order.","Append all remaining values in ascending order."],"timeComplexity":"O(n + m + U log U)","spaceComplexity":"O(U)"}],
+    "visualizationGuide":"Show frequency counts as arr2 values are emitted in priority order, then append the sorted remainder."
+  },
+  {
+    "slug":"sorting-sort-colors",
+    "statement":"Sort an array containing only 0, 1, and 2 in-place so values are grouped in ascending order. Do not use a built-in sorting function.",
+    "constraints":"1 <= nums.length <= 300\nnums[i] is 0, 1, or 2.",
+    "inputDescription":"Enter nums = [values containing only 0, 1, and 2]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return nums sorted in the order 0, then 1, then 2.",
+    "examples":[{"input":"nums = [2,0,2,1,1,0]","output":"[0,0,1,1,2,2]"},{"input":"nums = [2,0,1]","output":"[0,1,2]"}],
+    "approaches":[{"name":"Dutch National Flag","steps":["Maintain boundaries for the zero region, unknown region, and two region.","Move zeroes to the left and twos to the right using swaps.","Advance past ones, which are already in the middle region."],"timeComplexity":"O(n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Show low, current, and high pointers while each value is swapped into the zero, one, or two region."
+  },
+  {
+    "slug":"sorting-sort-even-and-odd-indices-independently",
+    "statement":"Rearrange values so even-indexed positions are in ascending order and odd-indexed positions are in descending order. Keep each value within its original index parity.",
+    "constraints":"1 <= nums.length <= 100\n1 <= nums[i] <= 100",
+    "inputDescription":"Enter nums = [integer values]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return the array with even-index values ascending and odd-index values descending.",
+    "examples":[{"input":"nums = [4,1,2,3]","output":"[2,3,4,1]"},{"input":"nums = [2,1]","output":"[2,1]"}],
+    "approaches":[{"name":"Sort each parity group","steps":["Collect values at even indices and odd indices separately.","Sort the even-index group ascending and the odd-index group descending.","Write each sorted group back only to indices of the same parity."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Color even and odd index groups separately, then show their independent sorting and placement."
+  },
+  {
+    "slug":"sorting-sort-integers-by-the-number-of-1-bits",
+    "statement":"Sort integers by their number of set bits in binary representation. If two integers have the same number of set bits, sort them by numeric value.",
+    "constraints":"1 <= arr.length <= 500\n0 <= arr[i] <= 10^4",
+    "inputDescription":"Enter arr = [non-negative integers]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return the values ordered by increasing set-bit count, breaking ties by increasing numeric value.",
+    "examples":[{"input":"arr = [0,1,2,3,4,5,6,7,8]","output":"[0,1,2,4,8,3,5,6,7]"},{"input":"arr = [1024,512,256,128,64,32,16,8,4,2,1]","output":"[1,2,4,8,16,32,64,128,256,512,1024]"}],
+    "approaches":[{"name":"Sort by popcount and value","steps":["Count the set bits in each value.","Sort by bit count, then by numeric value.","Return the reordered values."],"timeComplexity":"O(n log n * B)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Display each value's binary representation and set-bit count as the custom ordering is formed."
+  },
+  {
+    "slug":"sorting-sort-vowels-in-a-string",
+    "statement":"Given a string of uppercase and lowercase English letters, sort only its vowels in ascending ASCII order. Keep every consonant in its original position.",
+    "constraints":"1 <= s.length <= 10^5\ns contains uppercase and lowercase English letters.",
+    "inputDescription":"Enter s = \"string\". The visualizer accepts strings up to 100 characters.",
+    "outputDescription":"Return the string with vowels sorted by ASCII code and consonants unchanged.",
+    "examples":[{"input":"s = \"lEetcOde\"","output":"\"lEOtcede\"","explanation":"The vowels E, e, O sort by ASCII as E, O, e."},{"input":"s = \"lYmpH\"","output":"\"lYmpH\""}],
+    "approaches":[{"name":"Extract, sort, and replace vowels","steps":["Collect the vowel characters.","Sort them by ASCII value.","Replace vowel positions from left to right while preserving consonants."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Highlight vowel positions, sort the extracted characters by ASCII value, and place them back into those positions."
+  },
+  {
+    "slug":"sorting-sort-an-array",
+    "statement":"Sort an integer array in ascending order using an algorithm with O(n log n) time complexity. Do not use a built-in sorting function.",
+    "constraints":"1 <= nums.length <= 5 * 10^4\n-5 * 10^4 <= nums[i] <= 5 * 10^4",
+    "inputDescription":"Enter nums = [integer values]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return nums sorted in ascending order.",
+    "examples":[{"input":"nums = [5,2,3,1]","output":"[1,2,3,5]"},{"input":"nums = [5,1,1,2,0,0]","output":"[0,0,1,1,2,5]"}],
+    "approaches":[{"name":"Merge sort","steps":["Divide the array into two halves until each subarray has one value.","Recursively sort both halves.","Merge the sorted halves by repeatedly selecting the smaller front value."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Animate merge sort's divide-and-merge process, highlighting comparisons and the values written back."
+  },
+  {
+    "slug":"sorting-sort-the-people",
+    "statement":"Given names and heights where matching indices identify the same person and all heights are distinct, return names ordered from tallest to shortest.",
+    "constraints":"names.length == heights.length\n1 <= names.length <= 1000\n1 <= names[i].length <= 20\n1 <= heights[i] <= 10^5\nNames contain uppercase and lowercase English letters.\nAll heights are distinct.",
+    "inputDescription":"Enter names = [\"name\",...] and heights = [integer,...] on separate lines. Arrays are limited to 100 entries.",
+    "outputDescription":"Return the names ordered by descending height.",
+    "examples":[{"input":"names = [\"Mary\",\"John\",\"Emma\"]\nheights = [180,165,170]","output":"[\"Mary\",\"Emma\",\"John\"]"},{"input":"names = [\"Alice\",\"Bob\",\"Bob\"]\nheights = [155,185,150]","output":"[\"Bob\",\"Alice\",\"Bob\"]"}],
+    "approaches":[{"name":"Sort paired records by height","steps":["Pair each name with its height.","Sort pairs by descending height.","Return names in the sorted pair order."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Keep each name attached to its height while paired records move into descending height order."
+  },
+  {
+    "slug":"sorting-wiggle-sort-ii",
+    "statement":"Rearrange nums so nums[0] < nums[1] > nums[2] < nums[3] and so on. A valid arrangement is guaranteed to exist.",
+    "constraints":"1 <= nums.length <= 5 * 10^4\n0 <= nums[i] <= 5000\nA valid arrangement is guaranteed.",
+    "inputDescription":"Enter nums = [integer values]. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return a permutation of nums satisfying the strict wiggle pattern.",
+    "examples":[{"input":"nums = [1,5,1,1,6,4]","output":"[1,6,1,5,1,4]","explanation":"This arrangement satisfies 1 < 6 > 1 < 5 > 1 < 4."},{"input":"nums = [1,3,2,2,3,1]","output":"[2,3,1,3,1,2]"}],
+    "approaches":[{"name":"Interleave sorted halves in reverse","steps":["Sort a copy of the values.","Split it into a smaller half and a larger half.","Fill even indices from the smaller half in reverse order.","Fill odd indices from the larger half in reverse order."],"timeComplexity":"O(n log n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Show the two sorted halves being interleaved into even valleys and odd peaks, then verify each strict inequality."
+  }
+]

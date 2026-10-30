@@ -1,0 +1,201 @@
+topicSlug,title,slug,leetcodeNumber
+arrays,Two Sum,arrays-two-sum,1
+arrays,Best Time to Buy and Sell Stock,arrays-best-time-to-buy-and-sell-stock,121
+arrays,Maximum Subarray,arrays-maximum-subarray,53
+arrays,Move Zeroes,arrays-move-zeroes,283
+arrays,Remove Duplicates from Sorted Array,arrays-remove-duplicates-from-sorted-array,26
+arrays,Remove Element,arrays-remove-element,27
+arrays,Rotate Array,arrays-rotate-array,189
+arrays,Merge Sorted Array,arrays-merge-sorted-array,88
+arrays,Product of Array Except Self,arrays-product-of-array-except-self,238
+arrays,Sort Colors,arrays-sort-colors,75
+arrays,Majority Element,arrays-majority-element,169
+arrays,Missing Number,arrays-missing-number,268
+arrays,Find All Numbers Disappeared in an Array,arrays-find-all-numbers-disappeared-in-an-array,448
+arrays,Find the Duplicate Number,arrays-find-the-duplicate-number,287
+arrays,Container With Most Water,arrays-container-with-most-water,11
+arrays,3Sum,arrays-3sum,15
+arrays,Subarray Sum Equals K,arrays-subarray-sum-equals-k,560
+arrays,Longest Consecutive Sequence,arrays-longest-consecutive-sequence,128
+arrays,Maximum Product Subarray,arrays-maximum-product-subarray,152
+arrays,Trapping Rain Water,arrays-trapping-rain-water,42
+linked-lists,Reverse Linked List,linked-lists-reverse-linked-list,206
+linked-lists,Middle of the Linked List,linked-lists-middle-of-the-linked-list,876
+linked-lists,Linked List Cycle,linked-lists-linked-list-cycle,141
+linked-lists,Linked List Cycle II,linked-lists-linked-list-cycle-ii,142
+linked-lists,Merge Two Sorted Lists,linked-lists-merge-two-sorted-lists,21
+linked-lists,Remove Nth Node From End,linked-lists-remove-nth-node-from-end,19
+linked-lists,Palindrome Linked List,linked-lists-palindrome-linked-list,234
+linked-lists,Intersection of Two Linked Lists,linked-lists-intersection-of-two-linked-lists,160
+linked-lists,Add Two Numbers,linked-lists-add-two-numbers,2
+linked-lists,Rotate List,linked-lists-rotate-list,61
+linked-lists,Swap Nodes in Pairs,linked-lists-swap-nodes-in-pairs,24
+linked-lists,Reverse Nodes in K-Group,linked-lists-reverse-nodes-in-k-group,25
+linked-lists,Reorder List,linked-lists-reorder-list,143
+linked-lists,Odd Even Linked List,linked-lists-odd-even-linked-list,328
+linked-lists,Delete the Middle Node,linked-lists-delete-the-middle-node,2095
+linked-lists,Remove Duplicates from Sorted List,linked-lists-remove-duplicates-from-sorted-list,83
+linked-lists,Remove Duplicates from Sorted List II,linked-lists-remove-duplicates-from-sorted-list-ii,82
+linked-lists,Partition List,linked-lists-partition-list,86
+linked-lists,Copy List with Random Pointer,linked-lists-copy-list-with-random-pointer,138
+linked-lists,Merge K Sorted Lists,linked-lists-merge-k-sorted-lists,23
+stacks,Valid Parentheses,stacks-valid-parentheses,20
+stacks,Min Stack,stacks-min-stack,155
+stacks,Evaluate Reverse Polish Notation,stacks-evaluate-reverse-polish-notation,150
+stacks,Daily Temperatures,stacks-daily-temperatures,739
+stacks,Next Greater Element I,stacks-next-greater-element-i,496
+stacks,Next Greater Element II,stacks-next-greater-element-ii,503
+stacks,Largest Rectangle in Histogram,stacks-largest-rectangle-in-histogram,84
+stacks,Basic Calculator,stacks-basic-calculator,224
+stacks,Basic Calculator II,stacks-basic-calculator-ii,227
+stacks,Simplify Path,stacks-simplify-path,71
+stacks,Decode String,stacks-decode-string,394
+stacks,Remove All Adjacent Duplicates in String,stacks-remove-all-adjacent-duplicates-in-string,1047
+stacks,Asteroid Collision,stacks-asteroid-collision,735
+stacks,Backspace String Compare,stacks-backspace-string-compare,844
+stacks,Online Stock Span,stacks-online-stock-span,901
+stacks,Valid Parenthesis String,stacks-valid-parenthesis-string,678
+stacks,Make The String Great,stacks-make-the-string-great,1544
+stacks,Baseball Game,stacks-baseball-game,682
+stacks,Maximum Frequency Stack,stacks-maximum-frequency-stack,895
+stacks,Score of Parentheses,stacks-score-of-parentheses,856
+queues,Implement Queue using Stacks,queues-implement-queue-using-stacks,232
+queues,Implement Stack using Queues,queues-implement-stack-using-queues,225
+queues,Number of Recent Calls,queues-number-of-recent-calls,933
+queues,Design Circular Queue,queues-design-circular-queue,622
+queues,Design Circular Deque,queues-design-circular-deque,641
+queues,Sliding Window Maximum,queues-sliding-window-maximum,239
+queues,Time Needed to Buy Tickets,queues-time-needed-to-buy-tickets,2073
+queues,Number of Students Unable to Eat Lunch,queues-number-of-students-unable-to-eat-lunch,1700
+queues,Dota2 Senate,queues-dota2-senate,649
+queues,Reveal Cards In Increasing Order,queues-reveal-cards-in-increasing-order,950
+queues,Moving Average from Data Stream,queues-moving-average-from-data-stream,346
+queues,Rotting Oranges,queues-rotting-oranges,994
+queues,Binary Tree Level Order Traversal,queues-binary-tree-level-order-traversal,102
+queues,Binary Tree Zigzag Level Order Traversal,queues-binary-tree-zigzag-level-order-traversal,103
+queues,Average of Levels in Binary Tree,queues-average-of-levels-in-binary-tree,637
+queues,Find the Winner of the Circular Game,queues-find-the-winner-of-the-circular-game,1823
+queues,Open the Lock,queues-open-the-lock,752
+queues,Perfect Squares,queues-perfect-squares,279
+queues,Word Ladder,queues-word-ladder,127
+queues,Shortest Path in Binary Matrix,queues-shortest-path-in-binary-matrix,1091
+binary-trees,Maximum Depth of Binary Tree,binary-trees-maximum-depth-of-binary-tree,104
+binary-trees,Invert Binary Tree,binary-trees-invert-binary-tree,226
+binary-trees,Same Tree,binary-trees-same-tree,100
+binary-trees,Symmetric Tree,binary-trees-symmetric-tree,101
+binary-trees,Binary Tree Level Order Traversal,binary-trees-binary-tree-level-order-traversal,102
+binary-trees,Binary Tree Zigzag Level Order Traversal,binary-trees-binary-tree-zigzag-level-order-traversal,103
+binary-trees,Diameter of Binary Tree,binary-trees-diameter-of-binary-tree,543
+binary-trees,Balanced Binary Tree,binary-trees-balanced-binary-tree,110
+binary-trees,Path Sum,binary-trees-path-sum,112
+binary-trees,Path Sum II,binary-trees-path-sum-ii,113
+binary-trees,Binary Tree Right Side View,binary-trees-binary-tree-right-side-view,199
+binary-trees,Lowest Common Ancestor of a Binary Tree,binary-trees-lowest-common-ancestor-of-a-binary-tree,236
+binary-trees,Validate Binary Search Tree,binary-trees-validate-binary-search-tree,98
+binary-trees,Search in a Binary Search Tree,binary-trees-search-in-a-binary-search-tree,700
+binary-trees,Insert into a Binary Search Tree,binary-trees-insert-into-a-binary-search-tree,701
+binary-trees,Delete Node in a BST,binary-trees-delete-node-in-a-bst,450
+binary-trees,Kth Smallest Element in a BST,binary-trees-kth-smallest-element-in-a-bst,230
+binary-trees,Construct Binary Tree from Preorder and Inorder,binary-trees-construct-binary-tree-from-preorder-and-inorder,105
+binary-trees,Flatten Binary Tree to Linked List,binary-trees-flatten-binary-tree-to-linked-list,114
+binary-trees,Binary Tree Maximum Path Sum,binary-trees-binary-tree-maximum-path-sum,124
+heaps-priority-queue,Kth Largest Element in an Array,heaps-priority-queue-kth-largest-element-in-an-array,215
+heaps-priority-queue,Kth Smallest Element in a Sorted Matrix,heaps-priority-queue-kth-smallest-element-in-a-sorted-matrix,378
+heaps-priority-queue,Top K Frequent Elements,heaps-priority-queue-top-k-frequent-elements,347
+heaps-priority-queue,K Closest Points to Origin,heaps-priority-queue-k-closest-points-to-origin,973
+heaps-priority-queue,Find Median from Data Stream,heaps-priority-queue-find-median-from-data-stream,295
+heaps-priority-queue,Merge K Sorted Lists,heaps-priority-queue-merge-k-sorted-lists,23
+heaps-priority-queue,Last Stone Weight,heaps-priority-queue-last-stone-weight,1046
+heaps-priority-queue,Kth Largest Element in a Stream,heaps-priority-queue-kth-largest-element-in-a-stream,703
+heaps-priority-queue,Task Scheduler,heaps-priority-queue-task-scheduler,621
+heaps-priority-queue,Reorganize String,heaps-priority-queue-reorganize-string,767
+heaps-priority-queue,Sort Characters By Frequency,heaps-priority-queue-sort-characters-by-frequency,451
+heaps-priority-queue,Meeting Rooms II,heaps-priority-queue-meeting-rooms-ii,253
+heaps-priority-queue,Smallest Range Covering Elements from K Lists,heaps-priority-queue-smallest-range-covering-elements-from-k-lists,632
+heaps-priority-queue,Find K Pairs with Smallest Sums,heaps-priority-queue-find-k-pairs-with-smallest-sums,373
+heaps-priority-queue,Seat Reservation Manager,heaps-priority-queue-seat-reservation-manager,1845
+heaps-priority-queue,Take Gifts From the Richest Pile,heaps-priority-queue-take-gifts-from-the-richest-pile,2558
+heaps-priority-queue,Furthest Building You Can Reach,heaps-priority-queue-furthest-building-you-can-reach,1642
+heaps-priority-queue,Maximum Subsequence Score,heaps-priority-queue-maximum-subsequence-score,2542
+heaps-priority-queue,Minimum Cost to Hire K Workers,heaps-priority-queue-minimum-cost-to-hire-k-workers,857
+heaps-priority-queue,IPO,heaps-priority-queue-ipo,502
+searching,Binary Search,searching-binary-search,704
+searching,Search Insert Position,searching-search-insert-position,35
+searching,Search in Rotated Sorted Array,searching-search-in-rotated-sorted-array,33
+searching,Search in Rotated Sorted Array II,searching-search-in-rotated-sorted-array-ii,81
+searching,Find Minimum in Rotated Sorted Array,searching-find-minimum-in-rotated-sorted-array,153
+searching,Find Minimum in Rotated Sorted Array II,searching-find-minimum-in-rotated-sorted-array-ii,154
+searching,Find First and Last Position,searching-find-first-and-last-position,34
+searching,Sqrt(x),searching-sqrt-x,69
+searching,Valid Perfect Square,searching-valid-perfect-square,367
+searching,Guess Number Higher or Lower,searching-guess-number-higher-or-lower,374
+searching,Peak Index in a Mountain Array,searching-peak-index-in-a-mountain-array,852
+searching,Find Peak Element,searching-find-peak-element,162
+searching,Koko Eating Bananas,searching-koko-eating-bananas,875
+searching,Capacity To Ship Packages Within D Days,searching-capacity-to-ship-packages-within-d-days,1011
+searching,Split Array Largest Sum,searching-split-array-largest-sum,410
+searching,Minimum Number of Days to Make m Bouquets,searching-minimum-number-of-days-to-make-m-bouquets,1482
+searching,Search a 2D Matrix,searching-search-a-2d-matrix,74
+searching,Search a 2D Matrix II,searching-search-a-2d-matrix-ii,240
+searching,Median of Two Sorted Arrays,searching-median-of-two-sorted-arrays,4
+searching,Find K Closest Elements,searching-find-k-closest-elements,658
+sorting,Sort an Array,sorting-sort-an-array,912
+sorting,Sort Colors,sorting-sort-colors,75
+sorting,Merge Sorted Array,sorting-merge-sorted-array,88
+sorting,Merge Intervals,sorting-merge-intervals,56
+sorting,Insert Interval,sorting-insert-interval,57
+sorting,Non-overlapping Intervals,sorting-non-overlapping-intervals,435
+sorting,Largest Number,sorting-largest-number,179
+sorting,Relative Sort Array,sorting-relative-sort-array,1122
+sorting,Maximum Gap,sorting-maximum-gap,164
+sorting,Height Checker,sorting-height-checker,1051
+sorting,Sort Integers by The Number of 1 Bits,sorting-sort-integers-by-the-number-of-1-bits,1356
+sorting,Sort the People,sorting-sort-the-people,2418
+sorting,Sort Vowels in a String,sorting-sort-vowels-in-a-string,2785
+sorting,Sort Even and Odd Indices Independently,sorting-sort-even-and-odd-indices-independently,2164
+sorting,Wiggle Sort II,sorting-wiggle-sort-ii,324
+sorting,Pancake Sorting,sorting-pancake-sorting,969
+sorting,Meeting Rooms,sorting-meeting-rooms,252
+sorting,Meeting Rooms II,sorting-meeting-rooms-ii,253
+sorting,Minimum Number of Arrows to Burst Balloons,sorting-minimum-number-of-arrows-to-burst-balloons,452
+sorting,Hand of Straights,sorting-hand-of-straights,846
+graphs,Number of Islands,graphs-number-of-islands,200
+graphs,Clone Graph,graphs-clone-graph,133
+graphs,Course Schedule,graphs-course-schedule,207
+graphs,Course Schedule II,graphs-course-schedule-ii,210
+graphs,Pacific Atlantic Water Flow,graphs-pacific-atlantic-water-flow,417
+graphs,Rotting Oranges,graphs-rotting-oranges,994
+graphs,Surrounded Regions,graphs-surrounded-regions,130
+graphs,Number of Provinces,graphs-number-of-provinces,547
+graphs,Graph Valid Tree,graphs-graph-valid-tree,261
+graphs,Is Graph Bipartite?,graphs-is-graph-bipartite,785
+graphs,Word Ladder,graphs-word-ladder,127
+graphs,Open the Lock,graphs-open-the-lock,752
+graphs,Shortest Path in Binary Matrix,graphs-shortest-path-in-binary-matrix,1091
+graphs,Network Delay Time,graphs-network-delay-time,743
+graphs,Cheapest Flights Within K Stops,graphs-cheapest-flights-within-k-stops,787
+graphs,Min Cost to Connect All Points,graphs-min-cost-to-connect-all-points,1584
+graphs,Redundant Connection,graphs-redundant-connection,684
+graphs,Accounts Merge,graphs-accounts-merge,721
+graphs,Evaluate Division,graphs-evaluate-division,399
+graphs,Reconstruct Itinerary,graphs-reconstruct-itinerary,332
+dynamic-programming,Climbing Stairs,dynamic-programming-climbing-stairs,70
+dynamic-programming,Min Cost Climbing Stairs,dynamic-programming-min-cost-climbing-stairs,746
+dynamic-programming,House Robber,dynamic-programming-house-robber,198
+dynamic-programming,House Robber II,dynamic-programming-house-robber-ii,213
+dynamic-programming,Coin Change,dynamic-programming-coin-change,322
+dynamic-programming,Coin Change II,dynamic-programming-coin-change-ii,518
+dynamic-programming,Longest Increasing Subsequence,dynamic-programming-longest-increasing-subsequence,300
+dynamic-programming,Longest Common Subsequence,dynamic-programming-longest-common-subsequence,1143
+dynamic-programming,Word Break,dynamic-programming-word-break,139
+dynamic-programming,Partition Equal Subset Sum,dynamic-programming-partition-equal-subset-sum,416
+dynamic-programming,Target Sum,dynamic-programming-target-sum,494
+dynamic-programming,Unique Paths,dynamic-programming-unique-paths,62
+dynamic-programming,Unique Paths II,dynamic-programming-unique-paths-ii,63
+dynamic-programming,Minimum Path Sum,dynamic-programming-minimum-path-sum,64
+dynamic-programming,Decode Ways,dynamic-programming-decode-ways,91
+dynamic-programming,Maximum Product Subarray,dynamic-programming-maximum-product-subarray,152
+dynamic-programming,Best Time to Buy and Sell Stock with Cooldown,dynamic-programming-best-time-to-buy-and-sell-stock-with-cooldown,309
+dynamic-programming,Edit Distance,dynamic-programming-edit-distance,72
+dynamic-programming,0/1 Knapsack – Interview Classic,dynamic-programming-01-knapsack-interview-classic,
+dynamic-programming,Palindromic Substrings,dynamic-programming-palindromic-substrings,647

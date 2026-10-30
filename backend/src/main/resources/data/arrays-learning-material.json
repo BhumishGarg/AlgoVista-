@@ -1,0 +1,606 @@
+[
+  {
+    "slug": "arrays-two-sum",
+    "statement": "Given an integer array nums and an integer target, find the indices of two distinct elements whose sum equals target. Return the two indices. Exactly one valid answer exists, and the same element cannot be used twice.",
+    "constraints": "2 <= nums.length <= 10^4\n-10^9 <= nums[i] <= 10^9\n-10^9 <= target <= 10^9\nExactly one valid solution exists.",
+    "inputDescription": "First line: integer n, the number of elements. Second line: n space-separated integers. Third line: integer target.",
+    "outputDescription": "Return the two distinct indices as a list of integers.",
+    "examples": [
+      {
+        "input": "4\n2 7 11 15\n9",
+        "output": "[0, 1]",
+        "explanation": "The values at indices 0 and 1 are 2 and 7, and their sum is 9."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Choose each element in turn.", "Check every element after it.", "Return the pair of indices when their values sum to target."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Hash map",
+        "steps": ["Traverse the array from left to right.", "For each value x, calculate target - x and check whether that complement was stored earlier.", "If found, return the stored and current indices; otherwise store x and its index."],
+        "timeComplexity": "O(n) average",
+        "spaceComplexity": "O(n)"
+      }
+    ],
+    "visualizationGuide": "Show the current index, required complement, hash-map contents, and the two matching indices."
+  },
+  {
+    "slug": "arrays-best-time-to-buy-and-sell-stock",
+    "statement": "You are given an array prices, where prices[i] is the stock price on day i. Choose one day to buy and a later day to sell. Return the maximum possible profit. If no profit is possible, return 0.",
+    "constraints": "1 <= prices.length <= 10^5\n0 <= prices[i] <= 10^4\nThe selling day must come after the buying day.",
+    "inputDescription": "First line: integer n. Second line: n space-separated stock prices.",
+    "outputDescription": "Return the maximum profit as an integer.",
+    "examples": [
+      {
+        "input": "6\n7 1 5 3 6 4",
+        "output": "5",
+        "explanation": "Buy at price 1 and sell later at price 6. The maximum profit is 6 - 1 = 5."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Try every possible buying day.", "Check all later selling days.", "Track the maximum profit."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "One-pass greedy",
+        "steps": ["Track the minimum price seen so far.", "Calculate the profit from selling at the current price and update the maximum.", "Update the minimum price when a lower price appears."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Highlight the current price, minimum price so far, calculated profit, and maximum profit."
+  },
+  {
+    "slug": "arrays-container-with-most-water",
+    "statement": "You are given an array height, where each element represents the height of a vertical line positioned at its index. Choose two lines that form a container with the x-axis and holds the maximum amount of water. Return the maximum area. The area is min(height[left], height[right]) * (right - left).",
+    "constraints": "2 <= height.length <= 10^5\n0 <= height[i] <= 10^4",
+    "inputDescription": "First line: integer n. Second line: n space-separated heights.",
+    "outputDescription": "Return the maximum container area as an integer.",
+    "examples": [
+      {
+        "input": "9\n1 8 6 2 5 4 8 3 7",
+        "output": "49",
+        "explanation": "The lines at indices 1 and 8 have heights 8 and 7. Their area is 7 * 7 = 49."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Calculate the area of every possible pair of lines.", "Return the maximum area."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Two pointers",
+        "steps": ["Start one pointer at each end of the array.", "Calculate the area between the pointers.", "Move the pointer at the shorter line inward and continue until the pointers meet."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Display the two selected lines, the current container area, and the maximum area found."
+  },
+  {
+    "slug": "arrays-find-all-numbers-disappeared-in-an-array",
+    "statement": "You are given an integer array nums of length n, where every value is between 1 and n. Some values may appear more than once. Return all missing numbers in the range 1 through n in ascending order.",
+    "constraints": "1 <= nums.length <= 10^5\n1 <= nums[i] <= n\nEach value appears once or twice.",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the missing values as a list of integers in ascending order.",
+    "examples": [
+      {
+        "input": "8\n4 3 2 7 8 2 3 1",
+        "output": "[5, 6]",
+        "explanation": "Values 5 and 6 do not appear in the array."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Frequency array",
+        "steps": ["Create a frequency array of size n + 1.", "Mark every value that appears.", "Return values from 1 through n whose frequencies are zero."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "In-place marking",
+        "steps": ["For each value x, use index abs(x) - 1.", "Mark the value at that index negative if it is positive.", "Afterward, positive positions correspond to missing numbers."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1) auxiliary, excluding the returned list"
+      }
+    ],
+    "visualizationGuide": "Show each value's mapped index, the marking operation, and the missing numbers discovered at the end."
+  },
+  {
+    "slug": "arrays-find-the-duplicate-number",
+    "statement": "Given an integer array nums containing n + 1 integers, where every integer is between 1 and n, find the repeated number. Exactly one distinct value is duplicated, though it may appear more than twice. Do not modify the array; the optimized solution uses constant extra space.",
+    "constraints": "1 <= n <= 10^5\nnums.length == n + 1\n1 <= nums[i] <= n\nExactly one distinct value is duplicated.",
+    "inputDescription": "First line: integer m, the array length. Second line: m space-separated integers.",
+    "outputDescription": "Return the duplicated value as an integer.",
+    "examples": [
+      {
+        "input": "5\n1 3 4 2 2",
+        "output": "2",
+        "explanation": "The value 2 appears more than once."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Sorting",
+        "steps": ["Sort the array.", "Check adjacent elements and return the first repeated value."],
+        "timeComplexity": "O(n log n)",
+        "spaceComplexity": "Depends on the sorting implementation; sorting modifies the array"
+      },
+      {
+        "name": "Hash set",
+        "steps": ["Traverse the array.", "If a value already exists in the set, return it; otherwise insert it."],
+        "timeComplexity": "O(n) average",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Floyd's cycle detection",
+        "steps": ["Treat each array value as a pointer to another index.", "Use slow and fast pointers to find a meeting point.", "Reset one pointer to the start and move both one step at a time; their next meeting point identifies the duplicate."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Animate slow and fast pointers moving through the array's index links."
+  },
+  {
+    "slug": "arrays-longest-consecutive-sequence",
+    "statement": "Given an unsorted array of integers, find the length of the longest sequence of consecutive values. The values do not need to appear next to one another in the original array.",
+    "constraints": "0 <= nums.length <= 10^5\n-10^9 <= nums[i] <= 10^9",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers. If n is 0, the array is empty.",
+    "outputDescription": "Return the longest consecutive sequence length as an integer.",
+    "examples": [
+      {
+        "input": "6\n100 4 200 1 3 2",
+        "output": "4",
+        "explanation": "The longest consecutive sequence is 1, 2, 3, 4."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Sorting",
+        "steps": ["Sort the array.", "Skip duplicate values.", "Count consecutive values and track the maximum sequence length."],
+        "timeComplexity": "O(n log n)",
+        "spaceComplexity": "Depends on the sorting implementation"
+      },
+      {
+        "name": "Hash set",
+        "steps": ["Insert all values into a set.", "Start a sequence only when x - 1 is absent.", "Count consecutive successors and track the longest sequence."],
+        "timeComplexity": "O(n) average",
+        "spaceComplexity": "O(n)"
+      }
+    ],
+    "visualizationGuide": "Highlight the starting number, extend the sequence, and update the longest length."
+  },
+  {
+    "slug": "arrays-majority-element",
+    "statement": "Given an array nums of size n, find the element that appears more than floor(n / 2) times. A majority element is guaranteed to exist.",
+    "constraints": "1 <= nums.length <= 5 * 10^4\n-10^9 <= nums[i] <= 10^9\nA majority element is guaranteed to exist.",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the majority element as an integer.",
+    "examples": [
+      {
+        "input": "7\n2 2 1 1 1 2 2",
+        "output": "2",
+        "explanation": "The value 2 appears four times, which is more than floor(7 / 2)."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Count the occurrences of each candidate.", "Return the first value whose count exceeds n / 2."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Hash map",
+        "steps": ["Count the frequency of every value.", "Return the value whose frequency exceeds n / 2."],
+        "timeComplexity": "O(n) average",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Boyer-Moore voting",
+        "steps": ["Maintain a candidate and counter.", "When the counter is zero, select the current element; increment for a match and decrement for a mismatch.", "Return the final candidate; the guaranteed-majority condition means no verification pass is needed."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Animate candidate changes and the counter increasing or decreasing as elements are processed."
+  },
+  {
+    "slug": "arrays-maximum-product-subarray",
+    "statement": "Given an integer array nums, find a non-empty contiguous subarray whose elements have the largest product. Return the maximum product.",
+    "constraints": "1 <= nums.length <= 2 * 10^4\n-10 <= nums[i] <= 10",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the maximum product as an integer.",
+    "examples": [
+      {
+        "input": "4\n2 3 -2 4",
+        "output": "6",
+        "explanation": "The subarray [2, 3] has a product of 6."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Start a subarray at each index.", "Extend it to the right while multiplying its elements.", "Track the maximum product."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Dynamic programming",
+        "steps": ["Maintain the maximum and minimum products ending at the current position.", "The minimum matters because multiplying a negative number by a negative product can produce a large positive product.", "When the current number is negative, swap the previous maximum and minimum; update both and the global maximum."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Show the current number, maximum product, minimum product, and global maximum at each step."
+  },
+  {
+    "slug": "arrays-maximum-subarray",
+    "statement": "Given an integer array nums, find the contiguous subarray with the largest sum and return that sum. The subarray must contain at least one element.",
+    "constraints": "1 <= nums.length <= 10^5\n-10^4 <= nums[i] <= 10^4",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the largest subarray sum as an integer.",
+    "examples": [
+      {
+        "input": "9\n-2 1 -3 4 -1 2 1 -5 4",
+        "output": "6",
+        "explanation": "The maximum-sum subarray is [4, -1, 2, 1], with sum 6."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Generate every non-empty contiguous subarray.", "Use a running sum and track the maximum."],
+        "timeComplexity": "O(n^2) with running sums; O(n^3) if sums are recalculated",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Kadane's algorithm",
+        "steps": ["Initialize the current and maximum sums with the first element.", "For each later element, choose between starting a new subarray and extending the current one.", "Update the maximum sum."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Highlight the active subarray and animate the current sum and maximum sum."
+  },
+  {
+    "slug": "arrays-merge-sorted-array",
+    "statement": "You are given sorted arrays nums1 and nums2 with lengths m and n. The first array has space for all m + n values; its first m positions contain values and its remaining positions are reserved. Merge nums2 into nums1 so nums1 becomes sorted in non-decreasing order.",
+    "constraints": "nums1.length == m + n\nnums2.length == n\n0 <= m, n <= 200\n-10^9 <= nums1[i], nums2[j] <= 10^9\nBoth input portions are initially sorted.",
+    "inputDescription": "First line: integers m and n. Second line: m + n integers for nums1, including reserved positions. Third line: n integers for nums2. When m is 0, the second line contains n placeholders, conventionally zeros.",
+    "outputDescription": "Return the merged sorted nums1 array.",
+    "examples": [
+      {
+        "input": "3 3\n1 2 3 0 0 0\n2 5 6",
+        "output": "[1, 2, 2, 3, 5, 6]",
+        "explanation": "The two sorted input portions are merged in non-decreasing order."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Extra array",
+        "steps": ["Copy the valid portions into a temporary array.", "Merge the sorted portions into nums1."],
+        "timeComplexity": "O(m + n)",
+        "spaceComplexity": "O(m + n)"
+      },
+      {
+        "name": "Three pointers from the end",
+        "steps": ["Place pointers at the ends of the valid nums1 portion and nums2.", "Write the larger value at the end of nums1 and move its source pointer backward.", "Copy any remaining nums2 values."],
+        "timeComplexity": "O(m + n)",
+        "spaceComplexity": "O(1), excluding input arrays"
+      }
+    ],
+    "visualizationGuide": "Animate the two input pointers and the output pointer moving backward through nums1."
+  },
+  {
+    "slug": "arrays-missing-number",
+    "statement": "Given an array containing n distinct numbers from the range 0 to n, find the single number missing from that range.",
+    "constraints": "1 <= nums.length <= 10^4\n0 <= nums[i] <= n\nAll elements are distinct.",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the missing number as an integer.",
+    "examples": [
+      {
+        "input": "3\n3 0 1",
+        "output": "2",
+        "explanation": "The range is 0 through 3; the value 2 is missing."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Sorting",
+        "steps": ["Sort the array.", "Compare each element with its expected index.", "Return the first index that does not match, or n if all preceding values match."],
+        "timeComplexity": "O(n log n)",
+        "spaceComplexity": "Depends on the sorting implementation"
+      },
+      {
+        "name": "Mathematical sum",
+        "steps": ["Calculate the expected sum from 0 through n using n * (n + 1) / 2.", "Subtract the array sum from the expected sum."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "XOR",
+        "steps": ["XOR all numbers from 0 through n.", "XOR that result with every array element; matching values cancel, leaving the missing number."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Display the expected range, actual array values, and the missing number."
+  },
+  {
+    "slug": "arrays-move-zeroes",
+    "statement": "Given an integer array nums, move all zeroes to the end while maintaining the relative order of the non-zero elements. Perform the operation in place.",
+    "constraints": "1 <= nums.length <= 10^4\n-2^31 <= nums[i] <= 2^31 - 1",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the modified array with zeroes at the end.",
+    "examples": [
+      {
+        "input": "6\n0 1 0 3 12 0",
+        "output": "[1, 3, 12, 0, 0, 0]",
+        "explanation": "Non-zero values keep their original relative order."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Extra array",
+        "steps": ["Copy non-zero elements into a temporary array.", "Fill the remaining positions with zeroes."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Two pointers",
+        "steps": ["Maintain a pointer to where the next non-zero value belongs.", "Traverse the array and move each non-zero value to that position.", "Fill the remaining positions with zeroes."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Animate non-zero elements moving forward and zeroes being placed at the end."
+  },
+  {
+    "slug": "arrays-product-of-array-except-self",
+    "statement": "Given an integer array nums, return an array answer where answer[i] is the product of all elements of nums except nums[i]. Do not use division, and achieve linear time complexity.",
+    "constraints": "2 <= nums.length <= 10^5\n-30 <= nums[i] <= 30\nEvery prefix or suffix product fits in a 32-bit integer.",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return the product-except-self values as an integer array.",
+    "examples": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "[24, 12, 8, 6]",
+        "explanation": "Each output position is the product of all input values except the value at that index."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["For each index, multiply every other element.", "Store the product in the answer array."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1) auxiliary, excluding the output array"
+      },
+      {
+        "name": "Prefix and suffix products",
+        "steps": ["In a first pass, store the product of values to the left of each index.", "In a second pass, multiply each answer by the product of values to its right.", "Do not use division."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1) auxiliary, excluding the output array"
+      }
+    ],
+    "visualizationGuide": "Show prefix products in the first pass and suffix products in the second pass."
+  },
+  {
+    "slug": "arrays-remove-duplicates-from-sorted-array",
+    "statement": "Given a sorted integer array nums, remove duplicate values in place so each distinct value appears exactly once. Return k, the number of unique elements. The first k positions must contain the unique elements in their original sorted order; the remaining positions do not need to be cleared.",
+    "constraints": "1 <= nums.length <= 3 * 10^4\n-100 <= nums[i] <= 100\nThe array is sorted in non-decreasing order.",
+    "inputDescription": "First line: integer n. Second line: n sorted integers.",
+    "outputDescription": "Return k and the first k values of the modified array.",
+    "examples": [
+      {
+        "input": "6\n1 1 2 2 3 3",
+        "output": "k = 3\nnums = [1, 2, 3]",
+        "explanation": "Only the first k elements are relevant; the remaining positions do not need to be cleared."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Extra array",
+        "steps": ["Copy each distinct value into a temporary array.", "Copy the unique values back into the original array."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Two pointers",
+        "steps": ["Keep a pointer at the last unique value.", "Traverse with another pointer.", "When a new value appears, advance the unique pointer and copy that value there; return the unique-value count."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Highlight duplicate values being skipped and unique values being moved into their final positions."
+  },
+  {
+    "slug": "arrays-remove-element",
+    "statement": "Given an integer array nums and an integer val, remove every occurrence of val in place. Return k, the number of elements not equal to val. The first k positions must contain the remaining elements; their relative order does not have to be preserved.",
+    "constraints": "0 <= nums.length <= 100\n0 <= nums[i] <= 50\n0 <= val <= 100",
+    "inputDescription": "First line: integers n and val. Second line: n space-separated integers.",
+    "outputDescription": "Return k and the first k values of the modified array.",
+    "examples": [
+      {
+        "input": "4 3\n3 2 2 3",
+        "output": "k = 2\nnums = [2, 2]",
+        "explanation": "The first k positions contain the values that are not equal to 3."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Extra array",
+        "steps": ["Copy every element not equal to val into a temporary array.", "Copy the remaining elements back."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Two pointers",
+        "steps": ["Start a write pointer at zero.", "Traverse the array and write each value that differs from val at the current write position.", "Return the write pointer."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Mark the elements being removed and animate valid elements being moved forward."
+  },
+  {
+    "slug": "arrays-rotate-array",
+    "statement": "Given an integer array nums, rotate it to the right by k positions. A right rotation moves each element one position toward the end, with the last element wrapping around to the beginning. Before rotating, reduce k using k = k % n.",
+    "constraints": "1 <= nums.length <= 10^5\n-2^31 <= nums[i] <= 2^31 - 1\n0 <= k <= 10^5",
+    "inputDescription": "First line: integers n and k. Second line: n space-separated integers.",
+    "outputDescription": "Return the modified array after the right rotation.",
+    "examples": [
+      {
+        "input": "7 3\n1 2 3 4 5 6 7",
+        "output": "[5, 6, 7, 1, 2, 3, 4]",
+        "explanation": "The array is rotated three positions to the right."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Extra array",
+        "steps": ["Place each element at its rotated destination index.", "Copy the result back into the original array."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Reversal algorithm",
+        "steps": ["Reverse the entire array.", "Reverse the first k elements.", "Reverse the remaining n - k elements."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Show the array after each reversal and animate the elements moving to their final positions."
+  },
+  {
+    "slug": "arrays-sort-colors",
+    "statement": "Given an array containing only 0, 1, and 2, sort it in place so all zeroes come first, followed by ones and then twos. Do not use a built-in sorting function.",
+    "constraints": "1 <= nums.length <= 300\nnums[i] is either 0, 1, or 2.",
+    "inputDescription": "First line: integer n. Second line: n integers containing only 0, 1, and 2.",
+    "outputDescription": "Return the modified array sorted as zeroes, then ones, then twos.",
+    "examples": [
+      {
+        "input": "6\n2 0 2 1 1 0",
+        "output": "[0, 0, 1, 1, 2, 2]",
+        "explanation": "The three values are grouped in ascending order."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Counting",
+        "steps": ["Count how many zeroes, ones, and twos appear.", "Overwrite the array with the counted zeroes, then ones, then twos."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Dutch National Flag",
+        "steps": ["Maintain low, mid, and high pointers.", "For 0, swap with low and advance low and mid; for 1, advance mid; for 2, swap with high and decrease high.", "Do not immediately advance mid after swapping with high because that value has not been examined."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Use three colored regions for zeroes, ones, and twos, and animate pointer movements."
+  },
+  {
+    "slug": "arrays-subarray-sum-equals-k",
+    "statement": "Given an array of integers nums and an integer k, return the number of non-empty contiguous subarrays whose elements sum to k. Negative numbers and zeroes may appear.",
+    "constraints": "1 <= nums.length <= 2 * 10^4\n-1000 <= nums[i] <= 1000\n-10^7 <= k <= 10^7",
+    "inputDescription": "First line: integers n and k. Second line: n space-separated integers.",
+    "outputDescription": "Return the number of qualifying subarrays as an integer.",
+    "examples": [
+      {
+        "input": "3 2\n1 1 1",
+        "output": "2",
+        "explanation": "The qualifying subarrays are [1, 1] at indices 0-1 and [1, 1] at indices 1-2."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Generate each possible contiguous subarray while maintaining its running sum.", "Increase the count whenever the sum equals k."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Prefix sum and hash map",
+        "steps": ["Maintain the running prefix sum and store how often each sum has appeared.", "For the current prefix, add the frequency of prefix - k to the answer.", "Record the current prefix frequency; initialize the map with 0 -> 1 for subarrays starting at index zero."],
+        "timeComplexity": "O(n) average",
+        "spaceComplexity": "O(n)"
+      }
+    ],
+    "visualizationGuide": "Display the running prefix sum, required previous sum (prefix - k), hash-map frequencies, and running count."
+  },
+  {
+    "slug": "arrays-trapping-rain-water",
+    "statement": "Given an array height representing an elevation map where each bar has width one, calculate how much rainwater can be trapped between the bars after rainfall. Return the total trapped water.",
+    "constraints": "1 <= height.length <= 2 * 10^4\n0 <= height[i] <= 10^5",
+    "inputDescription": "First line: integer n. Second line: n space-separated heights.",
+    "outputDescription": "Return the total trapped water as an integer.",
+    "examples": [
+      {
+        "input": "12\n0 1 0 2 1 0 1 3 2 1 2 1",
+        "output": "6",
+        "explanation": "The elevation map traps 6 units of water in total."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["For each position, find the maximum height to its left and right.", "Calculate trapped water as the smaller maximum minus the current height and add it to the total."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(1)"
+      },
+      {
+        "name": "Prefix and suffix maximums",
+        "steps": ["Build arrays of maximum heights to the left and right.", "For each position, use the smaller maximum to calculate trapped water."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)"
+      },
+      {
+        "name": "Two pointers",
+        "steps": ["Place pointers at both ends and maintain the maximum height seen from each side.", "Process the side with the smaller current height.", "Add the difference between that side's maximum and current height when positive; continue until the pointers meet."],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)"
+      }
+    ],
+    "visualizationGuide": "Draw the elevation bars, shade trapped-water regions, and show the accumulated water at each step."
+  },
+  {
+    "slug": "arrays-3sum",
+    "statement": "Given an integer array nums, find all unique triplets [nums[i], nums[j], nums[k]] with distinct indices such that their values sum to zero. Return all unique triplets without duplicates. The order of triplets may vary.",
+    "constraints": "3 <= nums.length <= 3000\n-10^5 <= nums[i] <= 10^5",
+    "inputDescription": "First line: integer n. Second line: n space-separated integers.",
+    "outputDescription": "Return a list of unique triplets whose values sum to zero.",
+    "examples": [
+      {
+        "input": "6\n-1 0 1 2 -1 -4",
+        "output": "[[-1, -1, 2], [-1, 0, 1]]",
+        "explanation": "Both triplets sum to zero, and duplicate triplets are omitted."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "Brute force",
+        "steps": ["Try every combination of three distinct indices.", "Check whether the three values sum to zero.", "Store only unique triplets."],
+        "timeComplexity": "O(n^3), excluding duplicate elimination",
+        "spaceComplexity": "Depends on how unique triplets are tracked"
+      },
+      {
+        "name": "Sorting and two pointers",
+        "steps": ["Sort the array and fix one element at index i.", "Use left and right pointers to find pairs summing to -nums[i].", "If the sum is too small, move left forward; if too large, move right backward.", "Record valid triplets and skip duplicate values."],
+        "timeComplexity": "O(n^2)",
+        "spaceComplexity": "O(log n) for typical in-place comparison sorting, excluding the returned triplets"
+      }
+    ],
+    "visualizationGuide": "Highlight the fixed element and two pointers, display the current sum, and animate duplicate skipping."
+  }
+]

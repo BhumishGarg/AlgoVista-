@@ -1,0 +1,202 @@
+[
+  {
+    "slug":"searching-binary-search",
+    "statement":"Given a sorted array of distinct integers nums and an integer target, return the index of target if it exists; otherwise return -1. Use binary search.",
+    "constraints":"1 <= nums.length <= 10^4\n-10^4 < nums[i], target < 10^4\nAll integers in nums are unique.\nnums is sorted in ascending order.",
+    "inputDescription":"Enter nums = [sorted integers] and target = integer on separate lines. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return the index of target, or -1 if it is absent.",
+    "examples":[{"input":"nums = [-1,0,3,5,9,12]\ntarget = 9","output":"4","explanation":"The target 9 is located at index 4."},{"input":"nums = [-1,0,3,5,9,12]\ntarget = 2","output":"-1","explanation":"The target is not in the array."}],
+    "approaches":[{"name":"Binary search","steps":["Set left and right to the search boundaries.","Compare the middle element with target.","Discard the half that cannot contain target.","Stop when found or the range is empty."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Track left, right, and mid while each comparison discards half of the remaining sorted range."
+  },
+  {
+    "slug":"searching-capacity-to-ship-packages-within-d-days",
+    "statement":"Packages with given weights must be shipped in their original order, at most one shipload per day. Find the minimum ship capacity that ships all packages within days.",
+    "constraints":"1 <= days <= weights.length <= 5 * 10^4\n1 <= weights[i] <= 500",
+    "inputDescription":"Enter weights = [positive integers] and days = integer. The visualizer limits weights to 100 values.",
+    "outputDescription":"Return the minimum capacity that ships all packages within the given days.",
+    "examples":[{"input":"weights = [1,2,3,4,5,6,7,8,9,10]\ndays = 5","output":"15","explanation":"Capacity 15 ships all packages in five days without changing their order."}],
+    "approaches":[{"name":"Binary search on capacity","steps":["Use the largest package as the minimum possible capacity and total weight as the maximum.","For a candidate capacity, greedily count the days required in order.","If it fits within days, try a lower capacity; otherwise try a higher one.","Return the smallest feasible capacity."],"timeComplexity":"O(n log(sum(weights)))","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"See the capacity search bounds and the day-by-day package loads for each midpoint capacity."
+  },
+  {
+    "slug":"searching-find-first-and-last-position",
+    "statement":"Given a sorted integer array nums and target, find the starting and ending indices of target. Return [-1,-1] when target does not appear. The algorithm must run in O(log n).",
+    "constraints":"0 <= nums.length <= 10^5\n-10^9 <= nums[i], target <= 10^9\nnums is sorted in ascending order.",
+    "inputDescription":"Enter nums = [sorted integers] and target = integer on separate lines. The visualizer limits arrays to 100 values.",
+    "outputDescription":"Return [firstIndex,lastIndex], or [-1,-1] when target is absent.",
+    "examples":[{"input":"nums = [5,7,7,8,8,10]\ntarget = 8","output":"[3,4]","explanation":"The first occurrence is at index 3 and the last at index 4."},{"input":"nums = []\ntarget = 0","output":"[-1,-1]","explanation":"The empty array contains no target."}],
+    "approaches":[{"name":"Two boundary binary searches","steps":["Binary-search for the first index whose value is at least target.","Verify that index contains target.","Binary-search for the first index whose value is greater than target.","Return the first index and one less than the second boundary."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Watch two binary searches narrow to the lower and upper boundaries of the target's duplicate range."
+  },
+  {
+    "slug":"searching-find-k-closest-elements",
+    "statement":"Given sorted integer array arr, integer k, and target x, return the k elements closest to x in ascending order. On equal distance, prefer the smaller value.",
+    "constraints":"1 <= k <= arr.length <= 10^4\narr is sorted in ascending order.\n-10^4 <= arr[i], x <= 10^4",
+    "inputDescription":"Enter arr = [sorted integers], k = integer, and x = integer on separate lines. The visualizer limits arr to 100 values.",
+    "outputDescription":"Return the k closest values in ascending order.",
+    "examples":[{"input":"arr = [1,2,3,4,5]\nk = 4\nx = 3","output":"[1,2,3,4]","explanation":"The four closest elements are returned in ascending order."}],
+    "approaches":[{"name":"Binary search the window start","steps":["Binary-search the left boundary of a window of length k.","Compare x's distance to the element just outside each side.","Move the window toward the closer side, preferring the left on ties.","Return the final window."],"timeComplexity":"O(log(n-k) + k)","spaceComplexity":"O(1) excluding output"}],
+    "visualizationGuide":"Show the candidate window and compare the values just outside its left and right boundaries."
+  },
+  {
+    "slug":"searching-find-minimum-in-rotated-sorted-array",
+    "statement":"An ascending array of distinct values has been rotated an unknown number of times. Find its minimum in O(log n) time.",
+    "constraints":"1 <= nums.length <= 5000\n-5000 <= nums[i] <= 5000\nAll elements are distinct.\nThe array was originally sorted in ascending order.",
+    "inputDescription":"Enter nums = [rotated integers]. The visualizer accepts up to 100 values.",
+    "outputDescription":"Return the minimum value in nums.",
+    "examples":[{"input":"nums = [3,4,5,1,2]","output":"1","explanation":"The smallest value in the rotated array is 1."}],
+    "approaches":[{"name":"Binary search","steps":["Compare the middle value with the rightmost value.","If the middle is greater, the minimum lies to its right.","Otherwise, the minimum is at mid or to its left.","Continue until left and right meet."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Track the active range as comparisons with the right edge locate the rotation pivot and minimum."
+  },
+  {
+    "slug":"searching-find-minimum-in-rotated-sorted-array-ii",
+    "statement":"A non-decreasing sorted array, which may contain duplicate values, has been rotated. Find and return its minimum value.",
+    "constraints":"1 <= nums.length <= 5000\n-5000 <= nums[i] <= 5000\nThe array was originally sorted in non-decreasing order.",
+    "inputDescription":"Enter nums = [rotated integers, duplicates allowed]. The visualizer accepts up to 100 values.",
+    "outputDescription":"Return the minimum value in nums.",
+    "examples":[{"input":"nums = [2,2,2,0,1]","output":"0","explanation":"The smallest value is 0."}],
+    "approaches":[{"name":"Binary search with duplicate handling","steps":["Compare nums[mid] with nums[right].","If smaller, keep the left half including mid; if larger, keep the right half after mid.","If equal, decrement right because that endpoint cannot distinguish the halves.","Return the value where the range converges."],"timeComplexity":"O(log n) average, O(n) worst case","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Observe how equal endpoints require shrinking the range one step at a time."
+  },
+  {
+    "slug":"searching-find-peak-element",
+    "statement":"A peak is greater than its neighbouring elements. Given nums, find the index of any peak. Treat out-of-range neighbours as negative infinity and achieve O(log n).",
+    "constraints":"1 <= nums.length <= 1000\n-2^31 <= nums[i] <= 2^31 - 1\nAdjacent elements are not equal.",
+    "inputDescription":"Enter nums = [integers]. The visualizer accepts up to 100 values.",
+    "outputDescription":"Return the index of any peak element.",
+    "examples":[{"input":"nums = [1,2,3,1]","output":"2","explanation":"The value 3 at index 2 is greater than its neighbours."}],
+    "approaches":[{"name":"Slope binary search","steps":["Compare nums[mid] with nums[mid+1].","If the slope rises, a peak exists to the right.","Otherwise, a peak exists at mid or to its left.","Continue until one index remains."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Compare each midpoint with its right neighbour to follow an uphill slope toward a peak."
+  },
+  {
+    "slug":"searching-guess-number-higher-or-lower",
+    "statement":"A hidden number is selected from 1 through n. Repeatedly guess a number; the response indicates whether the guess is too high, too low, or correct. Identify the hidden number.",
+    "constraints":"1 <= n <= 2^31 - 1\n1 <= pick <= n\nThe AlgoVista simulator accepts pick as input; the original problem exposes it through an API.",
+    "inputDescription":"Enter n = positive integer and pick = hidden integer on separate lines.",
+    "outputDescription":"Return the hidden number pick.",
+    "examples":[{"input":"n = 10\npick = 6","output":"6","explanation":"Binary search narrows the range until the guess equals 6."}],
+    "approaches":[{"name":"Binary search with feedback","steps":["Guess the midpoint of the current range.","If the guess is too high, keep the lower half.","If it is too low, keep the upper half.","Stop when the guess matches the hidden number."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Show the guess, simulated API response, and updated lower and upper bounds."
+  },
+  {
+    "slug":"searching-koko-eating-bananas",
+    "statement":"Koko must eat all banana piles within h hours. She eats from one pile per hour at integer speed k, consuming up to k bananas. Find the minimum speed that finishes in time.",
+    "constraints":"1 <= piles.length <= 10^4\npiles.length <= h <= 10^9\n1 <= piles[i] <= 10^9",
+    "inputDescription":"Enter piles = [positive integers] and h = available hours. The visualizer limits piles to 100.",
+    "outputDescription":"Return the minimum integer eating speed that finishes all piles within h hours.",
+    "examples":[{"input":"piles = [3,6,7,11]\nh = 8","output":"4","explanation":"At speed 4, Koko needs 1 + 2 + 2 + 3 = 8 hours."}],
+    "approaches":[{"name":"Binary search on speed","steps":["Search speeds from 1 to the largest pile.","For a candidate speed, sum ceil(pile/speed) over all piles.","If required hours fit, try a lower speed; otherwise try a higher one.","Return the minimum feasible speed."],"timeComplexity":"O(n log(max(piles)) )","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Compare candidate eating speeds and show the hours required for each pile."
+  },
+  {
+    "slug":"searching-median-of-two-sorted-arrays",
+    "statement":"Given two sorted arrays nums1 and nums2, find the median of their combined sorted array in O(log(m+n)) time.",
+    "constraints":"0 <= nums1.length, nums2.length <= 1000\n1 <= nums1.length + nums2.length <= 2000\n-10^6 <= nums1[i], nums2[i] <= 10^6\nBoth arrays are sorted in ascending order.",
+    "inputDescription":"Enter nums1 = [sorted integers] and nums2 = [sorted integers] on separate lines. The visualizer limits each array to 100 values.",
+    "outputDescription":"Return the median as a number; average the two middle values when the total length is even.",
+    "examples":[{"input":"nums1 = [1,3]\nnums2 = [2]","output":"2.0","explanation":"The combined sorted array is [1,2,3], whose median is 2."},{"input":"nums1 = [1,2]\nnums2 = [3,4]","output":"2.5","explanation":"The two middle values are 2 and 3; their average is 2.5."}],
+    "approaches":[{"name":"Binary search partition","steps":["Binary-search a partition in the shorter array.","Choose the matching partition in the other array so the left side contains half the values.","Check that left-side values do not exceed right-side values.","Return the middle left value or the average of the two partition boundaries."],"timeComplexity":"O(log(min(m,n)))","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Show the partition boundaries in both sorted arrays and how they place half the values on each side."
+  },
+  {
+    "slug":"searching-minimum-number-of-days-to-make-m-bouquets",
+    "statement":"Given bloomDay, make m bouquets using exactly k adjacent flowers per bouquet. Each flower is used once and only after blooming. Return the minimum day when possible, otherwise -1.",
+    "constraints":"1 <= bloomDay.length <= 10^5\n1 <= bloomDay[i] <= 10^9\n1 <= m <= 10^6\n1 <= k <= bloomDay.length",
+    "inputDescription":"Enter bloomDay = [positive integers], m = bouquet count, and k = flowers per bouquet. The visualizer limits bloomDay to 100 values.",
+    "outputDescription":"Return the minimum day to make all bouquets, or -1 if there are not enough flowers.",
+    "examples":[{"input":"bloomDay = [1,10,3,10,2]\nm = 3\nk = 1","output":"3","explanation":"By day 3, three flowers have bloomed and each bouquet needs one flower."},{"input":"bloomDay = [1,10,3,10,2]\nm = 3\nk = 2","output":"-1","explanation":"Five flowers cannot make three bouquets of two adjacent flowers."}],
+    "approaches":[{"name":"Binary search on day","steps":["If m*k exceeds the number of flowers, return -1.","Search days from the earliest bloom to the latest bloom.","For each candidate day, count adjacent bloomed flowers into bouquets.","Narrow to the earliest day that produces at least m bouquets."],"timeComplexity":"O(n log(max(bloomDay)))","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Mark flowers as bloomed for each candidate day and count contiguous groups that form bouquets."
+  },
+  {
+    "slug":"searching-peak-index-in-a-mountain-array",
+    "statement":"A mountain array strictly increases to a peak and then strictly decreases. Return the peak index in O(log n) time.",
+    "constraints":"3 <= arr.length <= 10^5\n0 <= arr[i] <= 10^6\nThe array is guaranteed to be a mountain array.",
+    "inputDescription":"Enter arr = [mountain array values]. The visualizer accepts up to 100 values.",
+    "outputDescription":"Return the index of the mountain peak.",
+    "examples":[{"input":"arr = [0,2,5,3,1]","output":"2","explanation":"The peak value 5 is at index 2."}],
+    "approaches":[{"name":"Binary search on slope","steps":["Compare the middle value with its next value.","If the next value is larger, the peak is to the right.","Otherwise, the peak is at mid or to the left.","Continue until the peak index remains."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Follow the increasing and decreasing slope comparisons until the mountain peak is isolated."
+  },
+  {
+    "slug":"searching-search-insert-position",
+    "statement":"Given a sorted array of distinct integers and target, return the target index if found, or the index where it should be inserted to preserve ascending order. Run in O(log n).",
+    "constraints":"1 <= nums.length <= 10^4\n-10^4 <= nums[i], target <= 10^4\nnums is distinct and sorted in ascending order.",
+    "inputDescription":"Enter nums = [sorted integers] and target = integer on separate lines. The visualizer limits nums to 100 values.",
+    "outputDescription":"Return the target index or its sorted insertion position.",
+    "examples":[{"input":"nums = [1,3,5,6]\ntarget = 5","output":"2","explanation":"The target is already at index 2."},{"input":"nums = [1,3,5,6]\ntarget = 2","output":"1","explanation":"Index 1 is where 2 belongs."}],
+    "approaches":[{"name":"Lower-bound binary search","steps":["Set a half-open search range [left,right).","Compare the midpoint value with target.","Move left past values smaller than target; otherwise move right to mid.","The converged left boundary is the answer."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Track the lower-bound search interval until the target's index or insertion position is found."
+  },
+  {
+    "slug":"searching-search-a-2d-matrix",
+    "statement":"Given a matrix whose rows are sorted and whose first value in each row exceeds the previous row's last value, return whether target exists. Aim for O(log(m*n)) time.",
+    "constraints":"1 <= m, n <= 100\n-10^4 <= matrix[i][j], target <= 10^4\nRows are sorted and each row starts after the previous row ends.",
+    "inputDescription":"Enter matrix = [[row values],...] and target = integer. The visualizer limits matrices to 20 by 20.",
+    "outputDescription":"Return true if target appears in the matrix; otherwise false.",
+    "examples":[{"input":"matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]\ntarget = 3","output":"true","explanation":"The value 3 appears in the first row."},{"input":"matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]\ntarget = 13","output":"false","explanation":"The value 13 is not present."}],
+    "approaches":[{"name":"Binary search flattened indices","steps":["Treat the matrix as one sorted array of length m*n.","Convert each midpoint index to row and column.","Compare the matrix value with target.","Return whether the target is found."],"timeComplexity":"O(log(m*n))","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Highlight flattened midpoint indices and their corresponding matrix cells as binary search narrows."
+  },
+  {
+    "slug":"searching-search-a-2d-matrix-ii",
+    "statement":"Given a matrix with every row and column sorted in ascending order, determine whether target exists.",
+    "constraints":"1 <= m, n <= 300\n-10^9 <= matrix[i][j] <= 10^9\nRows and columns are sorted in ascending order.\nAll matrix elements are distinct.",
+    "inputDescription":"Enter matrix = [[row values],...] and target = integer. The visualizer limits matrices to 20 by 20.",
+    "outputDescription":"Return true if target exists in the matrix; otherwise false.",
+    "examples":[{"input":"matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]\ntarget = 5","output":"true","explanation":"The value 5 is at row 1, column 1."},{"input":"matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]\ntarget = 20","output":"false","explanation":"The value 20 is not in the matrix."}],
+    "approaches":[{"name":"Staircase search","steps":["Start at the top-right cell.","If it is greater than target, move left.","If it is less than target, move down.","Stop when found or the search leaves the matrix."],"timeComplexity":"O(m+n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Follow the staircase path from the top-right cell, eliminating a row or column after each comparison."
+  },
+  {
+    "slug":"searching-search-in-rotated-sorted-array",
+    "statement":"An array of distinct ascending integers has been rotated. Return target's index if present, otherwise -1, using O(log n) time.",
+    "constraints":"1 <= nums.length <= 5000\n-10^4 <= nums[i], target <= 10^4\nAll elements are distinct and originate from an ascending array.",
+    "inputDescription":"Enter nums = [rotated integers] and target = integer on separate lines. The visualizer limits nums to 100 values.",
+    "outputDescription":"Return the target index, or -1 when absent.",
+    "examples":[{"input":"nums = [4,5,6,7,0,1,2]\ntarget = 0","output":"4","explanation":"The target is located at index 4."},{"input":"nums = [4,5,6,7,0,1,2]\ntarget = 3","output":"-1","explanation":"The target is not in the array."}],
+    "approaches":[{"name":"Modified binary search","steps":["Find mid and check for target.","Determine whether the left half is sorted.","If target lies in the sorted half, keep it; otherwise search the other half.","Repeat until found or the range is empty."],"timeComplexity":"O(log n)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Identify the sorted half at each midpoint and show which half can contain the target."
+  },
+  {
+    "slug":"searching-search-in-rotated-sorted-array-ii",
+    "statement":"A non-decreasing sorted array, possibly containing duplicates, has been rotated. Return true if target exists, otherwise false. Worst-case time may be O(n).",
+    "constraints":"1 <= nums.length <= 5000\n-10^4 <= nums[i], target <= 10^4\nThe array originated from a non-decreasing sorted array.\nDuplicates can require O(n) worst-case time.",
+    "inputDescription":"Enter nums = [rotated integers, duplicates allowed] and target = integer on separate lines. The visualizer limits nums to 100 values.",
+    "outputDescription":"Return true if target appears in nums; otherwise false.",
+    "examples":[{"input":"nums = [2,5,6,0,0,1,2]\ntarget = 0","output":"true","explanation":"The target 0 occurs in the array."},{"input":"nums = [2,5,6,0,0,1,2]\ntarget = 3","output":"false","explanation":"The target 3 is absent."}],
+    "approaches":[{"name":"Modified binary search with duplicates","steps":["Compare the midpoint to target and return if equal.","Use sorted-half comparisons to discard a half when possible.","When left, mid, and right are equal, shrink both boundaries by one.","Continue until found or empty."],"timeComplexity":"O(log n) average, O(n) worst case","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Watch sorted-half detection; when duplicate boundaries obscure direction, shrink both ends safely."
+  },
+  {
+    "slug":"searching-split-array-largest-sum",
+    "statement":"Split nums into exactly k non-empty contiguous subarrays. Minimize the largest subarray sum and return that minimum possible value.",
+    "constraints":"1 <= nums.length <= 1000\n0 <= nums[i] <= 10^6\n1 <= k <= min(50, nums.length)",
+    "inputDescription":"Enter nums = [non-negative integers] and k = number of subarrays on separate lines. The visualizer limits nums to 100 values.",
+    "outputDescription":"Return the minimum possible largest subarray sum.",
+    "examples":[{"input":"nums = [7,2,5,10,8]\nk = 2","output":"18","explanation":"The split [7,2,5] and [10,8] has largest sum 18, which is minimal."},{"input":"nums = [1,2,3,4,5]\nk = 2","output":"9","explanation":"An optimal split has largest sum 9."}],
+    "approaches":[{"name":"Binary search on the maximum sum","steps":["Search between the largest value and the total sum.","Greedily count subarrays needed if no subarray exceeds the midpoint.","If at most k parts suffice, lower the maximum; otherwise raise it.","Return the smallest feasible maximum sum."],"timeComplexity":"O(n log(sum(nums)))","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"For each candidate maximum sum, color the greedy contiguous partitions and count how many are required."
+  },
+  {
+    "slug":"searching-sqrt-x",
+    "statement":"Given non-negative integer x, return its integer square root rounded down. Do not use built-in exponentiation or square-root functions.",
+    "constraints":"0 <= x <= 2^31 - 1",
+    "inputDescription":"Enter x = non-negative integer.",
+    "outputDescription":"Return floor(sqrt(x)).",
+    "examples":[{"input":"x = 8","output":"2","explanation":"sqrt(8) is about 2.828, so rounding down gives 2."},{"input":"x = 16","output":"4","explanation":"The square root of 16 is 4."}],
+    "approaches":[{"name":"Binary search","steps":["Search integer candidates from 0 through x.","Compare mid with x/mid to avoid multiplication overflow.","Keep the lower half when mid is small enough; otherwise keep the upper bound below mid.","Return the largest feasible integer."],"timeComplexity":"O(log x)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Track candidate roots and compare their squares to x while avoiding overflow."
+  },
+  {
+    "slug":"searching-valid-perfect-square",
+    "statement":"Given positive integer num, determine whether it is a perfect square. Do not use a built-in square-root function.",
+    "constraints":"1 <= num <= 2^31 - 1",
+    "inputDescription":"Enter num = positive integer.",
+    "outputDescription":"Return true if num is a perfect square; otherwise false.",
+    "examples":[{"input":"num = 16","output":"true","explanation":"4 multiplied by 4 equals 16."},{"input":"num = 14","output":"false","explanation":"No integer squared equals 14."}],
+    "approaches":[{"name":"Binary search","steps":["Search candidate roots from 1 through num.","Compare mid with num/mid to avoid overflow.","Move the range based on whether mid squared is too small or too large.","Return true if an exact square is found."],"timeComplexity":"O(log num)","spaceComplexity":"O(1)"}],
+    "visualizationGuide":"Highlight the candidate integer and its squared value as binary search tests for an exact match."
+  }
+]

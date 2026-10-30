@@ -1,0 +1,262 @@
+[
+  {
+    "slug": "binary-trees-balanced-binary-tree",
+    "statement": "Given the root of a binary tree, determine whether it is height-balanced. A binary tree is height-balanced if, for every node, the heights of its left and right subtrees differ by no more than 1.",
+    "constraints": "0 <= number of nodes <= 5000\n-10^4 <= Node.val <= 10^4",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer limits custom input to 100 nodes.",
+    "outputDescription": "Return true if every node's left and right subtree heights differ by at most 1; otherwise return false.",
+    "examples": [
+      {"input":"root = [3,9,20,null,null,15,7]","output":"true","explanation":"The left subtree has height 1, and the right subtree has height 2. Their height difference is 1, so the tree is balanced."},
+      {"input":"root = [1,2,2,3,3,null,null,4,4]","output":"false","explanation":"At least one node has left and right subtree heights that differ by more than 1."}
+    ],
+    "approaches": [{"name":"Bottom-up height check","steps":["Recursively compute the height of each subtree.","If a subtree is already unbalanced, propagate that result upward.","At each node compare the left and right heights.","Return whether the root remains balanced."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Follow the postorder height calculation; each node shows its left and right heights and whether the difference is within one."
+  },
+  {
+    "slug": "binary-trees-binary-tree-level-order-traversal",
+    "statement": "Given the root of a binary tree, return its node values level by level, starting from the root and moving from left to right at each level.",
+    "constraints": "0 <= number of nodes <= 2000\n-1000 <= Node.val <= 1000",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer limits custom input to 100 nodes.",
+    "outputDescription": "Return a list of levels, each containing node values from left to right.",
+    "examples": [
+      {"input":"root = [3,9,20,null,null,15,7]","output":"[[3],[9,20],[15,7]]","explanation":"The root forms the first level. Nodes 9 and 20 form the second, and nodes 15 and 7 form the third."},
+      {"input":"root = [1]","output":"[[1]]","explanation":"The single root is the only level."}
+    ],
+    "approaches": [{"name":"Breadth-first search","steps":["Enqueue the root if it exists.","Capture the queue size at the start of each level.","Process exactly that many nodes and enqueue their children.","Append the collected level to the result."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Watch the breadth-first queue as nodes are grouped into levels and appended to the output."
+  },
+  {
+    "slug": "binary-trees-binary-tree-maximum-path-sum",
+    "statement": "Given the root of a binary tree, find the maximum possible sum of node values along any non-empty path. A path can begin and end at any nodes, but it must follow connected parent-child edges without visiting the same node more than once.",
+    "constraints": "1 <= number of nodes <= 3 * 10^4\n-1000 <= Node.val <= 1000",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer limits custom input to 100 nodes.",
+    "outputDescription": "Return the greatest sum of node values on any non-empty path.",
+    "examples": [
+      {"input":"root = [-10,9,20,null,null,15,7]","output":"42","explanation":"The path 15 -> 20 -> 7 produces the maximum sum: 15 + 20 + 7 = 42."},
+      {"input":"root = [1,2,3]","output":"6","explanation":"The path 2 -> 1 -> 3 has sum 6."}
+    ],
+    "approaches": [{"name":"Postorder gain calculation","steps":["Recursively compute the best downward gain from each child, ignoring negative gains.","Use both positive child gains with the current node to form a path through it.","Update the global maximum path sum.","Return the best one-sided gain to the parent."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"See each node's best left and right gains, the path sum passing through it, and the best global path found so far."
+  },
+  {
+    "slug": "binary-trees-binary-tree-right-side-view",
+    "statement": "Imagine viewing a binary tree from its right side. Return the value of the rightmost visible node at every level, starting from the root.",
+    "constraints": "0 <= number of nodes <= 100\n-100 <= Node.val <= 100",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the rightmost visible node value at each level, from top to bottom.",
+    "examples": [
+      {"input":"root = [1,2,3,null,5,null,4]","output":"[1,3,4]","explanation":"From the right side, the visible nodes are 1, 3, and 4."},
+      {"input":"root = [1,2,3,4,null,null,null,5]","output":"[1,3,4,5]","explanation":"At the deepest level, node 5 is the only visible node."}
+    ],
+    "approaches": [{"name":"Level-order traversal","steps":["Process the tree one level at a time with a queue.","Remember the final node processed at each level.","Append that node's value to the visible view."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Highlight the last node visited on each level; these values form the right-side view."
+  },
+  {
+    "slug": "binary-trees-binary-tree-zigzag-level-order-traversal",
+    "statement": "Given the root of a binary tree, return its node values level by level. Traverse the first level from left to right, the second from right to left, and alternate directions for every subsequent level.",
+    "constraints": "0 <= number of nodes <= 2000\n-100 <= Node.val <= 100",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer limits custom input to 100 nodes.",
+    "outputDescription": "Return node values grouped by level, alternating the direction of each level.",
+    "examples": [
+      {"input":"root = [3,9,20,null,null,15,7]","output":"[[3],[20,9],[15,7]]","explanation":"The second level is reversed to [20,9], while the third is traversed left to right."}
+    ],
+    "approaches": [{"name":"Breadth-first search with alternating direction","steps":["Process nodes level by level using a queue.","Collect each level from left to right.","Reverse every other level before appending it.","Toggle direction for the next level."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Follow the queue in normal left-to-right order while the displayed output alternates direction by level."
+  },
+  {
+    "slug": "binary-trees-construct-binary-tree-from-preorder-and-inorder",
+    "statement": "You are given the preorder and inorder traversal sequences of a binary tree. Reconstruct the original tree and return its root. Assume all node values are unique.",
+    "constraints": "1 <= preorder.length <= 3000\ninorder.length == preorder.length\n-3000 <= preorder[i], inorder[i] <= 3000\nAll values in preorder are unique.\nEvery value in inorder also appears in preorder.\nBoth sequences represent a valid binary tree.",
+    "inputDescription": "Enter preorder = [values] and inorder = [values] on separate lines. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the reconstructed tree in level-order representation, using null for missing children.",
+    "examples": [
+      {"input":"preorder = [3,9,20,15,7]\ninorder = [9,3,15,20,7]","output":"[3,9,20,null,null,15,7]","explanation":"Preorder identifies 3 as the root. Inorder shows 9 in the left subtree and 20, 15, and 7 in the right subtree."},
+      {"input":"preorder = [-1]\ninorder = [-1]","output":"[-1]","explanation":"The single traversal value is the root."}
+    ],
+    "approaches": [{"name":"Recursive traversal ranges","steps":["Take the next preorder value as the subtree root.","Find the root in the inorder sequence to divide left and right subtrees.","Recursively build the left subtree, then the right subtree.","Return the root after both children are attached."],"timeComplexity":"O(n)","spaceComplexity":"O(n)"}],
+    "visualizationGuide":"Watch preorder choose each root and the inorder range split into left and right subtrees."
+  },
+  {
+    "slug": "binary-trees-delete-node-in-a-bst",
+    "statement": "Given the root of a binary search tree (BST) and an integer key, delete the node whose value equals key, if it exists. Return the root of the modified tree while preserving the BST property.",
+    "constraints": "0 <= number of nodes <= 10^4\n-10^5 <= Node.val <= 10^5\nAll values are unique.\n-10^5 <= key <= 10^5",
+    "inputDescription": "Enter root = [values] in level order and key = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the modified BST in level-order representation, using null for missing children.",
+    "examples": [
+      {"input":"root = [5,3,6,2,4,null,7]\nkey = 3","output":"[5,4,6,2,null,null,7]","explanation":"Node 3 has two children. It is replaced by a suitable node from its subtree, preserving the BST property."},
+      {"input":"root = [5,3,6,2,4,null,7]\nkey = 0","output":"[5,3,6,2,4,null,7]","explanation":"The key is not present, so the tree is unchanged."}
+    ],
+    "approaches": [{"name":"BST search and successor replacement","steps":["Search for the key using the BST ordering property.","If the node has zero or one child, connect its parent to that child.","If it has two children, copy its inorder successor value and remove the successor.","Return the updated root."],"timeComplexity":"O(h)","spaceComplexity":"O(h) recursive"}],
+    "visualizationGuide":"Follow the BST search path, then observe the node's replacement and the preserved ordering."
+  },
+  {
+    "slug": "binary-trees-diameter-of-binary-tree",
+    "statement": "Given the root of a binary tree, calculate its diameter. The diameter is the maximum number of edges on any path between two nodes. The path does not necessarily pass through the root.",
+    "constraints": "1 <= number of nodes <= 10^4\n-100 <= Node.val <= 100",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the maximum number of edges on a path between any two nodes.",
+    "examples": [
+      {"input":"root = [1,2,3,4,5]","output":"3","explanation":"The path 4 -> 2 -> 1 -> 3 contains three edges, the maximum possible."},
+      {"input":"root = [1,2]","output":"1","explanation":"The only path between the two nodes contains one edge."}
+    ],
+    "approaches": [{"name":"Postorder subtree heights","steps":["Compute the height of each left and right subtree.","The path through a node has left height plus right height edges.","Update the largest diameter at every node.","Return the subtree height to the parent."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Watch subtree heights accumulate bottom-up and highlight the longest path found through any node."
+  },
+  {
+    "slug": "binary-trees-flatten-binary-tree-to-linked-list",
+    "statement": "Given the root of a binary tree, flatten it into a linked list in place. The resulting structure must follow the tree's preorder traversal. Each node's left pointer must be null, and its right pointer must point to the next node.",
+    "constraints": "0 <= number of nodes <= 2000\n-100 <= Node.val <= 100\nModify the tree in place rather than returning a newly constructed list.",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the modified structure in level-order form; each next preorder node is connected through the right pointer.",
+    "examples": [
+      {"input":"root = [1,2,5,3,4,null,6]","output":"[1,null,2,null,3,null,4,null,5,null,6]","explanation":"The preorder sequence is 1, 2, 3, 4, 5, 6. The flattened tree follows this sequence through right pointers only."},
+      {"input":"root = []","output":"[]","explanation":"An empty tree remains empty."}
+    ],
+    "approaches": [{"name":"Preorder rewiring","steps":["Collect or traverse nodes in preorder.","For each adjacent pair, set the current node's left child to null.","Link the current node's right child to the next preorder node.","Keep the original node objects while rewiring links."],"timeComplexity":"O(n)","spaceComplexity":"O(n) for preorder nodes"}],
+    "visualizationGuide":"See the original tree links rearranged in preorder until all left pointers are null and the right chain is complete."
+  },
+  {
+    "slug": "binary-trees-insert-into-a-binary-search-tree",
+    "statement": "Given the root of a binary search tree and a value val, insert a new node containing that value into the correct position. Return the root of the updated tree. Assume the inserted value does not already exist in the tree.",
+    "constraints": "0 <= number of nodes <= 10^4\n-10^8 <= Node.val <= 10^8\nAll values are unique.\nThe inserted value does not already exist in the tree.\n-10^8 <= val <= 10^8\nThe input tree is a valid BST.",
+    "inputDescription": "Enter root = [values] in level order and val = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the updated BST in level-order representation, using null for missing children.",
+    "examples": [
+      {"input":"root = [4,2,7,1,3]\nval = 5","output":"[4,2,7,1,3,5]","explanation":"5 is greater than 4 but smaller than 7, so it is inserted as the left child of 7."},
+      {"input":"root = [40,20,60,10,30,50,70]\nval = 25","output":"[40,20,60,10,30,50,70,null,null,25]","explanation":"25 is inserted as the left child of 30."}
+    ],
+    "approaches": [{"name":"BST descent","steps":["Start at the root and compare the new value with the current node.","Move left when the value is smaller and right when it is larger.","Attach a new leaf at the first empty child position.","Return the root."],"timeComplexity":"O(h)","spaceComplexity":"O(1) iterative"}],
+    "visualizationGuide":"Follow comparisons from the root to the empty child position where the new value is inserted."
+  },
+  {
+    "slug": "binary-trees-invert-binary-tree",
+    "statement": "Given the root of a binary tree, invert the tree by swapping the left and right children of every node. Return the root of the inverted tree.",
+    "constraints": "0 <= number of nodes <= 100\n-100 <= Node.val <= 100",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the inverted tree in level-order representation, using null for missing children.",
+    "examples": [
+      {"input":"root = [4,2,7,1,3,6,9]","output":"[4,7,2,9,6,3,1]","explanation":"The children of every node are exchanged. The root's left child becomes 7, and its right child becomes 2."},
+      {"input":"root = [2,1,3]","output":"[2,3,1]","explanation":"The root's left and right children are swapped."}
+    ],
+    "approaches": [{"name":"Recursive child swap","steps":["Visit each node.","Swap its left and right child references.","Recursively invert both resulting subtrees.","Return the root."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Watch the left and right child links swap at each visited node."
+  },
+  {
+    "slug": "binary-trees-kth-smallest-element-in-a-bst",
+    "statement": "Given the root of a binary search tree and an integer k, find the kth smallest value among all the node values.",
+    "constraints": "The number of nodes is n.\n1 <= k <= n <= 10^4\n0 <= Node.val <= 10^4",
+    "inputDescription": "Enter root = [values] in level order and k = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the value that appears at position k in the BST's ascending order.",
+    "examples": [
+      {"input":"root = [3,1,4,null,2]\nk = 1","output":"1","explanation":"The values in ascending order are [1,2,3,4]. The first smallest value is 1."},
+      {"input":"root = [5,3,6,2,4,null,null,1]\nk = 3","output":"3","explanation":"The third value in ascending order is 3."}
+    ],
+    "approaches": [{"name":"Inorder traversal","steps":["Traverse the left subtree, then the current node, then the right subtree.","Count each visited node in this sorted order.","Stop when the visit count reaches k.","Return that node's value."],"timeComplexity":"O(h + k)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Follow the inorder traversal as it visits BST values in ascending order, stopping at the kth value."
+  },
+  {
+    "slug": "binary-trees-lowest-common-ancestor-of-a-binary-tree",
+    "statement": "Given the root of a binary tree and two distinct nodes p and q that exist in the tree, find their lowest common ancestor (LCA). The LCA is the lowest node that has both p and q as descendants. A node may be considered a descendant of itself.",
+    "constraints": "2 <= number of nodes <= 10^5\n-10^9 <= Node.val <= 10^9\nAll values are unique.\np and q are distinct.\nBoth p and q exist in the tree.",
+    "inputDescription": "Enter root = [values], p = integer, and q = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the value of the lowest node that is an ancestor of both p and q.",
+    "examples": [
+      {"input":"root = [3,5,1,6,2,0,8,null,null,7,4]\np = 5\nq = 1","output":"3","explanation":"Nodes 5 and 1 lie in different subtrees of node 3, making 3 their lowest common ancestor."},
+      {"input":"root = [3,5,1,6,2,0,8,null,null,7,4]\np = 5\nq = 4","output":"5","explanation":"Node 5 is an ancestor of node 4 and can be its own descendant."}
+    ],
+    "approaches": [{"name":"Recursive subtree search","steps":["Return the current node if it is null, p, or q.","Search both left and right subtrees.","If both searches return a node, the current node is the LCA.","Otherwise propagate the non-null result upward."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Highlight the search paths to p and q; the lowest node shared by both paths is the LCA."
+  },
+  {
+    "slug": "binary-trees-maximum-depth-of-binary-tree",
+    "statement": "Given the root of a binary tree, calculate its maximum depth. The maximum depth is the number of nodes along the longest path from the root to any leaf.",
+    "constraints": "0 <= number of nodes <= 10^4\n-100 <= Node.val <= 100",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the number of nodes on the longest root-to-leaf path.",
+    "examples": [
+      {"input":"root = [3,9,20,null,null,15,7]","output":"3","explanation":"The longest root-to-leaf path contains three nodes."},
+      {"input":"root = [1,null,2]","output":"2","explanation":"The path from 1 to 2 contains two nodes."}
+    ],
+    "approaches": [{"name":"Recursive depth-first search","steps":["Return zero for an empty subtree.","Compute the maximum depth of the left subtree.","Compute the maximum depth of the right subtree.","Return one plus the larger child depth."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Follow the recursive depth calculation from each leaf back to the root."
+  },
+  {
+    "slug": "binary-trees-path-sum",
+    "statement": "Given the root of a binary tree and an integer targetSum, determine whether the tree contains a root-to-leaf path whose node values add up to targetSum. A leaf is a node that has no children.",
+    "constraints": "0 <= number of nodes <= 5000\n-1000 <= Node.val <= 1000\n-1000 <= targetSum <= 1000",
+    "inputDescription": "Enter root = [values] and targetSum = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return true if a root-to-leaf path sums to targetSum; otherwise return false.",
+    "examples": [
+      {"input":"root = [5,4,8,11,null,13,4,7,2,null,null,null,1]\ntargetSum = 22","output":"true","explanation":"The path 5 -> 4 -> 11 -> 2 has a sum of 22."},
+      {"input":"root = [1,2,3]\ntargetSum = 5","output":"false","explanation":"No root-to-leaf path sums to 5."}
+    ],
+    "approaches": [{"name":"Depth-first path sum","steps":["Start at the root with a running sum.","Add the current node value and recurse into its children.","At a leaf, compare the running sum with targetSum.","Return true if either child contains a matching path."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Trace each root-to-leaf route, showing its running sum and whether it matches the target."
+  },
+  {
+    "slug": "binary-trees-path-sum-ii",
+    "statement": "Given the root of a binary tree and an integer targetSum, return every root-to-leaf path whose node values add up to targetSum. Each path must begin at the root and end at a leaf.",
+    "constraints": "0 <= number of nodes <= 5000\n-1000 <= Node.val <= 1000\n-1000 <= targetSum <= 1000",
+    "inputDescription": "Enter root = [values] and targetSum = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return all matching root-to-leaf paths as lists of node values.",
+    "examples": [
+      {"input":"root = [5,4,8,11,null,13,4,7,2,null,null,5,1]\ntargetSum = 22","output":"[[5,4,11,2],[5,8,4,5]]","explanation":"Both paths sum to 22: 5 + 4 + 11 + 2, and 5 + 8 + 4 + 5."},
+      {"input":"root = [1,2,3]\ntargetSum = 5","output":"[]","explanation":"No root-to-leaf path sums to 5."}
+    ],
+    "approaches": [{"name":"Backtracking depth-first search","steps":["Add the current node to the active path and running sum.","At each leaf, save a copy of the path if its sum matches the target.","Explore both children.","Remove the node from the path when backtracking."],"timeComplexity":"O(n) excluding output","spaceComplexity":"O(h) excluding output"}],
+    "visualizationGuide":"Watch the active root-to-leaf path grow and shrink as matching paths are added to the result."
+  },
+  {
+    "slug": "binary-trees-same-tree",
+    "statement": "Given the roots of two binary trees, p and q, determine whether the trees are identical. Two trees are identical if they have the same structure and every corresponding node contains the same value.",
+    "constraints": "0 <= number of nodes in each tree <= 100\n-10^4 <= Node.val <= 10^4",
+    "inputDescription": "Enter p = [values] and q = [values] in level order on separate lines; use null for missing children. The visualizer accepts at most 100 nodes per tree.",
+    "outputDescription": "Return true when both trees have identical structure and corresponding values; otherwise return false.",
+    "examples": [
+      {"input":"p = [1,2,3]\nq = [1,2,3]","output":"true","explanation":"Both trees have the same root, left child, and right child, with matching values."},
+      {"input":"p = [1,2]\nq = [1,null,2]","output":"false","explanation":"The values are the same, but the tree structures are different."},
+      {"input":"p = [1,2,1]\nq = [1,1,2]","output":"false","explanation":"Corresponding child values differ."}
+    ],
+    "approaches": [{"name":"Recursive pair comparison","steps":["Compare the current nodes from both trees.","If both are null, this pair matches; if only one is null or values differ, they do not match.","Recursively compare left children and right children.","Return true only if every pair matches."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Compare corresponding nodes in the two trees and highlight the first mismatch or the successful completion."
+  },
+  {
+    "slug": "binary-trees-search-in-a-binary-search-tree",
+    "statement": "Given the root of a binary search tree (BST) and an integer val, search for a node containing that value. Return the subtree rooted at the matching node. If the value does not exist, return null.",
+    "constraints": "1 <= number of nodes <= 5000\n1 <= Node.val <= 10^7\nThe tree is a valid BST.\n1 <= val <= 10^7\nAll values are unique.",
+    "inputDescription": "Enter root = [values] in level order and val = integer on separate lines. Use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return the matching node's subtree in level-order form, or [] if the value is not found.",
+    "examples": [
+      {"input":"root = [4,2,7,1,3]\nval = 2","output":"[2,1,3]","explanation":"The subtree rooted at 2 contains 1 as its left child and 3 as its right child."},
+      {"input":"root = [4,2,7,1,3]\nval = 5","output":"[]","explanation":"No node contains 5."}
+    ],
+    "approaches": [{"name":"BST guided search","steps":["Start at the root.","Return the current subtree if its root value equals val.","Move left when val is smaller and right when val is larger.","Return null if the search reaches an empty child."],"timeComplexity":"O(h)","spaceComplexity":"O(1) iterative"}],
+    "visualizationGuide":"Highlight the BST search path and show the matching subtree or the empty position where the value is absent."
+  },
+  {
+    "slug": "binary-trees-symmetric-tree",
+    "statement": "Given the root of a binary tree, determine whether it is symmetric around its centre. A tree is symmetric when its left and right subtrees are mirror images of each other.",
+    "constraints": "1 <= number of nodes <= 1000\n-100 <= Node.val <= 100",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return true if the tree is a mirror of itself; otherwise return false.",
+    "examples": [
+      {"input":"root = [1,2,2,3,4,4,3]","output":"true","explanation":"The left and right subtrees mirror each other."},
+      {"input":"root = [1,2,2,null,3,null,3]","output":"false","explanation":"The left and right subtrees do not have matching mirrored structures."}
+    ],
+    "approaches": [{"name":"Mirror pair recursion","steps":["Compare the root's left and right subtrees as a pair.","Check that paired nodes have equal values.","Compare the left child's left subtree with the right child's right subtree.","Compare the left child's right subtree with the right child's left subtree."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Compare mirrored node pairs across the center line, checking both values and structure."
+  },
+  {
+    "slug": "binary-trees-validate-binary-search-tree",
+    "statement": "Given the root of a binary tree, determine whether it is a valid binary search tree (BST). Every value in a node's left subtree must be strictly smaller, every value in its right subtree must be strictly greater, and both subtrees must also satisfy the BST property.",
+    "constraints": "1 <= number of nodes <= 10^4\n-2^31 <= Node.val <= 2^31 - 1",
+    "inputDescription": "Enter root = [values] in level order; use null for missing children. The visualizer accepts at most 100 nodes.",
+    "outputDescription": "Return true if every node satisfies the strict BST ordering rules; otherwise return false.",
+    "examples": [
+      {"input":"root = [2,1,3]","output":"true","explanation":"The left child 1 is smaller than 2, and the right child 3 is greater than 2."},
+      {"input":"root = [5,1,4,null,null,3,6]","output":"false","explanation":"Node 4 is in the right subtree of 5 but is smaller than 5."}
+    ],
+    "approaches": [{"name":"Recursive value bounds","steps":["Pass lower and upper bounds to each node.","Reject a value that is not strictly between its bounds.","Narrow the upper bound for a left child and the lower bound for a right child.","Accept only if both subtrees are valid."],"timeComplexity":"O(n)","spaceComplexity":"O(h)"}],
+    "visualizationGuide":"Show the valid lower and upper bounds passed to each node and highlight any value outside its allowed range."
+  }
+]
